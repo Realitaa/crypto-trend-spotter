@@ -1,75 +1,7 @@
-# Nuxt Minimal Starter
+# Crypto Trend Spotter
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Crypto Trend Spotter adalah sebuah website yang dapat digunakan untuk analisis tren mata uang kripto dengan menggunakan metode *technical analysist* seperti **Moving Average** dan **Relative Strengh Index (RSI)**.
 
-## Setup
+# Latar Belakang
 
-Make sure to install dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Crypto Trend Spotter dibuat sebagai proyek mini riset pada mata kuliah *Kalkulus Diferensial* dengan judul mini riset **Implementasi Numerik & Uji Kecekungan untuk Deteksi Tren Pasar Aset Kripto**. Secara teoritis, latar belakang masalah yang ingin diselesaikan adalah untuk mengurangi aksi melakukan pembelian secara spekulatif di pasar mata uang kripto yang memiliki volatilitas tinggi dengan menggunakan pendekatan matematis objektif, atau dengan kata lain membeli dengan analisis atau data, bukan dengan perasaan.
