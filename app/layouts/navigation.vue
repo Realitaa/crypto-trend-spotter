@@ -2,6 +2,7 @@
 import type { NavigationMenuItem } from '@nuxt/ui'
 
 const open = ref(false)
+const { selected } = useSelectedCoin()
 
 const links = [[{
   label: 'Ringkasan',
@@ -80,7 +81,13 @@ const links = [[{
         />
 
         <div class="mt-auto">
-          <UDashboardSearchButton class="ring-default w-full bg-gray-800 sm:hidden" block collapsed="false" label="Bitcoin (Klik untuk Ganti)" icon="logos:bitcoin" />
+          <UDashboardSearchButton 
+            class="ring-default w-full bg-gray-800 sm:hidden" 
+            block 
+            :collapsed=false 
+            :label="selected.label"
+            :icon="selected.icon" 
+          />
 
           <UNavigationMenu
             :collapsed="collapsed"
@@ -96,6 +103,5 @@ const links = [[{
 
     <slot />
 
-    <NotificationsSlideover />
   </UDashboardGroup>
 </template>
