@@ -2,17 +2,16 @@
 const colorMode = useColorMode()
 
 const toggleTheme = () => {
-  colorMode.value = colorMode.value === 'dark' ? 'light' : 'dark'
+  colorMode.preference = colorMode.value === 'light' ? 'dark' : 'light'
 }
 
-const groups = computed(() => [{
-  id: 'code',
-  label: 'Code',
+const coins = computed(() => [{
+  id: 'coins',
+  label: 'Koin',
   items: [{
-    id: 'source',
-    label: 'View page source',
-    icon: 'i-simple-icons-github',
-    target: '_blank'
+    id: 'bitcoin',
+    label: 'Bitcoin',
+    icon: 'logos:bitcoin'
   }]
 }])
 </script>
@@ -39,5 +38,5 @@ const groups = computed(() => [{
       <UButton icon="mdi:github" size="xl" color="neutral" variant="link" to="https://github.com/Realitaa/crypto-trend-spotter" target="_blank" />
     </template>
   </UDashboardNavbar>
-  <UDashboardSearch :groups="groups" :color-mode="false" placeholder="Cari Koin yang ingin di analisis..." />
+  <UDashboardSearch :groups="coins" :color-mode="false" placeholder="Cari Koin yang ingin di analisis..." />
 </template>

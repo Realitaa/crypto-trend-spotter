@@ -4,4 +4,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/eslint', '@nuxt/ui'],
   css: ['@/assets/css/main.css'],
+  colorMode: {
+    preference: 'system',
+    fallback: 'dark',
+    storageKey: 'theme-preference',
+    classPrefix: '',
+    classSuffix: '',
+    dataValue: 'theme'
+  }
 })
