@@ -106,7 +106,12 @@ console.log(colorMode.value)
       </div>
       <div class="flex mt-22 gap-6 items-center justify-center font-sans">
         <div
-          class="h-12 px-4 bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200 shadow-sm flex items-center transition-colors hover:border-gray-300"
+          class="h-12 px-4 
+          bg-white/50 dark:bg-slate-800/50 
+          backdrop-blur-sm rounded-xl 
+          border border-gray-200 dark:border-slate-700/50 
+          shadow-sm flex items-center transition-colors 
+          hover:border-gray-300 dark:hover:border-slate-600"
         >
           <img
             src="https://statuspal.io/uploads/status_pages/favicon/original/5463-b73WUiEq_400x400.png?v=63918037891"
@@ -118,30 +123,25 @@ console.log(colorMode.value)
             Powered by CoinGecko
           </span>
 
-          <UButton
-            icon="mdi:circle-medium"
-            active
-            color="neutral"
-            variant="outline"
-            active-color="primary"
-            active-variant="link"
-          >
-            Online
-          </UButton>
+          <CoinGeckoStatus /> 
         </div>
 
         <div
-          class="relative h-12 w-64 overflow-hidden bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200 shadow-sm flex items-center justify-center transition-colors hover:border-gray-300"
+          class="relative h-12 w-64 overflow-hidden bg-white/50 dark:bg-slate-800/50 
+          backdrop-blur-sm rounded-xl 
+          border border-gray-200 dark:border-slate-700/50 
+          shadow-sm flex items-center transition-colors 
+          hover:border-gray-300 dark:hover:border-slate-600"
         >
           <Transition name="slide-up" mode="out-in">
             <div
               :key="currentIndex"
               class="absolute flex items-center space-x-3 w-full justify-center px-4"
             >
-              <span class="font-bold font-jakarta text-gray-800">
+              <span class="font-bold font-jakarta text-gray-500 dark:text-gray-300">
                 {{ trends[currentIndex].name }}
               </span>
-              <span class="font-mono text-gray-600 text-sm">
+              <span class="font-mono text-gray-500 dark:text-gray-300 text-sm">
                 {{ trends[currentIndex].price }}
               </span>
               <span

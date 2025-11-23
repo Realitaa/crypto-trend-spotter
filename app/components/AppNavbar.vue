@@ -27,6 +27,7 @@ const coins = computed(() => [{
       </NuxtLink>
     </template>
     <template #right>
+      <CoinGeckoStatus />
       <UDashboardSearchButton class="bg-transparent ring-default hidden sm:inline-flex" label="Bitcoin" icon="logos:bitcoin" />
       <UButton
         :icon="colorMode.value === 'dark' ? 'tabler:sun' : 'ci:moon'"
