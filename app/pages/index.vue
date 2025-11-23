@@ -12,7 +12,7 @@ const colorMode = useColorMode()
     { name: 'SOL', price: '$145', change: '+5.2%' },
     { name: 'BNB', price: '$610', change: '+1.1%' },
   ]
-
+console.log(colorMode.value)
   const currentIndex = ref(0)
   let intervalId = null
 
@@ -35,7 +35,7 @@ const colorMode = useColorMode()
 
     <!-- Light mode background -->
     <div
-      v-if="colorMode.value === 'light'"
+      v-if="colorMode.value == 'light'"
       class="absolute inset-0 z-0"
       :style="{
         backgroundImage: `
@@ -92,7 +92,7 @@ const colorMode = useColorMode()
           trailing-icon="i-lucide-arrow-right"
           size="xl"
           color="secondary"
-          to="/dashboard"
+          to="/overview"
           >Mulai Analisis</UButton
         >
         <UButton
