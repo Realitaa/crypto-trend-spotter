@@ -39,9 +39,11 @@ const changeColor = computed(() => {
 </script>
 
 <template>
-  <UDashboardPanel id="home" :ui="{
-    body: 'w-full max-w-none px-0'
-  }">
+  <UDashboardPanel 
+    :ui="{
+      body: 'w-full max-w-none px-0'
+    }"
+  >
     <template #header>
       <AppNavbar />
     </template>
