@@ -1,81 +1,32 @@
-import type { CommandPaletteItem } from '@nuxt/ui'
+export interface Coin {
+  id: string
+  label: string
+  icon: string
+  suffix: string
+}
 
-export const getSupportedCoins = (setCoin: (c: any) => void): CommandPaletteItem[] => [
-  {
-    id: "bitcoin",
-    label: "Bitcoin",
-    icon: "logos:bitcoin",
-    suffix: "BTC",
-    onSelect: () => setCoin({ id: "bitcoin", label: "Bitcoin", icon: "logos:bitcoin" })
-  },
-  {
-    id: "ethereum",
-    label: "Ethereum",
-    icon: "logos:ethereum",
-    suffix: "ETH",
-    onSelect: () => setCoin({ id: "ethereum", label: "Ethereum", icon: "logos:ethereum" })
-  },
-  {
-    id: "solana",
-    label: "Solana",
-    icon: "token-branded:solana",
-    suffix: "SOL",
-    onSelect: () => setCoin({ id: "solana", label: "Solana", icon: "token-branded:solana" })
-  },
-  {
-    id: "bnb",
-    label: "BNB",
-    icon: "cryptocurrency-color:bnb",
-    suffix: "BNB",
-    onSelect: () => setCoin({ id: "bnb", label: "BNB", icon: "cryptocurrency-color:bnb" })
-  },
-  {
-    id: "xrp",
-    label: "XRP",
-    icon: "token-branded:xrp",
-    suffix: "XRP",
-    onSelect: () => setCoin({ id: "xrp", label: "XRP", icon: "token-branded:xrp" })
-  },
-  {
-    id: "dogecoin",
-    label: "Dogecoin",
-    icon: "cryptocurrency-color:doge",
-    suffix: "DOGE",
-    onSelect: () => setCoin({ id: "dogecoin", label: "Dogecoin", icon: "cryptocurrency-color:doge" })
-  },
-  {
-    id: "cardano",
-    label: "Cardano",
-    icon: "logos:cardano-icon",
-    suffix: "ADA",
-    onSelect: () => setCoin({ id: "cardano", label: "Cardano", icon: "logos:cardano-icon" })
-  },
-  {
-    id: "tron",
-    label: "Tron",
-    icon: "token-branded:tron",
-    suffix: "TRON",
-    onSelect: () => setCoin({ id: "tron", label: "Tron", icon: "token-branded:tron" })
-  },
-  {
-    id: "avalanche",
-    label: "Avalanche",
-    icon: "cryptocurrency-color:avax",
-    suffix: "AVAX",
-    onSelect: () => setCoin({ id: "avalanche", label: "Avalanche", icon: "cryptocurrency-color:avax" })
-  },
-  {
-    id: "sui",
-    label: "Sui",
-    icon: "token-branded:sui",
-    suffix: "SUI",
-    onSelect: () => setCoin({ id: "sui", label: "Sui", icon: "token-branded:sui" })
-  },
-  {
-    id: "polkadot",
-    label: "Polkadot",
-    icon: "token-branded:polkadot",
-    suffix: "DOT",
-    onSelect: () => setCoin({ id: "polkadot", label: "Polkadot", icon: "token-branded:polkadot" })
-  },
-]
+export const SUPPORTED_COINS: Coin[] = [
+  { id: "bitcoin",    label: "Bitcoin",    icon: "logos:bitcoin",               suffix: "BTC" },
+  { id: "ethereum",   label: "Ethereum",   icon: "logos:ethereum",              suffix: "ETH" },
+  { id: "solana",     label: "Solana",     icon: "token-branded:solana",        suffix: "SOL" },
+  { id: "bnb",        label: "BNB",        icon: "cryptocurrency-color:bnb",    suffix: "BNB" },
+  { id: "xrp",        label: "XRP",        icon: "token-branded:xrp",           suffix: "XRP" },
+  { id: "dogecoin",   label: "Dogecoin",   icon: "cryptocurrency-color:doge",   suffix: "DOGE" },
+  { id: "cardano",    label: "Cardano",    icon: "logos:cardano-icon",          suffix: "ADA" },
+  { id: "tron",       label: "Tron",       icon: "token-branded:tron",          suffix: "TRON" },
+  { id: "avalanche",  label: "Avalanche",  icon: "cryptocurrency-color:avax",   suffix: "AVAX" },
+  { id: "sui",        label: "Sui",        icon: "token-branded:sui",           suffix: "SUI" },
+  { id: "polkadot",   label: "Polkadot",   icon: "token-branded:polkadot",      suffix: "DOT" },
+] as const
+
+// Map untuk lookup cepat
+export const SUPPORTED_COINS_MAP = Object.fromEntries(
+  SUPPORTED_COINS.map(c => [c.id, c])
+)
+
+// Untuk command palette (inject handler)
+export const getSupportedCoins = (setCoin: (c: any) => void) =>
+  SUPPORTED_COINS.map(c => ({
+    ...c,
+    onSelect: () => setCoin(c)
+  }))

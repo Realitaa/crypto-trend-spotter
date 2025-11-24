@@ -1,30 +1,28 @@
+import { SUPPORTED_COINS_MAP } from '~/utils/coins'
+
 export const useSelectedCoin = () => {
-  // Nuxt global state
-  const selected = useState('selected-coin', () => null)
+  const selected = useState('selected-coin', () => ({
+    id: 'bitcoin',
+    label: 'Bitcoin',
+    icon: 'logos:bitcoin'
+  }))
 
-  // Dipanggil sekali: load dari localStorage
-  if (process.client && selected.value === null) {
-    const saved = localStorage.getItem('selected-coin')
-    if (saved) {
-      selected.value = JSON.parse(saved)
-    } else {
-      // Default coin
-      selected.value = {
-        id: 'bitcoin',
-        label: 'Bitcoin',
-        icon: 'logos:bitcoin'
-      }
-    }
-  }
-
-  // Setter
   const setCoin = (coin: any) => {
     selected.value = coin
 
-    // Sync ke localStorage (client-only)
     if (process.client) {
-      localStorage.setItem('selected-coin', JSON.stringify(coin))
+      localStorage.setItem('selected-coin-id', coin.id)
     }
+  }
+
+  // --- Sinkronisasi Coin setelah hydration ---
+  if (process.client) {
+    onMounted(() => {
+      const savedId = localStorage.getItem('selected-coin-id')
+      if (savedId && SUPPORTED_COINS_MAP[savedId]) {
+        setCoin(SUPPORTED_COINS_MAP[savedId])
+      }
+    })
   }
 
   return {
