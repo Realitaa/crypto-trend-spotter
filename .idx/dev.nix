@@ -12,10 +12,17 @@
     # pkgs.nodejs_20
     # pkgs.nodePackages.nodemon
     pkgs.bun
+    pkgs.redis
   ];
 
+  # Layanan Redis lokal — otomatis jalan saat workspace open
+  services.redis = {
+    enable = true;
+    port = 6379;
+  };
+
   # Sets environment variables in the workspace
-  env = {};
+  env = { };
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [

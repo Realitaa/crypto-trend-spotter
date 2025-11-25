@@ -22,3 +22,7 @@ logs
 .env
 .env.*
 !.env.example
+.idx/env.nix
+
+# Firebase Studio IDX Data
+.idx/.data
