@@ -3,6 +3,9 @@ definePageMeta({
   layout: 'navigation'
 })
 
+const { selected } = useSelectedCoin()
+const lastUpdated = ref('Just now')
+
 // Mock Data - In a real app, this would come from props or a store
 const assetData = ref({
   name: 'Bitcoin',
@@ -21,6 +24,32 @@ const assetData = ref({
   }
 })
 
+const currentPrice = 67240.55
+const priceChange = 2.45
+const high24h = 67900
+const low24h = 65800
+
+const chartData = ref([
+  { time: '2024-10-01', value: 52.5 },
+  { time: '2024-10-05', value: 54.2 },
+  { time: '2024-10-10', value: 51.8 },
+  { time: '2024-10-15', value: 53.1 },
+  { time: '2024-10-20', value: 50.9 },
+  { time: '2024-10-25', value: 52.3 },
+  { time: '2024-11-01', value: 48.7 },
+  { time: '2024-11-05', value: 47.2 },
+  { time: '2024-11-10', value: 45.9 },
+  { time: '2024-11-15', value: 43.5 },
+  { time: '2024-11-20', value: 41.2 },
+  { time: '2024-11-25', value: 38.8 },
+  { time: '2024-12-01', value: 35.4 },
+  { time: '2024-12-05', value: 32.1 },
+  { time: '2024-12-10', value: 29.8 },
+  { time: '2024-12-15', value: 27.5 },
+  { time: '2024-12-20', value: 30.2 },
+  { time: '2024-12-25', value: 55.02 }, // spike naik drastis di akhir
+])
+
 // Helper to format currency
 const formatCurrency = (value) => {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
@@ -36,6 +65,15 @@ const trendColor = computed(() => {
 const changeColor = computed(() => {
   return assetData.value.change24h >= 0 ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border-rose-500/20'
 })
+
+const isHydrated = ref(false)
+
+onMounted(() => {
+  // Delay pasca hydation
+  setTimeout(() => {
+    isHydrated.value = true
+  }, 200)
+})
 </script>
 
 <template>
@@ -50,18 +88,96 @@ const changeColor = computed(() => {
 
     <template #body>
       <div class="w-full p-6 lg:p-8 text-slate-800 dark:text-slate-200 transition-colors duration-300">
-    
-    <div class="flex items-center justify-between mb-6">
-      <div>
-        <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Ringkasan Aset</h2>
-        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Tinjauan performa dan metrik teknikal untuk <span class="text-blue-600 dark:text-blue-400 font-medium">{{ assetData.name }}</span>.
-        </p>
-      </div>
-      <div class="text-xs text-slate-500 bg-slate-100 dark:bg-slate-800/50 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700">
-        Updated: Just now
-      </div>
-    </div>
+
+        <section class="w-full space-y-6">
+          <!-- ========== SKELETON PRE-HYDRATION ========== -->
+          <template v-if="!isHydrated">
+            <USkeleton class="h-6 w-40" />
+            <USkeleton class="h-10 w-56" />
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
+              <USkeleton class="h-16 w-full" />
+              <USkeleton class="h-16 w-full" />
+              <USkeleton class="h-16 w-full" />
+              <USkeleton class="h-16 w-full" />
+            </div>
+            <USkeleton class="h-64 w-full mt-6" />
+            <USeparator />
+            <!-- Done -->
+          </template>
+
+          <!-- ========== CONTENT SETELAH HYDRATION ========== -->
+          <template v-else>
+            <section class="space-y-4 mb-6">
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                
+                <!-- Title + coin name -->
+                <div>
+                  <h1 class="text-2xl font-bold">
+                    Ringkasan Aset
+                  </h1>
+                  <p class="text-muted">
+                    Tinjauan performa dan metrik teknikal untuk 
+                    <span v-text="selected.label" class="text-primary font-medium"></span>.
+                  </p>
+                </div>
+
+                <!-- Last updated -->
+                <UBadge color="neutral" variant="soft" size="lg" class="px-3 py-1.5 gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span class="text-xs">Updated: {{ lastUpdated }}</span>
+                </UBadge>
+              </div>
+
+              <!-- Price + Change -->
+              <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                <div>
+                  <p class="text-sm text-muted">Harga Saat Ini</p>
+                  <div class="flex items-center gap-3">
+                    <span class="text-4xl font-bold">{{ currentPrice }}</span>
+                    <UBadge color="success" variant="soft" class="text-sm">
+                      {{ priceChange }}
+                    </UBadge>
+                  </div>
+                </div>
+
+                <!-- High Low -->
+                <div class="flex items-center gap-6 text-sm">
+                  <div>
+                    <p class="text-muted">24h High</p>
+                    <p class="font-semibold">$67,900</p>
+                  </div>
+                  <div>
+                    <p class="text-muted">24h Low</p>
+                    <p class="font-semibold">$65,800</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Chart Section -->
+            <section class="h-[60%]">
+              <!-- <div
+                class="w-full h-full rounded-xl border border-default bg-muted/20 flex items-center justify-center"
+              >
+                <p class="text-muted">[Chart Placeholder]</p>
+              </div> -->
+              <OverviewAreaChart :data="chartData" height="500" />
+            </section>
+          </template>
+        </section>
+        
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Ringkasan Aset</h2>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                Tinjauan performa dan metrik teknikal untuk <span class="text-blue-600 dark:text-blue-400 font-medium">{{ assetData.name }}</span>.
+              </p>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-medium text-slate-500 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Updated: {{ lastUpdated }}
+            </div>
+          </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
       
