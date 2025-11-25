@@ -21,7 +21,7 @@ export default defineEventHandler(async () => {
       }
   
       const metric = data.metrics.find((m: any) =>
-        m.title?.includes("Public API Response time")
+        m.title?.includes("CoinGecko Public API Response time")
       );
   
       if (!metric) {

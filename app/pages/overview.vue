@@ -4,7 +4,35 @@ definePageMeta({
 })
 
 const { selected } = useSelectedCoin()
-const lastUpdated = ref('Just now')
+
+const coinId = computed(() => selected.value?.id || 'bitcoin')
+const coinLabel = computed(() => selected.value?.label || 'Bitcoin')
+
+// Chart + Timeframe
+const {
+  timeframeWritable: timeframe,
+  chartData,
+  pending: chartPending,
+  lastUpdated,
+} = usePriceChart(coinId)
+
+// Ticker (harga saat ini)
+const { data: ticker, pending: tickerPending, refresh: refreshTicker } = useFetch(
+  () => `/api/ticker/${coinId.value}`,
+  {
+    key: () => `ticker-${coinId.value}`,
+    watch: [coinId], 
+    server: false,
+    default: () => ({ price: 0, change24h: 0 }),
+  }
+)
+
+const currentPrice = computed(() => ticker.value?.price || 0)
+const priceChange = computed(() => ticker.value?.change24h || 0)
+
+const formatCurrency = (value: number) => {
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
+}
 
 // Mock Data - In a real app, this would come from props or a store
 const assetData = ref({
@@ -24,55 +52,9 @@ const assetData = ref({
   }
 })
 
-const currentPrice = 67240.55
-const priceChange = 2.45
-const high24h = 67900
-const low24h = 65800
-
-const chartData = ref([
-  { time: '2024-10-01', value: 52.5 },
-  { time: '2024-10-05', value: 54.2 },
-  { time: '2024-10-10', value: 51.8 },
-  { time: '2024-10-15', value: 53.1 },
-  { time: '2024-10-20', value: 50.9 },
-  { time: '2024-10-25', value: 52.3 },
-  { time: '2024-11-01', value: 48.7 },
-  { time: '2024-11-05', value: 47.2 },
-  { time: '2024-11-10', value: 45.9 },
-  { time: '2024-11-15', value: 43.5 },
-  { time: '2024-11-20', value: 41.2 },
-  { time: '2024-11-25', value: 38.8 },
-  { time: '2024-12-01', value: 35.4 },
-  { time: '2024-12-05', value: 32.1 },
-  { time: '2024-12-10', value: 29.8 },
-  { time: '2024-12-15', value: 27.5 },
-  { time: '2024-12-20', value: 30.2 },
-  { time: '2024-12-25', value: 55.02 }, // spike naik drastis di akhir
-])
-
-// Helper to format currency
-const formatCurrency = (value) => {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
-}
-
-// Dynamic Classes based on trend
-const trendColor = computed(() => {
-  if (assetData.value.trend === 'Bullish') return 'text-emerald-400'
-  if (assetData.value.trend === 'Bearish') return 'text-rose-400'
-  return 'text-slate-400'
-})
-
-const changeColor = computed(() => {
-  return assetData.value.change24h >= 0 ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border-rose-500/20'
-})
-
 const isHydrated = ref(false)
-
 onMounted(() => {
-  // Delay pasca hydation
-  setTimeout(() => {
-    isHydrated.value = true
-  }, 200)
+  setTimeout(() => isHydrated.value = true, 300)
 })
 </script>
 
@@ -90,7 +72,7 @@ onMounted(() => {
       <div class="w-full p-6 lg:p-8 text-slate-800 dark:text-slate-200 transition-colors duration-300">
 
         <section class="w-full space-y-6">
-          <!-- ========== SKELETON PRE-HYDRATION ========== -->
+          <!-- Skeleton pre-hydration -->
           <template v-if="!isHydrated">
             <USkeleton class="h-6 w-40" />
             <USkeleton class="h-10 w-56" />
@@ -102,22 +84,21 @@ onMounted(() => {
             </div>
             <USkeleton class="h-64 w-full mt-6" />
             <USeparator />
-            <!-- Done -->
           </template>
 
-          <!-- ========== CONTENT SETELAH HYDRATION ========== -->
+          <!-- content after hydration -->
           <template v-else>
             <section class="space-y-4 mb-6">
-              <div class="flex flex-wrap items-center justify-between gap-4">
-                
-                <!-- Title + coin name -->
+
+              <!-- Header -->
+              <div class="flex flex-wrap items-center justify-between gap-4">  
                 <div>
                   <h1 class="text-2xl font-bold">
                     Ringkasan Aset
                   </h1>
                   <p class="text-muted">
                     Tinjauan performa dan metrik teknikal untuk 
-                    <span v-text="selected.label" class="text-primary font-medium"></span>.
+                    <span class="text-primary font-medium">{{ coinLabel }}</span>
                   </p>
                 </div>
 
@@ -128,20 +109,32 @@ onMounted(() => {
                 </UBadge>
               </div>
 
-              <!-- Price + Change -->
-              <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+              <!-- Price Section -->
+              <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
                 <div>
                   <p class="text-sm text-muted">Harga Saat Ini</p>
                   <div class="flex items-center gap-3">
-                    <span class="text-4xl font-bold">{{ currentPrice }}</span>
-                    <UBadge color="success" variant="soft" class="text-sm">
-                      {{ priceChange }}
+                    <span class="text-4xl font-bold">
+                      <template v-if="tickerPending">
+                        <USkeleton class="h-12 w-48 inline-block" />
+                      </template>
+                      <template v-else>
+                        {{ formatCurrency(currentPrice) }}
+                      </template>
+                    </span>
+                    <UBadge 
+                      :color="priceChange >= 0 ? 'success' : 'error'" 
+                      variant="soft"
+                      size="lg"
+                    >
+                      {{ priceChange > 0 ? '+' : '' }}{{ priceChange }}%
                     </UBadge>
                   </div>
                 </div>
+              </div>
 
                 <!-- High Low -->
-                <div class="flex items-center gap-6 text-sm">
+                <!-- <div class="flex items-center gap-6 text-sm">
                   <div>
                     <p class="text-muted">24h High</p>
                     <p class="font-semibold">$67,900</p>
@@ -150,18 +143,34 @@ onMounted(() => {
                     <p class="text-muted">24h Low</p>
                     <p class="font-semibold">$65,800</p>
                   </div>
-                </div>
-              </div>
+                </div> -->
+              <!-- </div> -->
+            </section>
+
+            <!-- Timeframe and chart option Tabs Section -->
+            <section class="flex justify-between">
+              <UTabs 
+                v-model:selected="timeframe"
+                :items="[
+                  { label: '5M', key: '5m' },
+                  { label: '1H', key: '1h' },
+                  { label: '1D', key: '1d' },
+                  { label: '7D', key: '7d' },
+                  { label: '30D', key: '30d' },
+                  { label: '1Y', key: '1y' },
+                ]"
+              />
+              <UTabs
+                :items="[
+                  { label: 'Built-in' },
+                  { label: 'Tradingview' },
+                ]"
+              />
             </section>
 
             <!-- Chart Section -->
             <section class="h-[60%]">
-              <!-- <div
-                class="w-full h-full rounded-xl border border-default bg-muted/20 flex items-center justify-center"
-              >
-                <p class="text-muted">[Chart Placeholder]</p>
-              </div> -->
-              <OverviewAreaChart :data="chartData" height="500" />
+              <OverviewAreaChart :data="chartData" :height="500" />
             </section>
           </template>
         </section>
