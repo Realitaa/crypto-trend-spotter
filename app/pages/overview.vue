@@ -23,27 +23,51 @@ const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
 }
 
-// Mock Data - In a real app, this would come from props or a store
-const assetData = ref({
-  name: 'Bitcoin',
-  symbol: 'BTC',
-  price: 67240.55,
-  change24h: 2.45, // Percentage
-  trend: 'Bullish', // Bullish, Bearish, Sideways
-  volatility: 4.2,
-  volume: '29.3B',
-  description: 'Bitcoin adalah mata uang digital terdesentralisasi yang dibuat pada Januari 2009. Bitcoin menawarkan janji biaya transaksi yang lebih rendah daripada mekanisme pembayaran online tradisional dan dioperasikan oleh otoritas terdesentralisasi, tidak seperti mata uang yang dikelurkan oleh pemerintah.',
-  analysis: {
-    diffStatus: 'Positif (Akselerasi)',
-    diffValue: 145.20,
-    convexityStatus: 'Cembung (Convex)',
-    convexityScore: 0.88
+// UPDATED: State tab tetap, tapi sekarang pakai untuk switch component
+const chartTab = ref<'built-in' | 'tradingview'>('built-in')
+
+// NEW: Options untuk TradingView Chart (reactive berdasarkan coin & timeframe)
+const tvOptions = computed(() => {
+  const upperLabel = coinLabel.value.toUpperCase()
+  const symbol = `${upperLabel}USDT`  // Format symbol kripto
+  const intervalMap: Record<string, string> = {
+    '1m': '1',
+    '5m': '5',
+    '15m': '15',
+    '1h': '60',
+    '4h': '240',
+    '1D': '1D',
+    '1W': '1W',
+    '1M': '1M'
+  }
+  const interval = intervalMap[timeframe.value] || '1D'
+
+  // Ambil color mode jika tersedia
+  const { $colorMode } = useNuxtApp()
+  const theme = $colorMode?.value || 'light'  // Default light; ganti 'dark' jika perlu
+
+  return {
+    symbol,
+    interval,
+    theme,
+    autosize: true,  // Full width/height
+    height: 500,
+    timezone: 'Etc/UTC',
+    locale: 'en',
+    // Tambah indikator kalkulus-inspired nanti, misal: studies: ['MASimple@tv-basicstudies'] untuk moving average (aproksimasi tren)
   }
 })
 
 const isHydrated = ref(false)
 onMounted(() => {
   setTimeout(() => isHydrated.value = true, 300)
+})
+
+// NEW: Watch untuk force re-render saat timeframe/coin berubah (biar chart update)
+watch([timeframe, coinId], () => {
+  if (chartTab.value === 'tradingview') {
+    // Opsional: Force key update untuk re-mount chart
+  }
 })
 </script>
 
@@ -137,16 +161,35 @@ onMounted(() => {
                 class="w-full max-w-md"
               />
               <UTabs
+                v-model="chartTab"
                 :items="[
-                  { label: 'Built-in' },
-                  { label: 'Tradingview' },
+                  { label: 'Built-in', value: 'built-in' },
+                  { label: 'Tradingview', value: 'tradingview' },
                 ]"
+                class="w-auto"
               />
             </section>
 
             <!-- Chart Section -->
-            <section class="h-[60%]">
-              <OverviewAreaChart :data="chartData" :height="500" />
+            <section class="h-[60%] relative">
+              <div v-if="isHydrated" class="h-full">
+                <!-- Built-in chart -->
+                <OverviewAreaChart 
+                  v-if="chartTab === 'built-in'"
+                  :data="chartData" 
+                  :height="500" 
+                />
+                <!-- TradingView Chart component -->
+                <Chart
+                  v-else
+                  :key="`${coinId}-${timeframe}-${$colorMode?.value}`"
+                  :options="tvOptions"
+                  class="w-full h-100"
+                />
+              </div>
+              <div v-else class="h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+                <UProgress class="w-16 h-16" :value="50" color="primary" />
+              </div>
             </section>
           </template>
         </section>
