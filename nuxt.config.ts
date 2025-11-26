@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxt/ui'],
+  modules: ['@nuxt/eslint', '@nuxt/ui', 'nuxt-tradingview'],
   css: ['@/assets/css/main.css'],
   colorMode: {
     preference: 'system',
@@ -11,5 +11,15 @@ export default defineNuxtConfig({
     classPrefix: '',
     classSuffix: '',
     dataValue: 'theme'
-  }
+  },
+  vite: {
+    server: {
+      hmr: {
+        protocol: 'ws',
+        host: 'localhost',
+        port: 3000,
+        clientPort: 3000,
+      },
+    },
+  },
 })
