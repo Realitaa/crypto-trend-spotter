@@ -1,33 +1,31 @@
-// composables/usePriceChart.ts ← VERSI FINAL
-import { type Ref } from 'vue'
+import { useTimeframe } from './useTimeframe'
 
 export const usePriceChart = (coinId: Ref<string> | string) => {
-  const timeframe = ref<'5m' | '1h' | '1d' | '7d' | '30d' | '1y'>('1d')
-
+  const { timeframe } = useTimeframe()
   const coin = computed(() => typeof coinId === 'string' ? coinId : coinId.value)
 
-  const { data, pending, error, refresh } = useFetch(() => `/api/price/${coin.value}/${timeframe.value}`, {
-    key: () => `price-${coin.value}-${timeframe.value}`,
-    watch: [coin, timeframe],
-    server: false,
-    default: () => [],
-  })
+  const { data, pending, error, refresh } = useFetch(
+    () => `/api/price/${coin.value}/${timeframe.value}`,
+    {
+      key: () => `price-${coin.value}-${timeframe.value}`,
+      watch: [coin, timeframe],
+      server: false,
+      default: () => [],
+    }
+  )
 
   const chartData = computed(() => data.value || [])
 
   const lastUpdated = computed(() => {
     if (!data.value?.length) return 'Loading...'
     const last = data.value[data.value.length - 1]
-    return new Date(last.time * 1000).toLocaleString('id-ID')
+    return new Date(last.time * 1000).toLocaleString('id-ID', {
+      hour: '2-digit',
+      minute: '2-digit',
+      day: 'numeric',
+      month: 'short',
+    })
   })
 
-  return {
-    timeframe: readonly(timeframe),
-    timeframeWritable: timeframe,  
-    chartData,
-    pending,
-    error,
-    refresh,
-    lastUpdated,
-  }
+  return { chartData, pending, error, refresh, lastUpdated }
 }

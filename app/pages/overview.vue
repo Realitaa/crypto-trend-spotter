@@ -4,27 +4,16 @@ definePageMeta({
 })
 
 const { selected } = useSelectedCoin()
+const { timeframe, items } = useTimeframe()
 
 const coinId = computed(() => selected.value?.id || 'bitcoin')
 const coinLabel = computed(() => selected.value?.label || 'Bitcoin')
+const coinDescription = computed(() => selected.value?.description || 'Tidak ada deskripsi.')
+const { chartData, pending: chartPending, lastUpdated } = usePriceChart(coinId)
 
-// Chart + Timeframe
-const {
-  timeframeWritable: timeframe,
-  chartData,
-  pending: chartPending,
-  lastUpdated,
-} = usePriceChart(coinId)
-
-// Ticker (harga saat ini)
-const { data: ticker, pending: tickerPending, refresh: refreshTicker } = useFetch(
+const { data: ticker, pending: tickerPending } = useFetch(
   () => `/api/ticker/${coinId.value}`,
-  {
-    key: () => `ticker-${coinId.value}`,
-    watch: [coinId], 
-    server: false,
-    default: () => ({ price: 0, change24h: 0 }),
-  }
+  { key: () => `ticker-${coinId.value}`, watch: [coinId], server: false }
 )
 
 const currentPrice = computed(() => ticker.value?.price || 0)
@@ -131,34 +120,21 @@ onMounted(() => {
                     </UBadge>
                   </div>
                 </div>
-              </div>
-
-                <!-- High Low -->
-                <!-- <div class="flex items-center gap-6 text-sm">
-                  <div>
-                    <p class="text-muted">24h High</p>
-                    <p class="font-semibold">$67,900</p>
-                  </div>
-                  <div>
-                    <p class="text-muted">24h Low</p>
-                    <p class="font-semibold">$65,800</p>
-                  </div>
-                </div> -->
               <!-- </div> -->
+
+                <!-- Attribution -->
+                <p class="text-sm">
+                  Price data by <a href="https://coingecko.com" target="_blank" class="text-blue-400 dark:text-green-600">CoinGecko</a>
+                </p>
+              </div>
             </section>
 
             <!-- Timeframe and chart option Tabs Section -->
             <section class="flex justify-between">
               <UTabs 
-                v-model:selected="timeframe"
-                :items="[
-                  { label: '5M', key: '5m' },
-                  { label: '1H', key: '1h' },
-                  { label: '1D', key: '1d' },
-                  { label: '7D', key: '7d' },
-                  { label: '30D', key: '30d' },
-                  { label: '1Y', key: '1y' },
-                ]"
+                v-model="timeframe"
+                :items="items"
+                class="w-full max-w-md"
               />
               <UTabs
                 :items="[
@@ -174,21 +150,8 @@ onMounted(() => {
             </section>
           </template>
         </section>
-        
-          <div class="flex items-center justify-between mb-6">
-            <div>
-              <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Ringkasan Aset</h2>
-              <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                Tinjauan performa dan metrik teknikal untuk <span class="text-blue-600 dark:text-blue-400 font-medium">{{ assetData.name }}</span>.
-              </p>
-            </div>
-            <div class="flex items-center gap-2 text-xs font-medium text-slate-500 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              Updated: {{ lastUpdated }}
-            </div>
-          </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <!-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
       
       <div class="group relative p-5 rounded-xl bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 shadow-sm dark:shadow-none hover:shadow-md hover:border-blue-400/30 dark:hover:border-blue-500/30 transition-all duration-300 backdrop-blur-sm">
         <div class="flex justify-between items-start mb-2">
@@ -252,21 +215,30 @@ onMounted(() => {
           <div class="w-1 bg-blue-300 h-3 rounded-t-sm"></div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <section class="mb-8">
+    <section class="mt-8">
       <div class="bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-xl p-6 shadow-sm dark:shadow-none backdrop-blur-sm">
         <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" class="text-blue-500 dark:text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <UIcon name="lucide:info" class="text-blue-500 dark:text-blue-400" />
           Tentang Aset
         </h3>
-        <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm lg:text-base">
-          {{ assetData.description }}
+        <USkeleton v-if="!isHydrated" class="h-16 w-full" />
+        <p v-else class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm lg:text-base">
+          {{ coinDescription }} Sumber data dan selengkapnya di 
+          <ULink
+            :to="`https://www.coingecko.com/id/coins/${coinId}#about`"
+            target="_blank"
+            class="text-muted hover:text-primary transition-colors inline-flex items-center gap-1"
+          >
+            CoinGecko
+          </ULink>
+          <UIcon name="i-heroicons-arrow-up-right" class="w-3 h-3" />
         </p>
       </div>
     </section>
 
-    <section>
+    <!-- <section class="mt-8">
       <div class="bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-xl p-6 shadow-sm dark:shadow-none backdrop-blur-sm">
         <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-6">Ringkasan Analitik</h3>
         
@@ -288,7 +260,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
   </div>  
     </template>
