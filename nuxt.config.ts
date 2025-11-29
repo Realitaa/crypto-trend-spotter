@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxt/ui', 'nuxt-tradingview', '@nuxt/content'],
+  modules: ['@nuxt/eslint', '@nuxt/ui', 'nuxt-tradingview', '@nuxt/content', '@nuxtjs/supabase'],
   css: ['@/assets/css/main.css'],
   colorMode: {
     preference: 'system',
