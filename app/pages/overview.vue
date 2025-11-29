@@ -9,6 +9,9 @@ const { timeframe, items } = useTimeframe()
 const coinId = computed(() => selected.value?.id || 'bitcoin')
 const coinLabel = computed(() => selected.value?.label || 'Bitcoin')
 const coinDescription = computed(() => selected.value?.description || 'Tidak ada deskripsi.')
+const tradingViewSymbol = computed(() => selected.value?.tvSymbol || 'BINANCE:BTCUSDT')
+// Key unik agar TradingView chart re-mount saat coin berubah
+const tvChartKey = computed(() => `${selected.value?.id}-${chartTab.value}`)
 const { chartData, pending: chartPending, lastUpdated } = usePriceChart(coinId)
 
 const { data: ticker, pending: tickerPending } = useFetch(
@@ -23,51 +26,17 @@ const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
 }
 
-// UPDATED: State tab tetap, tapi sekarang pakai untuk switch component
+// State chart pilihan pengguna
 const chartTab = ref<'built-in' | 'tradingview'>('built-in')
 
-// NEW: Options untuk TradingView Chart (reactive berdasarkan coin & timeframe)
-const tvOptions = computed(() => {
-  const upperLabel = coinLabel.value.toUpperCase()
-  const symbol = `${upperLabel}USDT`  // Format symbol kripto
-  const intervalMap: Record<string, string> = {
-    '1m': '1',
-    '5m': '5',
-    '15m': '15',
-    '1h': '60',
-    '4h': '240',
-    '1D': '1D',
-    '1W': '1W',
-    '1M': '1M'
-  }
-  const interval = intervalMap[timeframe.value] || '1D'
-
-  // Ambil color mode jika tersedia
-  const { $colorMode } = useNuxtApp()
-  const theme = $colorMode?.value || 'light'  // Default light; ganti 'dark' jika perlu
-
-  return {
-    symbol,
-    interval,
-    theme,
-    autosize: true,  // Full width/height
-    height: 500,
-    timezone: 'Etc/UTC',
-    locale: 'en',
-    // Tambah indikator kalkulus-inspired nanti, misal: studies: ['MASimple@tv-basicstudies'] untuk moving average (aproksimasi tren)
-  }
+// Chart height untuk chart pilihan pengguna
+const chartContainerHeight = computed(() => {
+  return chartTab.value === 'tradingview' ? 'h-[calc(100vh-12rem)]' : 'h-[60%]'
 })
 
 const isHydrated = ref(false)
 onMounted(() => {
   setTimeout(() => isHydrated.value = true, 300)
-})
-
-// NEW: Watch untuk force re-render saat timeframe/coin berubah (biar chart update)
-watch([timeframe, coinId], () => {
-  if (chartTab.value === 'tradingview') {
-    // Opsional: Force key update untuk re-mount chart
-  }
 })
 </script>
 
@@ -147,7 +116,7 @@ watch([timeframe, coinId], () => {
               <!-- </div> -->
 
                 <!-- Attribution -->
-                <p class="text-sm">
+                <p class="text-sm" v-if="chartTab != 'tradingview'">
                   Price data by <a href="https://coingecko.com" target="_blank" class="text-blue-400 dark:text-green-600">CoinGecko</a>
                 </p>
               </div>
@@ -156,6 +125,7 @@ watch([timeframe, coinId], () => {
             <!-- Timeframe and chart option Tabs Section -->
             <section class="flex justify-between">
               <UTabs 
+                v-if="chartTab === 'built-in'"
                 v-model="timeframe"
                 :items="items"
                 class="w-full max-w-md"
@@ -171,24 +141,42 @@ watch([timeframe, coinId], () => {
             </section>
 
             <!-- Chart Section -->
-            <section class="h-[60%] relative">
+            <section 
+              :class="[
+                'w-full rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300',
+                chartContainerHeight
+              ]"
+            >
               <div v-if="isHydrated" class="h-full">
                 <!-- Built-in chart -->
                 <OverviewAreaChart 
                   v-if="chartTab === 'built-in'"
                   :data="chartData" 
                   :height="500" 
+                  class="w-full"
                 />
                 <!-- TradingView Chart component -->
                 <Chart
                   v-else
-                  :key="`${coinId}-${timeframe}-${$colorMode?.value}`"
-                  :options="tvOptions"
-                  class="w-full h-100"
+                  :key="tvChartKey"
+                  :options="{
+                    symbol: tradingViewSymbol,
+                    interval: '1D',               // default
+                    theme: $colorMode?.value || 'dark',
+                    autosize: true,
+                    timezone: 'Etc/UTC',
+                    locale: 'en',
+                    studies: [],                  
+                    toolbar_bg: '#0a0e17',
+                    enable_publishing: false,
+                    allow_symbol_change: true,
+                    container_id: 'tv_chart_container'
+                  }"
+                  class="w-full h-full"
                 />
               </div>
               <div v-else class="h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800">
-                <UProgress class="w-16 h-16" :value="50" color="primary" />
+                <UIcon name="i-svg-spinners-90-ring-with-bg" class="w-12 h-12 text-primary" />
               </div>
             </section>
           </template>
