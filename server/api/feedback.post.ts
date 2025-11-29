@@ -1,33 +1,45 @@
+// /server/api/feedback.post.ts
 export default defineEventHandler(async (event) => {
-    const body = await readBody(event)
+    try {
+      const config = useRuntimeConfig()
+      const body = await readBody(event)
   
-    if (!body.rating || !body.message || !body.category) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: 'Invalid payload'
+      const supabaseUrl = config.public.supabaseUrl
+      const serviceKey = config.supabaseServiceKey
+  
+      // Safety check to avoid undefined ENV errors
+      if (!supabaseUrl || !serviceKey) {
+        throw createError({
+          statusCode: 500,
+          statusMessage: "Supabase configuration missing"
+        })
+      }
+  
+      // REST API call
+      const response = await $fetch(`${supabaseUrl}/rest/v1/feedback`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': serviceKey,
+          'Authorization': `Bearer ${serviceKey}`,
+          'Prefer': 'return=minimal'
+        },
+        body: {
+          rating: body.rating,
+          category: body.category,
+          message: body.message,
+          email: body.email || null,
+          created_at: new Date().toISOString()
+        }
       })
-    }
   
-    const supabase = serverSupabaseClient(event)
-    const { error } = await supabase.from('feedback').insert({
-      rating: body.rating,
-      category: body.category,
-      message: body.message,
-      email: body.email,
-      created_at: new Date()
-    })
+      return { success: true }
+    } catch (error: any) {
   
-    if (error) {
-      console.error(error)
       throw createError({
         statusCode: 500,
-        statusMessage: 'Failed to save to database'
+        statusMessage: error?.message || "Internal Server Error"
       })
-    }
-  
-    return {
-      success: true,
-      message: 'Feedback saved'
     }
   })
   

@@ -1,18 +1,19 @@
 <script setup lang="ts">
+import { z } from 'zod'
 import type { FormSubmitEvent } from '#ui/types'
 
 definePageMeta({ layout: 'navigation' })
 
 const toast = useToast()
 
-interface Schema {
-  rating: number
-  category: string
-  message: string
-  email?: string
-}
+const schema = z.object({
+  rating: z.coerce.number().min(1, 'Minimal 1 bintang.').max(5),
+  category: z.string().min(1, 'Kategori tidak boleh kosong.'),
+  message: z.string().min(3, 'Pesan wajib diisi.'),
+  email: z.string().email('Format email tidak valid.').optional().or(z.literal(''))
+})
 
-const state = reactive<Schema>({
+const state = reactive({
   rating: 0,
   category: 'Umum',
   message: '',
@@ -31,22 +32,31 @@ const categories = ref([
 
 const isLoading = ref(false)
 
-async function onSubmit(event: FormSubmitEvent<Schema>) {
-  if (!state.rating) return
-
+async function onSubmit(event: FormSubmitEvent<z.infer<typeof schema>>) {
   isLoading.value = true
-  await new Promise((resolve) => setTimeout(resolve, 1200))
 
-  toast.add({
-    title: 'Terima kasih!',
-    description: 'Masukan Anda telah kami terima.',
-    icon: 'i-heroicons-check-circle',
-    color: 'primary'
-  })
+  try {
+    await $fetch('/api/feedback', {
+        method: 'POST',
+        body: event.data
+    })
 
-  state.rating = 0
-  state.message = ''
-  state.email = ''
+    toast.add({ title: 'Success', description: 'Umpan balik diterima! Terima kasih sudah memberikan umpan balik.' })
+
+    state.rating = 0
+    state.message = ''
+    state.email = ''
+
+  } catch (err) {
+    console.log('ERROR SUBMIT:', err)
+
+    toast.add({
+      title: 'Error',
+      description: 'Gagal mengirim.',
+      color: 'error'
+    })
+  }
+
   isLoading.value = false
 }
 </script>
@@ -73,65 +83,44 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             </div>
           </template>
 
-          <UForm :state="state" class="flex flex-col space-y-5" @submit="onSubmit">
+          <UForm :schema="schema" :state="state" class="flex flex-col space-y-5" @submit="onSubmit">
 
             <h3 class="text-md font-bold text-center">Seberapa puas Anda?</h3>
 
-            <!-- Rating -->
-            <UFormGroup name="rating" class="text-center">
-              <div class="flex items-center justify-center gap-2">
-                <button
-                  v-for="star in 5"
-                  :key="star"
-                  class="p-1 rounded-full transition-transform hover:scale-110"
-                  type="button"
-                  @click="state.rating = star"
-                >
-                  <UIcon
-                    :name="star <= state.rating ? 'i-heroicons-star-solid' : 'i-lucide-star'"
-                    class="w-8 h-8"
-                    :class="star <= state.rating ? 'text-yellow-400' : 'text-gray-400 dark:text-gray-600'"
-                  />
-                </button>
-              </div>
+            <UFormField name="rating" class="text-center">
+                <div class="flex items-center justify-center gap-2">
+                    <button
+                    v-for="star in 5"
+                    :key="star"
+                    class="p-1 rounded-full transition-transform hover:scale-110"
+                    type="button"
+                    @click="state.rating = Number(star)"
+                    >
+                    <UIcon
+                        :name="star <= state.rating ? 'i-heroicons-star-solid' : 'i-lucide-star'"
+                        class="w-8 h-8"
+                        :class="star <= state.rating ? 'text-yellow-400' : 'text-gray-400 dark:text-gray-600'"
+                    />
+                    </button>
+                </div>
+                </UFormField>
 
-              <!-- <p v-if="state.rating === 0" class="mt-1 text-xs text-red-500">
-                Wajib memberikan rating bintang.
-              </p> -->
-            </UFormGroup>
+                <UFormField name="category" label="Kategori">
+                    <USelect v-model="state.category" class="w-full" :items="categories" placeholder="Pilih Kategori" />
+                </UFormField>
 
-            <!-- Grid: kategori + textarea -->
-              <UFormGroup name="category" label="Kategori" class="sm:col-span-1">
-                <USelect
-                    v-model="state.category"
-                    class="w-full"
-                    :items="categories"
-                    icon="i-heroicons-tag"
-                    size="md"
-                />
-              </UFormGroup>
+                <UFormField name="message" label="Pesan">
+                    <UTextarea v-model="state.message" class="w-full" :rows="5" placeholder="Pengalaman kamu menggunakan Cypto Trading Spotter..." autoresize />
+                </UFormField>
 
-              <UFormGroup name="message" label="Pesan Anda" class="sm:col-span-2">
-                <UTextarea
-                  v-model="state.message"
-                  class="w-full"
-                  placeholder="Ceritakan pengalaman Anda…"
-                  rows="5"
-                  autoresize
-                />
-              </UFormGroup>
+                <UFormField name="email" label="Email (Opsional)">
+                    <UInput v-model="state.email" class="w-full" icon="i-heroicons-envelope" placeholder="name@email.com (opsional)" />
+                </UFormField>
 
-            <!-- Email -->
-            <UFormGroup name="email" label="Email (Opsional)" hint="Kami mungkin menghubungi Anda.">
-              <UInput v-model="state.email" class="w-full" icon="i-heroicons-envelope" placeholder="nama@email.com (opsional)" />
-            </UFormGroup>
-
-            <!-- Button -->
-            <UButton color="primary" block size="lg" :loading="isLoading">
-              Kirim Umpan Balik
-              <template #trailing><UIcon name="i-heroicons-paper-airplane" /></template>
-            </UButton>
-          </UForm>
+                <UButton type="submit" block color="primary" :loading="isLoading">
+                Kirim Umpan Balik
+                </UButton>
+            </UForm>
 
           <template #footer>
             <p class="text-xs text-center text-gray-400 dark:text-gray-500 pt-1">
