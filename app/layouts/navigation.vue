@@ -35,7 +35,30 @@ const links = [[{
 }, {
   label: 'Dokumentasi',
   icon: 'mdi:book-open-blank-variant-outline',
-  to: '/documentation',
+  defaultOpen: false,
+  children: [
+    {
+      label: 'Daftar Isi',
+      to: '/documentation',
+      onSelect: () => {
+        open.value = false
+      }
+    }, 
+    {
+      label: 'Turunan Pertama',
+      to: '/documentation/turunan-pertama',
+      onSelect: () => {
+        open.value = false
+      }
+    }, 
+    {
+      label: 'Uji Kecekungan',
+      to: '/documentation/uji-kecekungan',
+      onSelect: () => {
+        open.value = false
+      }
+    }
+  ],
   onSelect: () => {
     open.value = false
   }
