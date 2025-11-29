@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxt/ui', 'nuxt-tradingview', '@nuxt/content', '@nuxtjs/supabase'],
+  modules: ['@nuxt/eslint', '@nuxt/ui', 'nuxt-tradingview', '@nuxt/content'],
   css: ['@/assets/css/main.css'],
   colorMode: {
     preference: 'system',
@@ -28,6 +28,15 @@ export default defineNuxtConfig({
       remarkPlugins: [],
       rehypePlugins: [],
       componentScope: true,
+    }
+  },
+  supabase: {
+    redirect: false
+  },
+  runtimeConfig: {
+    supabaseServiceKey: process.env.SUPABASE_SERVICE_KEY,  // PRIVATE
+    public: {
+      supabaseUrl: process.env.SUPABASE_URL                // SAFE FOR CLIENT
     }
   }
 })
