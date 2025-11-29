@@ -65,9 +65,8 @@ const links = [[{
 },
 ], [{
   label: 'Umpan Balik',
-  icon: 'i-lucide-message-circle',
-  to: 'https://github.com/Realitaa',
-  target: '_blank'
+  icon: 'i-heroicons-chat-bubble-left-right',
+  to: '/feedback',
 }, {
   label: 'Tentang',
   icon: 'i-lucide-info',
