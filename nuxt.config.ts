@@ -22,4 +22,12 @@ export default defineNuxtConfig({
       },
     },
   },
+  content: {
+    markdown: {
+      // Izinkan Penggunaan komponen di tengah text seperti Katex
+      remarkPlugins: [],
+      rehypePlugins: [],
+      componentScope: true,
+    }
+  }
 })

@@ -22,6 +22,16 @@ useSeoMeta({
   ogDescription: description,
   ogImage: 'https://ui.nuxt.com/assets/templates/nuxt/dashboard-light.png',
 })
+
+useHead({
+  link: [
+    {
+      rel: 'stylesheet',
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css',
+      crossorigin: 'anonymous'
+    }
+  ]
+})
 </script>
 
 <template>
