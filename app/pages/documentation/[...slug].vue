@@ -30,7 +30,7 @@ if (!docs.value) throw createError({ statusCode: 404, message: 'Page not found' 
     </template>
 
     <template #body>
-      <ContentRenderer v-if="docs" :value="docs" />
+      <ContentWithToc v-if="docs" :content="docs" />
       <div v-else class="p-8 text-center text-gray-500">
         Documentation not found
       </div>
