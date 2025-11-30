@@ -4,74 +4,60 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 const open = ref(false)
 const { selected } = useSelectedCoin()
 
-const links = [[{
-  label: 'Ringkasan',
-  icon: 'material-symbols-light:overview',
-  to: '/overview',
-  onSelect: () => {
-    open.value = false
-  }
-}, {
-  label: 'Analisis Diferensial',
-  icon: 'lucide:activity',
-  to: '/analysis',
-  onSelect: () => {
-    open.value = false
-  }
-}, {
-  label: 'Uji Konveksitas',
-  icon: 'ph:bezier-curve',
-  to: '/convexity',
-  onSelect: () => {
-    open.value = false
-  }
-}, {
-  label: 'Deteksi Trend',
-  icon: 'mynaui:trending-up-down-solid',
-  to: '/trend',
-  onSelect: () => {
-    open.value = false
-  }
-}, {
-  label: 'Dokumentasi',
-  icon: 'mdi:book-open-blank-variant-outline',
-  defaultOpen: false,
-  children: [
-    {
-      label: 'Daftar Isi',
-      to: '/documentation',
-      onSelect: () => {
-        open.value = false
+const docs = '/documentation'
+const links = [[
+  {
+    label: 'Ringkasan',
+    icon: 'material-symbols-light:overview',
+    to: '/overview',
+  }, 
+  {
+    label: 'Analisis Diferensial',
+    icon: 'lucide:activity',
+    to: '/analysis',
+  }, 
+  {
+    label: 'Uji Konveksitas',
+    icon: 'ph:bezier-curve',
+    to: '/convexity',
+  }, 
+  {
+    label: 'Deteksi Trend',
+    icon: 'mynaui:trending-up-down-solid',
+    to: '/trend',
+  }, 
+  {
+    label: 'Dokumentasi',
+    icon: 'mdi:book-open-blank-variant-outline',
+    defaultOpen: false,
+    children: [
+      {
+        label: 'Pengantar',
+        to: docs,
+      }, 
+      {
+        label: 'Turunan Pertama',
+        to: `${docs}/turunan-pertama`,
+      }, 
+      {
+        label: 'Uji Kecekungan',
+        to: `${docs}/uji-kecekungan`,
       }
-    }, 
-    {
-      label: 'Turunan Pertama',
-      to: '/documentation/turunan-pertama',
-      onSelect: () => {
-        open.value = false
-      }
-    }, 
-    {
-      label: 'Uji Kecekungan',
-      to: '/documentation/uji-kecekungan',
-      onSelect: () => {
-        open.value = false
-      }
-    }
-  ],
-  onSelect: () => {
-    open.value = false
+    ],
+  },
+], 
+[
+  {
+    label: 'Umpan Balik',
+    icon: 'i-heroicons-chat-bubble-left-right',
+    to: '/feedback',
+  }, 
+  {
+    label: 'Tentang',
+    icon: 'i-lucide-info',
+    to: '/about',
   }
-},
-], [{
-  label: 'Umpan Balik',
-  icon: 'i-heroicons-chat-bubble-left-right',
-  to: '/feedback',
-}, {
-  label: 'Tentang',
-  icon: 'i-lucide-info',
-  to: '/about',
-}]] satisfies NavigationMenuItem[][]
+]] satisfies NavigationMenuItem[][]
 </script>
 
 <template>
