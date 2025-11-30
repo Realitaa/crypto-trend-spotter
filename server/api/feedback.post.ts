@@ -1,4 +1,3 @@
-// /server/api/feedback.post.ts
 export default defineEventHandler(async (event) => {
     try {
       const config = useRuntimeConfig()

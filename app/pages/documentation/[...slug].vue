@@ -1,4 +1,3 @@
-<!-- pages/documentation/[...slug].vue -->
 <script setup lang="ts">
 definePageMeta({ layout: 'navigation' })
 
