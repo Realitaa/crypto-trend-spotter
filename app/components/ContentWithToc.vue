@@ -1,68 +1,58 @@
 <script setup lang="ts">
-import type { ParsedContentv2 } from '@nuxt/content'
+import type { ParsedContent } from '@nuxt/content'
 
-const props = defineProps<{
-  content: ParsedContentv2
-}>()
+const props = defineProps<{ content: ParsedContent }>()
 
-// compute toc
-const toc = computed(() => props.content?.body?.toc?.links ?? [])
+const tocLinks = computed(() => props.content?.body?.toc?.links ?? [])
+
+// robust handleMove: accepts string or [string]
+function handleMove(payload: string | [string]) {
+  const id = Array.isArray(payload) ? payload[0] : payload
+  if (!id) return
+
+  const target = document.getElementById(id)
+  if (!target) return
+
+  // Ambil scroll container konten
+  const mainEl = document.querySelector('main')
+  const container = mainEl?.closest('[data-slot="body"]') as HTMLElement
+
+  if (!container) return
+
+  const containerRect = container.getBoundingClientRect()
+  const targetRect = target.getBoundingClientRect()
+
+  const offset = 80 // offset navbar
+
+  const top = targetRect.top - containerRect.top + container.scrollTop - offset
+
+  container.scrollTo({
+    top,
+    behavior: 'smooth'
+  })
+}
 </script>
 
 <template>
   <div class="grid grid-cols-12 gap-6 px-4 lg:px-8 py-10">
 
-    <!-- Main Content -->
+    <!-- Main content -->
     <main class="col-span-12 lg:col-span-8 xl:col-span-9">
-      <ContentRenderer 
-        :value="content" 
+      <ContentRenderer
+        :value="content"
         class="prose dark:prose-invert max-w-[760px] mx-auto"
       />
     </main>
 
-    <!-- TOC Sidebar (desktop only) -->
-    <aside 
-      v-if="toc.length"
-      class="hidden lg:block col-span-4 xl:col-span-3"
-    >
+    <!-- TOC -->
+    <aside v-if="tocLinks.length" class="hidden lg:block col-span-4 xl:col-span-3">
       <div class="sticky top-24">
-        <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3">
-          Daftar Isi
-        </h3>
-
-        <ul class="space-y-2 text-sm">
-          <li 
-            v-for="item in toc" 
-            :key="item.id"
-          >
-            <a 
-              :href="'#' + item.id"
-              class="block text-gray-600 dark:text-gray-300 hover:text-primary-500"
-            >
-              {{ item.text }}
-            </a>
-
-            <!-- children (H3) -->
-            <ul 
-              v-if="item.children?.length"
-              class="ml-3 mt-1 space-y-1 border-l pl-3 border-gray-300 dark:border-gray-700"
-            >
-              <li 
-                v-for="child in item.children"
-                :key="child.id"
-              >
-                <a
-                  :href="'#' + child.id"
-                  class="block text-gray-500 dark:text-gray-400 hover:text-primary-500"
-                >
-                  {{ child.text }}
-                </a>
-              </li>
-            </ul>
-
-          </li>
-        </ul>
-
+        <UContentToc 
+          :links="tocLinks" 
+          title="Daftar Isi"
+          highlight
+          @move="handleMove"
+        />
       </div>
     </aside>
 
