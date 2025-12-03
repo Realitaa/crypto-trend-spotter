@@ -25,7 +25,7 @@ const coins = computed(() => [
     </template>
 
     <template #right>
-      <CoinGeckoStatus />
+      <BinanceStatus />
 
       <UDashboardSearchButton
         class="bg-transparent ring-default hidden sm:inline-flex"
