@@ -1,32 +1,41 @@
-// // server/api/price/[coin]/[tf].ts  ← VERSI FINAL & AMAN 100%
-// import { getCache, setCache } from '../../../utils/redis'
-// import { fetchCoinGecko } from '../.../../utils/coingecko'
+import type { H3Event } from 'h3'
+import { SUPPORTED_COINS_MAP } from '~/utils/coins'
 
-// const CONFIG: Record<string, { days: number | 'max'; ttl: number }> = {
-//   '5m':   { days: 1,     ttl: 90 }, 
-//   '1h':   { days: 90,    ttl: 600 },  
-//   '1d':   { days: 365, ttl: 3600 }, 
-//   '7d':   { days: 180,   ttl: 14400 },
-//   '30d':  { days: 365,   ttl: 43200 },
-//   '1y':   { days: 365, ttl: 86400 },
-// }
+const TIMEFRAME_MAP = {
+  '5m':  { interval: '1m',  limit: 300 },
+  '1h':  { interval: '5m',  limit: 500 },
+  '1d':  { interval: '1h',  limit: 720 },
+  '7d':  { interval: '4h',  limit: 500 },
+  '30d': { interval: '12h', limit: 300 },
+  '1y':  { interval: '1d',  limit: 365 },
+}
 
-// export default defineEventHandler(async (event) => {
-//   const { coin, tf } = getRouterParams(event)
-//   if (!CONFIG[tf]) throw createError({ statusCode: 400, message: 'Invalid timeframe' })
+export default cachedEventHandler(
+  async (event: H3Event) => {
+    const { coin, tf } = event.context.params
 
-//   const key = `cg:${coin}:${tf}`
-//   const cached = await getCache<{ time: number; value: number }[]>(key)
-//   if (cached) return cached
+    if (!SUPPORTED_COINS_MAP[coin]) {
+      throw createError({ statusCode: 404, message: 'Coin not found' })
+    }
+    if (!TIMEFRAME_MAP[tf]) {
+      throw createError({ statusCode: 400, message: 'Invalid timeframe' })
+    }
 
-//   const cfg = CONFIG[tf]
-//   const raw = await fetchCoinGecko(coin, cfg.days)
+    const suffix = SUPPORTED_COINS_MAP[coin].suffix.toUpperCase()
+    const symbol = `${suffix}USDT`
 
-//   const data = raw.prices.map(([ts, price]) => ({
-//     time: Math.floor(ts / 1000) as UTCTimestamp,
-//     value: Number(price.toFixed(8)),
-//   }))
+    const { interval, limit } = TIMEFRAME_MAP[tf]
 
-//   await setCache(key, data, cfg.ttl)
-//   return data
-// })
+    const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`
+
+    const klines = await $fetch<any[]>(url, { headers: { accept: 'application/json' } })
+
+    return klines.map((c) => ({
+      time: Math.floor(c[0] / 1000), // open time (seconds)
+      value: Number(Number(c[4]).toFixed(8)), // close price
+    }))
+  },
+  {
+    maxAge: 60, // refresh tiap 1 menit, DIJAMIN
+  }
+)

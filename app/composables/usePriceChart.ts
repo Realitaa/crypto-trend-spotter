@@ -19,7 +19,9 @@ export const usePriceChart = (coinId: Ref<string> | string) => {
   const lastUpdated = computed(() => {
     if (!data.value?.length) return 'Loading...'
     const last = data.value[data.value.length - 1]
-    return new Date(last.time * 1000).toLocaleString('id-ID', {
+    return new Date(last.time * 1000).toLocaleString('en-GB', {
+      timeZone: 'UTC',
+      hour12: false,
       hour: '2-digit',
       minute: '2-digit',
       day: 'numeric',
