@@ -14,6 +14,25 @@ const coins = computed(() => [
     items: getSupportedCoins(setCoin)
   }
 ])
+
+// time
+const utcNow = ref('--:--:--')
+
+const updateTime = () => {
+  utcNow.value = new Date().toLocaleString('en-GB', {
+    timeZone: 'UTC',
+    hour12: false,
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  })
+}
+
+onMounted(() => {
+  updateTime()
+  setInterval(updateTime, 1000)
+})
+
 </script>
 
 <template>
@@ -25,6 +44,8 @@ const coins = computed(() => [
     </template>
 
     <template #right>
+      <span class="text-sm cursor-default">Waktu: {{ utcNow }} UTC</span>
+
       <BinanceStatus />
 
       <UDashboardSearchButton
