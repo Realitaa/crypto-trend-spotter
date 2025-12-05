@@ -38,5 +38,8 @@ export default defineNuxtConfig({
     public: {
       supabaseUrl: process.env.SUPABASE_URL                // SAFE FOR CLIENT
     }
+  },
+  build: {
+    transpile: ['vue-echarts']
   }
 })
