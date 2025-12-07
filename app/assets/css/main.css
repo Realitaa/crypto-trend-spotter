@@ -1,2 +1,16 @@
 @import 'tailwindcss';
 @import '@nuxt/ui';
+
+@layer base {
+    :root {
+      --chart-bg: #ffffff;
+      --chart-text: #0f172a;
+      --chart-grid: #e2e8f0;
+    }
+  
+    :root[data-theme="dark"] {
+      --chart-bg: #0f172a;
+      --chart-text: #cbd5e1;
+      --chart-grid: #1e293b;
+    }
+  }

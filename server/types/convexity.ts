@@ -1,24 +1,27 @@
-/**
- * Hasil analisis turunan 1 & 2
- */
-export interface DerivativeResult {
-  first: number[]     // turunan pertama (f′)
-  second: number[]    // turunan kedua (f′′)
+export interface ConvexityPoint {
+  time: number;         // timestamp (seconds)
+  rawPrice: number;
+  fittedPrice: number;
+  secondDerivative: number;
+  isConvex: boolean;
+  index: number;        // index (0..n-1)
 }
 
-/**
- * Hasil convexity analysis full
- */
+export interface ConvexityMetrics {
+  score: number;        // last point secondDerivative (raw number)
+  normalizedScore: number; // 0..1 (convexityScore normalized)
+  direction: 'Convex' | 'Concave' | 'Flat';
+  stability: number;    // 0..100
+  residualMean?: number;
+  residualStd?: number;
+}
+
 export interface ConvexityResult {
-  f1: number[]              // turunan pertama
-  f2: number[]              // turunan kedua
-
-  convexityScore: number    // 0 - 1
-  stabilityIndex: number    // 0 - 100
-
-  direction: 'convex' | 'concave' | 'flat'
-  inflectionPoints: number[]  // index array
-
-  fittedCurve?: number[]       // polynomial regression (opsional)
+  coin?: string;
+  timeframe?: string;
+  dataSource?: string;
+  coefficients: number[]; // [d, c, b, a] representing d + c x + b x^2 + a x^3
+  points: ConvexityPoint[];
+  metrics: ConvexityMetrics;
+  inflectionIndices: number[]; // indices where sign(f'') flips
 }
-  
