@@ -116,7 +116,7 @@ onMounted(() => {
               <!-- </div> -->
 
                 <!-- Attribution -->
-                <p class="text-sm" v-if="chartTab != 'tradingview'">
+                <p v-if="chartTab != 'tradingview'" class="text-sm">
                   Price data by <a href="https://binance.com" target="_blank" class="text-blue-400 dark:text-green-600">Binance</a>
                 </p>
               </div>
