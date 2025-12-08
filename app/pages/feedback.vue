@@ -36,7 +36,7 @@ async function onSubmit(event: FormSubmitEvent<z.infer<typeof schema>>) {
   isLoading.value = true
 
   try {
-    await $fetch('/api/feedback', {
+    await $fetch('/api/feedback/submit', {
         method: 'POST',
         body: event.data
     })

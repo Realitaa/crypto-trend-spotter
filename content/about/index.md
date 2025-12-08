@@ -6,9 +6,9 @@ navigation: false
 
 # Tentang Crypto Trend Spotter
 
-Informasi tentang website Crypto Trend Spotter
+Crypto Trend Spotter adalah website untuk menganalisis pergerakan harga kripto dan menghasilkan wawasan yang dapat lebih mudah dipahami pengguna. Latar belakang dari proyek ini adalah untuk menggunakan pendekatan matematis objektif ketimbang perasaan saat melakukan transaksi mata uang kripto yang memiliki volatilitas tinggi. Trader juga sering terlambat menyadari perubahan tren (membeli ketika di pucuk atau menjual di lembah). <Rated />
 
-## Mata Kuliah
+## Detail Proyek
 
 **Nama Mata Kuliah:** Kalkulus Diferensial  
 **Universitas:** Universitas Negeri Medan  
@@ -54,7 +54,7 @@ Aplikasi ini dibangun sebagai tugas mata kuliah _Kalkulus Diferensial_ dan berfo
 - **Bahasa:** TypeScript
 - **Styling:** Tailwind CSS 4
 - **UI Library:** Nuxt UI 4
-- **Data Source:** CoinGecko API
+- **Data Source:** Binance API
 - **Charting:** Lightweight Chart
 - **Bundler:** Bun
 - **Documentation:** Nuxt Content

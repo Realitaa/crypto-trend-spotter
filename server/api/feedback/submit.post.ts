@@ -1,5 +1,5 @@
-import { insertFeedback } from '../services/feedback.service'
-import type { ApiResponse } from '../types/api'
+import { insertFeedback } from '../../services/feedback.service'
+import type { ApiResponse } from '../../types/api'
 
 export default defineEventHandler(async (event): Promise<ApiResponse<null>> => {
   try {
