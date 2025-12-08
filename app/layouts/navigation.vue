@@ -14,7 +14,7 @@ const links = [[
   {
     label: 'Analisis Diferensial',
     icon: 'lucide:activity',
-    to: '/analysis',
+    to: '/differential',
   }, 
   {
     label: 'Uji Konveksitas',
@@ -36,13 +36,57 @@ const links = [[
         to: docs,
       }, 
       {
+        label: 'Landasan Teori',
+        to: `${docs}/landasan-teori`,
+      }, 
+      {
+        label: 'Metodologi Numerik',
+        to: `${docs}/metodologi-numerik`,
+      },
+      {
         label: 'Turunan Pertama',
         to: `${docs}/turunan-pertama`,
-      }, 
+      },
       {
         label: 'Uji Kecekungan',
         to: `${docs}/uji-kecekungan`,
-      }
+      },
+      {
+        label: 'Polynomial Regression',
+        to: `${docs}/polynomial-fit`,
+      },
+      {
+        label: 'Kompleksitas Algoritma',
+        to: `${docs}/kompleksitas`,
+      },
+      {
+        label: 'Validasi Matematis',
+        to: `${docs}/validasi`,
+      },
+      {
+        label: 'Interpretasi Grafik',
+        to: `${docs}/interpretasi-grafik`,
+      },
+      {
+        label: 'Contoh Analisis BTC/USDT',
+        to: `${docs}/contoh-btc-usdt`,
+      },
+      {
+        label: 'Diagram Alur Sistem',
+        to: `${docs}/diagram-alur-sistem`,
+      },
+      {
+        label: 'Lampiran Grafik',
+        to: `${docs}/lampiran-grafik`,
+      },
+      {
+        label: 'Kesimpulan & Rekomendasi',
+        to: `${docs}/kesimpulan`,
+      },
+      {
+        label: 'Referensi & Sumber',
+        to: `${docs}/sumber`,
+      },
     ],
   },
 ], 

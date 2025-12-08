@@ -1,31 +1,43 @@
-<!-- components/content/Katex.vue -->
 <script setup lang="ts">
-import katex from 'katex'
+import katex from "katex";
+import { computed } from "vue";
 
-const props = defineProps<{
-  expr: string
-  display?: boolean  // alias block
-}>()
+const props = defineProps({
+  inline: { type: Boolean, default: false }
+});
 
-const html = computed(() => katex.renderToString(props.expr, {
-  displayMode: !!props.display,
-  throwOnError: false,
-}))
+// ambil isi dari slot (raw text, tidak diproses Markdown)
+const slots = useSlots();
+
+const expr = computed(() => {
+  const raw = slots.default?.()
+    ?.map(n => (typeof n.children === "string" ? n.children : ""))
+    ?.join("") ?? "";
+
+  return raw.trim();
+});
+
+const html = computed(() =>
+  katex.renderToString(expr.value, {
+    displayMode: !props.inline,
+    throwOnError: false,
+  })
+);
 </script>
 
 <template>
-  <span
-    v-if="!display"
-    class="katex-inline align-middle"
-    v-html="html"
-  />
-  <div
-    v-else
-    class="katex-block text-center my-6 text-lg"
-    v-html="html"
-  />
+  <span v-if="inline" class="katex-inline" v-html="html"></span>
+  <div v-else class="katex-block" v-html="html"></div>
 </template>
 
 <style scoped>
-.katex-inline { vertical-align: middle; }
+.katex-inline {
+  display: inline-block;
+  vertical-align: middle;
+}
+.katex-block {
+  text-align: center;
+  margin: 1.5rem 0;
+  font-size: 1.2rem;
+}
 </style>

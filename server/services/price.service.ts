@@ -1,4 +1,3 @@
-import { $fetch } from 'ofetch'
 import { SUPPORTED_COINS_MAP } from '~/utils/coins'
 import { optionalEnv } from '../utils/env'
 
