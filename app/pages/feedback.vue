@@ -10,14 +10,14 @@ const schema = z.object({
   rating: z.coerce.number().min(1, 'Minimal 1 bintang.').max(5),
   category: z.string().min(1, 'Kategori tidak boleh kosong.'),
   message: z.string().min(3, 'Pesan wajib diisi.'),
-  email: z.string().email('Format email tidak valid.').optional().or(z.literal(''))
+  username: z.string().optional(),
 })
 
 const state = reactive({
   rating: 0,
   category: 'Umum',
   message: '',
-  email: ''
+  username: ''
 })
 
 const categories = ref([
@@ -45,7 +45,7 @@ async function onSubmit(event: FormSubmitEvent<z.infer<typeof schema>>) {
 
     state.rating = 0
     state.message = ''
-    state.email = ''
+    state.username = ''
 
   } catch (err) {
     console.log('ERROR SUBMIT:', err)
@@ -97,7 +97,7 @@ async function onSubmit(event: FormSubmitEvent<z.infer<typeof schema>>) {
                     @click="state.rating = Number(star)"
                     >
                     <UIcon
-                        :name="star <= state.rating ? 'i-heroicons-star-solid' : 'i-lucide-star'"
+                        :name="star <= state.rating ? 'tabler:star-filled' : 'tabler:star'"
                         class="w-8 h-8"
                         :class="star <= state.rating ? 'text-yellow-400' : 'text-gray-400 dark:text-gray-600'"
                     />
@@ -113,8 +113,8 @@ async function onSubmit(event: FormSubmitEvent<z.infer<typeof schema>>) {
                     <UTextarea v-model="state.message" class="w-full" :rows="5" placeholder="Pengalaman kamu menggunakan Cypto Trading Spotter..." autoresize />
                 </UFormField>
 
-                <UFormField name="email" label="Email (Opsional)">
-                    <UInput v-model="state.email" class="w-full" icon="i-heroicons-envelope" placeholder="name@email.com (opsional)" />
+                <UFormField name="username" label="Username (Opsional)">
+                    <UInput v-model="state.username" class="w-full" icon="i-heroicons-person" placeholder="Pengguna" />
                 </UFormField>
 
                 <UButton type="submit" block color="primary" :loading="isLoading">
