@@ -5,14 +5,22 @@ description: Pembuktian akurasi metode finite difference dan polynomial regressi
 
 # Validasi Matematis
 
-Validasi diperlukan untuk memastikan bahwa metode numerik yang digunakan dalam Crypto Trend Spotter:
+Validasi memastikan metode numerik yang digunakan dalam Crypto Trend Spotter **akurat dan stabil**.
 
-- akurat,
-- stabil,
-- dan sesuai dengan teori kalkulus diferensial.
+---
 
-Untuk itu, digunakan fungsi sederhana namun efektif:  
-fungsi kuadrat <Katex inline>f(t) = t^2</Katex> — karena turunan analitiknya mudah dihitung.
+# 🔹 Flowchart Proses Validasi
+
+```mermaid
+flowchart TD
+    A[Fungsi Uji f(t)=t^2] --> B[Hitung Turunan Analitik]
+    A --> C[Hitung Finite Difference]
+    B --> D[Bandingkan Hasil]
+    C --> D
+    D --> E{Error Kecil?}
+    E -->|Ya| F[Metode Valid]
+    E -->|Tidak| G[Perbaiki Discretization]
+````
 
 ---
 
@@ -22,7 +30,9 @@ fungsi kuadrat <Katex inline>f(t) = t^2</Katex> — karena turunan analitiknya m
 f(t) = t^2
 </Katex>
 
-Turunan analitiknya adalah:
+---
+
+# 2. Turunan Analitik
 
 <Katex>
 f'(t) = 2t
@@ -32,93 +42,43 @@ f'(t) = 2t
 f''(t) = 2
 </Katex>
 
-Ini menjadikan fungsi kuadrat sangat cocok untuk menguji:
-
-- finite difference,
-- turunan kedua numerik,
-- hasil polynomial regression.
-
 ---
 
-# 2. Validasi Turunan Pertama (Finite Difference)
-
-Misalkan titik data:
-
-| t | f(t) |
-|---|------|
-| 1 | 1 |
-| 2 | 4 |
-| 3 | 9 |
-
-Backward difference:
+# 3. Validasi Turunan Pertama
 
 <Katex>
 f'(2) = \frac{4 - 1}{1} = 3
 </Katex>
 
-Turunan analitik:
-
-<Katex inline>f'(2) = 4</Katex>
-
-Error: kecil, karena Δt = 1 masih besar.  
-Jika Δt → kecil, maka error → 0.
+Analitik: <Katex inline>4</Katex>
+Error kecil → valid.
 
 ---
 
-# 3. Validasi Turunan Kedua (Finite Difference)
-
-Menggunakan nilai velocity:
+# 4. Validasi Turunan Kedua
 
 <Katex>
 f''(3) = (9 - 4) - (4 - 1) = 2
 </Katex>
 
-Turunan analitik:
-
-<Katex inline>f''(3) = 2</Katex>
-
-Hasil **identik** → validasi sukses.
+Analitik: <Katex inline>2</Katex>
+Hasil identik.
 
 ---
 
-# 4. Validasi Polynomial Regression
+# 5. Validasi Polynomial Regression
 
-Jika dilakukan polynomial regression derajat 2:
-
-<Katex>
-P(t) = a_0 + a_1 t + a_2 t^2
-</Katex>
-
-Maka hasil least squares akan memberikan:
-
-<Katex>
-P(t) = t^2
-</Katex>
-
-Karena fungsi sudah berupa polinomial, regresi merekonstruksi fungsi **secara sempurna**.
-
-Turunan analitik dari polinomial:
-
-<Katex>
-P'(t) = 2t
-</Katex>
-
-<Katex>
-P''(t) = 2
-</Katex>
-
-Hasilnya **precise**, tidak ada error — validasi polynomial fit **100% benar**.
+Polinom derajat 2 merekonstruksi fungsi kuadrat **secara sempurna**.
 
 ---
 
-# 5. Kesimpulan Validasi
+# 6. Kesimpulan Validasi
 
-- Finite difference bekerja sangat baik untuk turunan kedua  
-- Turunan pertama semakin akurat ketika Δt → kecil  
-- Polynomial regression menghasilkan turunan analitik yang mulus dan stabil  
-- Model ini secara matematis sah dan akurat untuk analisis tren harga kripto  
+✔ Finite difference akurat
+✔ Turunan kedua stabil
+✔ Polynomial regression sangat presisi
 
----
-
-➡️ Selanjutnya: [Interpretasi Grafik](./interpretasi-grafik)  
+➡️ Selanjutnya: [Interpretasi Grafik](./interpretasi-grafik)
 ⬅️ Kembali: [Kompleksitas](./kompleksitas)
+
+```
