@@ -54,6 +54,38 @@
   const priceChart = useLightweightChartV5(priceChartEl, { height: 300 })
   const derivativeChart = useLightweightChartV5(secondChartEl, { height: 200 })
   const heatmapChart = useLightweightChartV5(heatmapEl, { height: 140 })
+
+  // Ringkasan
+  const summaryText = computed(() => {
+  if (!metrics.value) return ''
+
+  const score = metrics.value.score ?? 0
+  const norm = metrics.value.normalizedScore ?? 0
+  const stability = metrics.value.stability ?? 0
+  const dir = metrics.value.direction || 'Flat'
+
+  // Tentukan deskripsi arah kelengkungan
+  let directionText = ''
+  if (dir === 'Convex') {
+    directionText = 'momentum pasar sedang menguat'
+  } else if (dir === 'Concave') {
+    directionText = 'momentum pasar sedang melemah'
+  } else {
+    directionText = 'kelengkungan grafik berada pada zona datar dan rawan reversal'
+  }
+
+  return `
+    Analisis convexity menunjukkan bahwa kurva harga saat ini berada dalam kondisi ${dir.toLowerCase()} 
+    (f'' = ${score.toFixed(4)}), yang berarti ${directionText}. 
+    Normalized score sebesar ${norm.toFixed(3)} menempatkan kekuatan kelengkungan pada kategori 
+    ${norm < 0.2 ? 'bearish ringan' : norm < 0.5 ? 'netral' : 'bullish menguat'}. 
+    Stability index ${stability}/100 menunjukkan bahwa pola kelengkungan ini 
+    ${stability >= 70 ? 'cukup konsisten tanpa banyak perubahan arah' 
+                      : stability >= 40 ? 'mulai menunjukkan ketidakstabilan' 
+                                        : 'sangat fluktuatif dan berisiko reversal'}.
+  `
+})
+
   
   watch([isHydrated, points, isDark], async ([hydrated]) => {
     if (!hydrated || points.value.length === 0) return
@@ -152,18 +184,25 @@
   
       <template #body>
         <div class="p-6 lg:p-8 text-slate-200">
+          <h1 class="text-2xl font-bold mb-6">Analisis Konveksitas — {{ coinLabel }}</h1>
+
+          <!-- INFORMATION CONTAINER -->
+          <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 mb-8 ...">
+            <div>
+              <h2 class="text-lg font-semibold text-white mb-2">Ringkasan Analisis</h2>
+              <p v-if="!isHydrated">Analisis belum tersedia, menunggu data dari server.</p>
+              <p v-else>{{ summaryText }}</p>
+            </div>
+          </div>  
   
           <!-- LOADING -->
-          <template v-if="pending">
+          <template v-if="!isHydrated">
             <USkeleton class="h-6 w-40" />
             <USkeleton class="h-64 w-full mt-6" />
           </template>
   
           <!-- CONTENT -->
           <template v-else-if="convexity">
-  
-            <h1 class="text-2xl font-bold mb-6">Analisis Konveksitas — {{ coinLabel }}</h1>
-  
             <!-- Metrics -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
   
@@ -206,7 +245,30 @@
             </div>
   
           </template>
-  
+          
+          <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 mt-8 ...">
+            <!-- 3. Penjelasan Teoritis Ringkas -->
+            <div>
+              <h3 class="text-sm font-medium text-slate-400 uppercase tracking-wider">
+                Penjelasan Teoritis (Singkat)
+              </h3>
+              <p class="text-slate-300 text-sm leading-relaxed mt-1">
+                Grafik di atas menampilkan fitted curve hasil polynomial regression serta heatmap convexity 
+                untuk memperlihatkan distribusi percepatan momentum sepanjang waktu. 
+                Penjelasan teori lebih lengkap:
+              </p>
+
+              <ul class="mt-2 text-slate-400 text-sm list-disc ml-6 space-y-1">
+                <li>Halaman <a href="/documentation/05-uji-kecekungan" class="text-blue-400 dark:text-green-600 font-bold">Uji Kecekungan / Turunan Kedua</a></li>
+                <li>Halaman <a href="/documentation/06-polynomial-fit" class="text-blue-400 dark:text-green-600 font-bold">Polynomial Regression (Smoothing)</a></li>
+                <li>Halaman <a href="/documentation/09-interpretasi-grafik" class="text-blue-400 dark:text-green-600 font-bold">Interpretasi Grafik</a></li>
+              </ul>
+            </div>
+
+          </div>
+
+          <!-- Disclaimer -->
+          <UserDisclaimer />
         </div>
       </template>
     </UDashboardPanel>
