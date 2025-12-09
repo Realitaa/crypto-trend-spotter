@@ -20,18 +20,20 @@ Tujuan utama dokumentasi ini adalah menyediakan dasar matematis, metodologi, dan
 
 ## Daftar Isi Dokumentasi
 
-- [Landasan Teori](./landasan-teori)
-- [Metodologi Numerik](./metodologi-numerik)
-- [Turunan Pertama & Laju Perubahan Harga](./turunan-pertama)
-- [Uji Kecekungan (Turunan Kedua)](./uji-kecekungan)
-- [Polynomial Regression (Smoothing)](./polynomial-fit)
-- [Kompleksitas Algoritma](./kompleksitas)
-- [Validasi Matematis](./validasi)
-- [Interpretasi Grafik](./interpretasi-grafik)
-- [Contoh Analisis BTC/USDT](./contoh-btc-usdt)
-- [Kesimpulan & Rekomendasi](./kesimpulan)
-- [Diagram Alur Sistem](./diagram-alur-sistem)
-- [Lampiran Grafik](./lampiran-grafik)
+- [Landasan Teori](/documentation/02-landasan-teori)
+- [Metodologi Numerik](/documentation/03-metodologi-numerik)
+- [Turunan Pertama & Laju Perubahan Harga](/documentation/04-turunan-pertama)
+- [Uji Kecekungan (Turunan Kedua)](/documentation/05-uji-kecekungan)
+- [Inflection Point Detection](/documentation/06-inflection-point-detection)
+- [Kompleksitas Algoritma](/documentation/07-kompleksitas)
+- [Polynomial Regression (Smoothing)](/documentation/08-polynomial-fit)
+- [Interpretasi Grafik](/documentation/09-interpretasi-grafik)
+- [Contoh Analisis BTC/USDT](/documentation/10-contoh-btc-usdt)
+- [Validasi Matematis](/documentation/11-validasi)
+- [Diagram Alur Sistem](/documentation/12-diagram-alur-sistem)
+- [Lampiran Grafik](/documentation/13-lampiran-grafik)
+- [Kesimpulan & Rekomendasi](/documentation/14-kesimpulan)
+- [Sumber](/documentation/15-sumber)
 
 ---
 

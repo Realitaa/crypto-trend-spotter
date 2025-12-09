@@ -52,16 +52,16 @@ const links = [[
         to: `${docs}/05-uji-kecekungan`,
       },
       {
-        label: 'Polynomial Regression',
-        to: `${docs}/06-polynomial-fit`,
+        label: 'Inflection Point Detection',
+        to: `${docs}/06-inflection-point-detection`,
       },
       {
         label: 'Kompleksitas Algoritma',
         to: `${docs}/07-kompleksitas`,
       },
       {
-        label: 'Validasi Matematis',
-        to: `${docs}/08-validasi`,
+        label: 'Polynomial Regression',
+        to: `${docs}/08-polynomial-fit`,
       },
       {
         label: 'Interpretasi Grafik',
@@ -72,20 +72,24 @@ const links = [[
         to: `${docs}/10-contoh-btc-usdt`,
       },
       {
+        label: 'Validasi Matematis',
+        to: `${docs}/11-validasi`,
+      },
+      {
         label: 'Diagram Alur Sistem',
-        to: `${docs}/11-diagram-alur-sistem`,
+        to: `${docs}/12-diagram-alur-sistem`,
       },
       {
         label: 'Lampiran Grafik',
-        to: `${docs}/12-lampiran-grafik`,
+        to: `${docs}/13-lampiran-grafik`,
       },
       {
         label: 'Kesimpulan & Rekomendasi',
-        to: `${docs}/13-kesimpulan`,
+        to: `${docs}/14-kesimpulan`,
       },
       {
         label: 'Referensi & Sumber',
-        to: `${docs}/14-sumber`,
+        to: `${docs}/15-sumber`,
       },
     ],
   },
