@@ -123,7 +123,7 @@ onMounted(() => {
             </section>
 
             <!-- Timeframe and chart option Tabs Section -->
-            <section class="flex justify-between">
+            <section class="flex flex-col sm:flex-row justify-between">
               <UTabs 
                 v-if="chartTab === 'built-in'"
                 v-model="timeframe"
