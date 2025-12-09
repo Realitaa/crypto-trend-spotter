@@ -47,6 +47,68 @@
   // Chart refs
   const mainChartEl = ref<HTMLElement | null>(null)
   const chart = useLightweightChartV5(mainChartEl, { height: 500 })
+
+  const summaryText = computed(() => {
+  if (!trend.value) return ''
+
+  const dir = trend.value.direction
+  const slope = trend.value.trendSlope
+  const strength = trend.value.trendStrength
+  const strengthLabel = trend.value.strengthLabel
+  const momentum = trend.value.momentum
+  const convex = trend.value.convexity.current
+  const inflect = trend.value.convexity.inflectionPoints
+
+  // Arah tren (deskripsi)
+  let directionText = ''
+  if (dir === 'Bullish') {
+    directionText = 'tren harga menunjukkan kecenderungan naik secara bertahap'
+  } else if (dir === 'Bearish') {
+    directionText = 'tren harga bergerak turun secara konsisten'
+  } else {
+    directionText = 'pergerakan harga cenderung mendatar tanpa dominasi arah tertentu'
+  }
+
+  // Momentum (deskripsi)
+  let momentumText = ''
+  if (momentum === 'Increasing') {
+    momentumText = 'momentum mulai menguat'
+  } else if (momentum === 'Decreasing') {
+    momentumText = 'momentum pasar melemah'
+  } else {
+    momentumText = 'momentum berada pada zona stabil'
+  }
+
+  // Convexity (deskripsi)
+  let convexText = ''
+  if (convex === 'Convex') {
+    convexText = 'menandakan percepatan bullish'
+  } else if (convex === 'Concave') {
+    convexText = 'mengindikasikan pelemahan momentum'
+  } else {
+    convexText = 'menunjukkan kondisi netral yang rawan reversal'
+  }
+
+  // Inflection point
+  const hasInflection = inflect.length > 0
+  const recentInflection =
+    hasInflection && inflect[inflect.length - 1] > trend.value.points.length * 0.7
+
+  return `
+    Berdasarkan perhitungan garis tren dan analisis kecekungan, kondisi pasar saat ini berada dalam fase
+    ${dir.toLowerCase()}, di mana ${directionText}. Kemiringan tren sebesar ${slope.toFixed(2)}%/hari
+    menghasilkan nilai trend strength ${strength}/100, yang dikategorikan sebagai ${strengthLabel.toLowerCase()}.
+
+    Momentum saat ini berada pada status "${momentum}", yang berarti ${momentumText}.
+    Sementara itu, bentuk kelengkungan grafik (${convex.toLowerCase()}) ${convexText}.
+    ${recentInflection
+      ? 'Terdapat inflection point baru-baru ini, mengisyaratkan potensi perubahan arah tren.'
+      : hasInflection
+      ? 'Beberapa inflection point terdeteksi di sepanjang data, namun belum menunjukkan perubahan arah yang signifikan.'
+      : 'Tidak ditemukan inflection point yang menandakan perubahan tren besar dalam waktu dekat.'}
+  `
+})
+
   
   // Watch & render chart hanya setelah hydration + data ready
   watch([isHydrated, trend, isDark], async ([hydrated, t]) => {
@@ -182,44 +244,39 @@
     chart?.remove?.()
   })
   </script>
-  
-  <template>
-    <UDashboardPanel :ui="{ body: 'w-full max-w-none px-0' }">
-      <template #header>
-        <AppNavbar />
-      </template>
-  
-      <template #body>
-        <div class="p-6 lg:p-8">
-  
-          <!-- Loading State -->
-          <template v-if="pending">
-            <div class="space-y-6">
-              <USkeleton class="h-10 w-64" />
-              <USkeleton class="h-96 w-full rounded-xl" />
-              <div class="grid grid-cols-3 gap-4">
-                <USkeleton v-for="i in 3" :key="i" class="h-32" />
-              </div>
+
+<template>
+  <UDashboardPanel :ui="{ body: 'w-full max-w-none px-0' }">
+    <template #header>
+      <AppNavbar />
+    </template>
+
+    <template #body>
+      <div class="p-6 lg:p-8 text-slate-200">
+        <h1 class="text-2xl font-bold mb-6">Deteksi Tren — {{ coinLabel }}</h1>
+
+        <!-- INFORMATION CONTAINER -->
+        <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 mb-8 ...">
+          <div>
+            <h2 class="text-lg font-semibold text-white mb-2">Ringkasan Analisis</h2>
+            <p v-if="!isHydrated">Analisis belum tersedia, menunggu data dari server.</p>
+            <p v-else>{{ summaryText }}</p>
+          </div>
+        </div>  
+
+        <!-- LOADING -->
+        <template v-if="pending">
+          <div class="space-y-6">
+            <USkeleton class="h-10 w-64" />
+            <USkeleton class="h-96 w-full rounded-xl" />
+            <div class="grid grid-cols-3 gap-4">
+              <USkeleton v-for="i in 3" :key="i" class="h-32" />
             </div>
-          </template>
-  
-          <!-- Error State -->
-          <template v-else-if="error">
-            <UAlert color="red" title="Gagal memuat data tren" :description="error.message" />
-          </template>
-  
-          <!-- Main Content -->
-          <template v-else-if="trend">
-            <div class="mb-8">
-              <h1 class="text-3xl font-bold text-white mb-2">
-                Deteksi Tren — {{ coinLabel }}
-              </h1>
-              <p class="text-slate-400">
-                Timeframe: <span class="font-mono font-bold">{{ tf.toUpperCase() }}</span>
-                • Update: {{ new Date().toLocaleTimeString('id-ID') }} WIB
-              </p>
-            </div>
-  
+          </div>
+        </template>
+
+        <!-- CONTENT -->
+        <template v-else-if="trend">
             <!-- Main Chart -->
             <div class="bg-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-2xl overflow-hidden mb-8 shadow-2xl">
               <div v-if="!isHydrated" class="h-96 flex items-center justify-center">
@@ -278,7 +335,30 @@
   
             </div>
           </template>
+        
+        <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 mt-8 ...">
+          <!-- 3. Penjelasan Teoritis Ringkas -->
+          <div>
+            <h3 class="text-sm font-medium text-slate-400 uppercase tracking-wider">
+              Penjelasan Teoritis (Singkat)
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed mt-1">
+              Grafik di atas menampilkan fitted trendline hasil linear regression, regression channel, serta marker inflection
+              untuk memvisualisasikan dinamika tren dengan lebih akurat. Penjelasan teori dapat dibaca pada halaman:
+            </p>
+
+            <ul class="mt-2 text-slate-400 text-sm list-disc ml-6 space-y-1">
+              <li>Halaman <ULink to="/documentation/05-uji-kecekungan">Uji Kecekungan / Turunan Kedua</ULink></li>
+              <li>Halaman <ULink to="/documentation/06-polynomial-fit">Polynomial Regression (Smoothing)</ULink></li>
+              <li>Halaman <ULink to="/documentation/09-interpretasi-grafik">Interpretasi Grafik</ULink></li>
+            </ul>
+          </div>
+
         </div>
-      </template>
-    </UDashboardPanel>
-  </template>
+
+        <!-- Disclaimer -->
+        <UserDisclaimer />
+      </div>
+    </template>
+  </UDashboardPanel>
+</template>

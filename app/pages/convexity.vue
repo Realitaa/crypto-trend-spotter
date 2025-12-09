@@ -259,9 +259,9 @@
               </p>
 
               <ul class="mt-2 text-slate-400 text-sm list-disc ml-6 space-y-1">
-                <li>Halaman <a href="/documentation/05-uji-kecekungan" class="text-blue-400 dark:text-green-600 font-bold">Uji Kecekungan / Turunan Kedua</a></li>
-                <li>Halaman <a href="/documentation/06-polynomial-fit" class="text-blue-400 dark:text-green-600 font-bold">Polynomial Regression (Smoothing)</a></li>
-                <li>Halaman <a href="/documentation/09-interpretasi-grafik" class="text-blue-400 dark:text-green-600 font-bold">Interpretasi Grafik</a></li>
+                <li>Halaman <ULink to="/documentation/05-uji-kecekungan">Uji Kecekungan / Turunan Kedua</ULink></li>
+                <li>Halaman <ULink to="/documentation/06-polynomial-fit">Polynomial Regression (Smoothing)</ULink></li>
+                <li>Halaman <ULink to="/documentation/09-interpretasi-grafik">Interpretasi Grafik</ULink></li>
               </ul>
             </div>
 

@@ -298,9 +298,9 @@
               </p>
 
               <ul class="mt-2 text-slate-400 text-sm list-disc ml-6 space-y-1">
-                <li>Halaman <a href="/documentation/03-metodologi-numerik" class="text-blue-400 dark:text-green-600 font-bold">Uji Kecekungan / Turunan Kedua</a></li>
-                <li>Halaman <a href="/documentation/04-turunan-pertama" class="text-blue-400 dark:text-green-600 font-bold">Turunan Pertama & Laju Perubahan Harga</a></li>
-                <li>Halaman <a href="/documentation/05-uji-kecekungan" class="text-blue-400 dark:text-green-600 font-bold">Uji Kecekungan / Turunan Kedua</a></li>
+                <li>Halaman <ULink to="/documentation/03-metodologi-numerik">Metodologi Numerik</ULink></li>
+                <li>Halaman <ULink to="/documentation/04-turunan-pertama">Turunan Pertama & Laju Perubahan Harga</ULink></li>
+                <li>Halaman <ULink to="/documentation/05-uji-kecekungan">Uji Kecekungan / Turunan Kedua</ULink></li>
               </ul>
             </div>
 
