@@ -131,6 +131,41 @@
     if (v < 0 && a > 0) return { text: 'Reversal Terdeteksi 🔄', color: 'text-cyan-400' }
     return { text: 'Netral', color: 'text-slate-400' }
   })
+
+  // Summary Text
+  const summaryText = computed(() => {
+    const l = latest.value
+    if (!l || isNaN(l.confidence)) {
+      return 'Analisis belum tersedia — menunggu data dari server.'
+    }
+
+    const v = Number(l.velocity || 0)
+    const a = Number(l.acceleration || 0)
+    const c = Number(l.confidence || 0)
+    const sm = enableSmoothing.value
+
+    const smoothText = sm ? 'dengan smoothing' : 'tanpa smoothing'
+    
+    let direction = 'tren belum dapat ditentukan'
+    if (v > 0 && a > 0) direction = 'harga meningkat dengan momentum yang semakin kuat'
+    if (v > 0 && a < 0) direction = 'harga naik, namun momentum melemah'
+    if (v < 0 && a < 0) direction = 'harga turun semakin cepat'
+    if (v < 0 && a > 0) direction = 'potensi reversal terdeteksi'
+
+    return `Berdasarkan perhitungan ${smoothText}, ${direction}. Analisis ini memiliki tingkat kepercayaan sebesar ${c.toFixed(0)}%.`
+  })
+
+  // Harga
+  const { data: ticker, pending: tickerPending } = useFetch(
+  () => `/api/ticker/${coinId.value}`,
+    { key: () => `ticker-${coinId.value}`, watch: [coinId], server: false }
+  )
+
+  const currentPrice = computed(() => ticker.value?.price || 0)
+
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value)
+  }
   </script>
   
   <template>
@@ -164,6 +199,15 @@
               </div>
             </div>
           </header>
+
+          <!-- INFORMATION CONTAINER -->
+          <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 mb-8 ...">
+            <div>
+              <h2 class="text-lg font-semibold text-white mb-2">Ringkasan Analisis</h2>
+              <p v-if="!latest">Memuat analisis...</p>
+              <p v-else>{{ summaryText }}</p>
+            </div>
+          </div>      
   
           <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
             <!-- CHARTS (Kiri - 70%) -->
@@ -187,10 +231,17 @@
   
             <!-- CARDS (Kanan - 30%) -->
             <div class="xl:col-span-4 space-y-6">
-              <template v-if="pending">
-                <USkeleton class="h-32 w-full" v-for="i in 4" :key="i" />
+              <template v-if="!isHydrated">
+                <USkeleton class="h-32 w-full" v-for="i in 5" :key="i" />
               </template>
               <template v-else>
+                <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-6 backdrop-blur">
+                  <h4 class="text-xs uppercase text-slate-400 mb-2">Harga Saat Ini</h4>
+                  <div class="text-3xl font-bold">
+                    {{ formatCurrency(currentPrice) }}
+                  </div>
+                </div>
+
                 <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-6 backdrop-blur">
                   <h4 class="text-xs uppercase text-slate-400 mb-2">Velocity (f')</h4>
                   <div class="text-3xl font-bold" :class="display.velocity >= 0 ? 'text-emerald-400' : 'text-rose-400'">
@@ -216,18 +267,48 @@
   
                 <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-6 backdrop-blur">
                   <h4 class="text-xs uppercase text-slate-400 mb-2">Confidence Level</h4>
+
                   <div class="w-full bg-slate-700 rounded-full h-4 overflow-hidden">
-                    <div class="h-full rounded-full transition-all duration-500"
+                    <div
+                      class="h-full rounded-full transition-all duration-500"
                       :class="display.velocity > 0 ? 'bg-emerald-500' : 'bg-rose-500'"
-                      :style="{ width: Math.min(Math.abs(display.acceleration ?? 0) * 50, 100) + '%' }" />
+                      :style="{ width: (display.confidence ?? 5) + '%' }"
+                    />
                   </div>
+
                   <div class="text-right text-sm mt-2 font-medium text-slate-300">
-                    {{ Math.min(Math.abs(display.acceleration ?? 0) * 50, 100).toFixed(0) }}%
+                    {{ (display.confidence ?? 5).toFixed(0) }}%
                   </div>
                 </div>
+
               </template>
             </div>
           </div>
+
+          <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 mt-8 ...">
+            <!-- 3. Penjelasan Teoritis Ringkas -->
+            <div>
+              <h3 class="text-sm font-medium text-slate-400 uppercase tracking-wider">
+                Penjelasan Teoritis (Singkat)
+              </h3>
+              <p class="text-slate-300 text-sm leading-relaxed mt-1">
+                Velocity menunjukkan laju perubahan harga (turunan pertama), sedangkan acceleration menunjukkan percepatan momentum (turunan kedua).
+                Kombinasi keduanya memberikan gambaran matematis tentang penguatan, pelemahan, atau potensi reversal tren.
+                Penjelasan lengkap dapat dibaca pada:
+              </p>
+
+              <ul class="mt-2 text-slate-400 text-sm list-disc ml-6 space-y-1">
+                <li>Halaman <a href="/documentation/03-metodologi-numerik" class="text-blue-400 dark:text-green-600 font-bold">Uji Kecekungan / Turunan Kedua</a></li>
+                <li>Halaman <a href="/documentation/04-turunan-pertama" class="text-blue-400 dark:text-green-600 font-bold">Turunan Pertama & Laju Perubahan Harga</a></li>
+                <li>Halaman <a href="/documentation/05-uji-kecekungan" class="text-blue-400 dark:text-green-600 font-bold">Uji Kecekungan / Turunan Kedua</a></li>
+              </ul>
+            </div>
+
+          </div>
+          <!-- Disclaimer -->
+          <p class="text-xs text-center text-slate-500 border-slate-700 p-4">
+            Crypto Trend Spotter is an academic mini research project. All insights are experimental. NFA & DYOR.
+          </p>
         </div>
       </template>
     </UDashboardPanel>
