@@ -12,6 +12,16 @@ Karena data harga kripto sangat **berisik (noisy)**, menghitung turunan langsung
 - sinyal palsu,
 - inflection point yang tidak akurat.
 
+## 🔹 Flowchart Proses Polynomial Smoothing
+
+```mermaid
+flowchart TD
+    A[Raw Price Data] --> B[Polynomial Fit]
+    B --> C[Smoothed Curve]
+    C --> D[Analytic Derivative<br/>f'(t), f''(t)]
+    D --> E[Momentum & Convexity Analysis]
+```
+
 Oleh karena itu, digunakan **polynomial regression** untuk menghasilkan kurva harga yang halus (smoothed price).
 
 ---
@@ -22,12 +32,6 @@ Oleh karena itu, digunakan **polynomial regression** untuk menghasilkan kurva ha
 P(t) = a_0 + a_1 t + a_2 t^2 + \dots + a_n t^n
 </Katex>
 
-Kurva polinomial memiliki sifat:
-
-- halus (smooth),
-- diferensiabel berulang kali,
-- cocok untuk data yang memiliki tren namun noisy.
-
 ---
 
 ## 2. Turunan Polinomial
@@ -37,8 +41,6 @@ Turunan pertama:
 <Katex>
 P'(t) = a_1 + 2a_2 t + 3a_3 t^2 + \dots
 </Katex>
-
-Turunan kedua:
 
 <Katex>
 P''(t) = 2a_2 + 6a_3 t + \dots
@@ -72,35 +74,18 @@ Seperti SMA, EMA, ataupun Gaussian filter.
 Regresi polinomial mencari koefisien:
 
 <Katex>
-a = \{a_0, a_1, \dots, a_n\}
+\min_a \sum (P(t_i) - y_i)^2
 </Katex>
-
-dengan meminimalkan error:
-
-<Katex>
-\min_a \sum_{i=1}^m (P(t_i) - y_i)^2
-</Katex>
-
-Dalam bentuk matriks:
-
-<Katex>
-A^T A a = A^T y
-</Katex>
-
-Matrix <Katex inline>A</Katex> adalah **Vandermonde matrix**.
 
 ---
 
 ## 5. Pemilihan Derajat Polinomial (Order)
 
-| Derajat | Kelebihan        | Kekurangan             |
-| ------- | ---------------- | ---------------------- |
-| 2–3     | sangat halus     | kurang fleksibel       |
-| 4–5     | seimbang         | risiko sedikit overfit |
-| 6+      | sangat fleksibel | riskan mengikuti noise |
-
-Untuk Crypto Trend Spotter, rekomendasi:  
-**gunakan derajat 3–5**.
+| Derajat | Kelebihan | Kekurangan                |
+| ------- | --------- | ------------------------- |
+| 2–3     | Halus     | Kurang fleksibel          |
+| 4–5     | Seimbang  | Risiko overfit            |
+| 6+      | Fleksibel | Cenderung mengikuti noise |
 
 ---
 

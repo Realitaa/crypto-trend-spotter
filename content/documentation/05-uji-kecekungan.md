@@ -10,6 +10,19 @@ Jika turunan pertama menunjukkan _kecepatan perubahan harga_, maka turunan kedua
 
 ---
 
+## 🔹 Flowchart Logika Kecekungan
+
+```mermaid
+flowchart TD
+    A[f'(t)] --> B[f''(t)]
+    B --> C{f''(t) > 0?}
+    C -->|Ya| D[Convex<br/>Momentum Menguat]
+    C -->|Tidak| E[Concave<br/>Momentum Melemah]
+    B --> F[Inflection Point Detection]
+```
+
+---
+
 ## 1. Definisi Turunan Kedua
 
 <Katex>
@@ -66,11 +79,6 @@ Rumus:
 S = 100 \times \left(1 - \frac{\text{jumlah flip tanda}}{\text{total titik}}\right)
 </Katex>
 
-Interpretasi:
-
-- <Katex inline>S > 70\%</Katex> → tren cukup stabil
-- <Katex inline>S < 40\%</Katex> → tren sangat tidak stabil
-
 ---
 
 ## 5. Deteksi Titik Belok (Inflection Point)
@@ -104,9 +112,7 @@ Karena:
 (-14) \cdot (78) < 0
 </Katex>
 
-Maka:
-
-**Inflection point terdeteksi di t = 3 → potensi reversal bullish.**
+**Inflection point di t = 3 → reversal bullish.**
 
 ---
 
