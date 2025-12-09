@@ -94,9 +94,21 @@ export function calculateDifferential(
   else if (v < 0 && a < 0) momentum = 'strong_bear'
   else if (v < 0 && a > 0) momentum = 'reversal'
 
-  // Confidence: percepatan 5% dianggap sangat signifikan
-  const accelNorm = Math.min(Math.abs(a) / 5 * 100, 100)
-  const confidence = Math.max(accelNorm, 5) // minimal 5% agar UI tidak terlihat “mati”
+  // Normalizing velocity
+  const vNorm = Math.min(Math.abs(v) / 5 * 100, 100)
+
+  // Normalizing acceleration (lower threshold)
+  const aNorm = Math.min(Math.abs(a) / 1 * 100, 100)
+
+  // Stability factor (direction alignment)
+  const stable = Math.sign(v) === Math.sign(a)
+  const sNorm = stable ? 100 : 40
+
+  // Weighted composite confidence
+  let confidence = 0.4 * vNorm + 0.4 * aNorm + 0.2 * sNorm
+
+  // Clamp
+  confidence = Math.min(Math.max(confidence, 5), 100)
 
   return {
     points,
