@@ -18,7 +18,7 @@ Tujuan utama dokumentasi ini adalah menyediakan dasar matematis, metodologi, dan
 
 ---
 
-## 📘 Daftar Isi Dokumentasi
+## Daftar Isi Dokumentasi
 
 - [Landasan Teori](./landasan-teori)
 - [Metodologi Numerik](./metodologi-numerik)
@@ -39,13 +39,9 @@ Tujuan utama dokumentasi ini adalah menyediakan dasar matematis, metodologi, dan
 
 Seluruh perhitungan dalam dokumentasi ini menggunakan:
 
-- **Finite Difference** untuk turunan numerik  
-- **Polynomial Regression** untuk smoothing  
-- **Convexity & Stability Index** untuk pembacaan tren  
-- **Inflection Point Detection** berbasis perubahan tanda turunan kedua  
+- **Finite Difference** untuk turunan numerik
+- **Polynomial Regression** untuk smoothing
+- **Convexity & Stability Index** untuk pembacaan tren
+- **Inflection Point Detection** berbasis perubahan tanda turunan kedua
 
-Semua rumus matematika ditulis menggunakan komponen:
-
-```html
-<Katex> ... </Katex>
-Landasan Teori (./landasan-teori)
+Semua rumus matematika ditulis menggunakan komponen [Katex](https://github.com/Realitaa/crypto-trend-spotter/blob/main/app/components/content/Katex.vue)

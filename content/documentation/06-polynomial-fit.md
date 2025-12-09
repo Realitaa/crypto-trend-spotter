@@ -16,7 +16,7 @@ Oleh karena itu, digunakan **polynomial regression** untuk menghasilkan kurva ha
 
 ---
 
-# 1. Bentuk Umum Polinomial
+## 1. Bentuk Umum Polinomial
 
 <Katex>
 P(t) = a_0 + a_1 t + a_2 t^2 + \dots + a_n t^n
@@ -30,7 +30,7 @@ Kurva polinomial memiliki sifat:
 
 ---
 
-# 2. Turunan Polinomial
+## 2. Turunan Polinomial
 
 Turunan pertama:
 
@@ -46,28 +46,28 @@ P''(t) = 2a_2 + 6a_3 t + \dots
 
 Keuntungan utama:
 
-- <Katex inline>P'(t)</Katex> dan <Katex inline>P''(t)</Katex> dapat dihitung **secara analitik**,  
+- <Katex inline>P'(t)</Katex> dan <Katex inline>P''(t)</Katex> dapat dihitung **secara analitik**,
 - hasilnya jauh lebih stabil dibanding metode finite difference langsung.
 
 ---
 
-# 3. Mengapa Polynomial Regression Dipilih?
+## 3. Mengapa Polynomial Regression Dipilih?
 
-### ✔ Tidak membutuhkan parameter "window"  
+**✔ Tidak membutuhkan parameter "window"**  
 Berbeda dengan moving average.
 
-### ✔ Tidak menyebabkan lag besar  
-Karena tidak melakukan *rolling average*.
+**✔ Tidak menyebabkan lag besar**  
+Karena tidak melakukan _rolling average_.
 
-### ✔ Turunan analitik → stabil dan halus  
+**✔ Turunan analitik → stabil dan halus**  
 Sangat cocok untuk menghitung convexity dan inflection point.
 
-### ✔ Lebih unggul dibanding smoothing sederhana  
+**✔ Lebih unggul dibanding smoothing sederhana**  
 Seperti SMA, EMA, ataupun Gaussian filter.
 
 ---
 
-# 4. Perhitungan dengan Least Squares
+## 4. Perhitungan dengan Least Squares
 
 Regresi polinomial mencari koefisien:
 
@@ -91,53 +91,49 @@ Matrix <Katex inline>A</Katex> adalah **Vandermonde matrix**.
 
 ---
 
-# 5. Pemilihan Derajat Polinomial (Order)
+## 5. Pemilihan Derajat Polinomial (Order)
 
-| Derajat | Kelebihan | Kekurangan |
-|--------|-----------|-------------|
-| 2–3 | sangat halus | kurang fleksibel |
-| 4–5 | seimbang | risiko sedikit overfit |
-| 6+  | sangat fleksibel | riskan mengikuti noise |
+| Derajat | Kelebihan        | Kekurangan             |
+| ------- | ---------------- | ---------------------- |
+| 2–3     | sangat halus     | kurang fleksibel       |
+| 4–5     | seimbang         | risiko sedikit overfit |
+| 6+      | sangat fleksibel | riskan mengikuti noise |
 
 Untuk Crypto Trend Spotter, rekomendasi:  
 **gunakan derajat 3–5**.
 
 ---
 
-# 6. Contoh Visualisasi Konseptual
+## 6. Contoh Visualisasi Konseptual
 
 Jika data harga:
 64000 → 64012 → 63998 → 63990 → 64020
-
 
 Raw price = bergerigi  
 Smoothed price = kurva mulus menggambarkan tren sesungguhnya
 
 ---
 
-# 7. Manfaat Terhadap Perhitungan Turunan
+## 7. Manfaat Terhadap Perhitungan Turunan
 
 Polynomial smoothing meningkatkan:
 
-- akurasi velocity (turunan 1),  
-- stabilitas acceleration (turunan 2),  
-- kekuatan convexity score,  
+- akurasi velocity (turunan 1),
+- stabilitas acceleration (turunan 2),
+- kekuatan convexity score,
 - deteksi inflection point.
 
 Tanpa smoothing, nilai turunan akan terlalu liar untuk data kripto.
 
 ---
 
-# Ringkasan
+## Ringkasan
 
-| Komponen | Fungsi |
-|----------|--------|
-| Polynomial Regression | Menghaluskan grafik harga |
-| Turunan Analitik | Stabil & akurat |
-| Derajat Polinomial | Mengontrol fleksibilitas |
-| Least Squares | Menghitung koefisien terbaik |
+| Komponen              | Fungsi                       |
+| --------------------- | ---------------------------- |
+| Polynomial Regression | Menghaluskan grafik harga    |
+| Turunan Analitik      | Stabil & akurat              |
+| Derajat Polinomial    | Mengontrol fleksibilitas     |
+| Least Squares         | Menghitung koefisien terbaik |
 
 ---
-
-➡️ Selanjutnya: [Kompleksitas Algoritma](./kompleksitas)  
-⬅️ Kembali: [Uji Kecekungan](./uji-kecekungan)

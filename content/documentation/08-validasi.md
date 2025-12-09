@@ -16,7 +16,7 @@ fungsi kuadrat <Katex inline>f(t) = t^2</Katex> — karena turunan analitiknya m
 
 ---
 
-# 1. Fungsi Uji
+## 1. Fungsi Uji
 
 <Katex>
 f(t) = t^2
@@ -40,15 +40,15 @@ Ini menjadikan fungsi kuadrat sangat cocok untuk menguji:
 
 ---
 
-# 2. Validasi Turunan Pertama (Finite Difference)
+## 2. Validasi Turunan Pertama (Finite Difference)
 
 Misalkan titik data:
 
-| t | f(t) |
-|---|------|
-| 1 | 1 |
-| 2 | 4 |
-| 3 | 9 |
+| t   | f(t) |
+| --- | ---- |
+| 1   | 1    |
+| 2   | 4    |
+| 3   | 9    |
 
 Backward difference:
 
@@ -65,7 +65,7 @@ Jika Δt → kecil, maka error → 0.
 
 ---
 
-# 3. Validasi Turunan Kedua (Finite Difference)
+## 3. Validasi Turunan Kedua (Finite Difference)
 
 Menggunakan nilai velocity:
 
@@ -81,7 +81,7 @@ Hasil **identik** → validasi sukses.
 
 ---
 
-# 4. Validasi Polynomial Regression
+## 4. Validasi Polynomial Regression
 
 Jika dilakukan polynomial regression derajat 2:
 
@@ -111,14 +111,11 @@ Hasilnya **precise**, tidak ada error — validasi polynomial fit **100% benar**
 
 ---
 
-# 5. Kesimpulan Validasi
+## 5. Kesimpulan Validasi
 
-- Finite difference bekerja sangat baik untuk turunan kedua  
-- Turunan pertama semakin akurat ketika Δt → kecil  
-- Polynomial regression menghasilkan turunan analitik yang mulus dan stabil  
-- Model ini secara matematis sah dan akurat untuk analisis tren harga kripto  
+- Finite difference bekerja sangat baik untuk turunan kedua
+- Turunan pertama semakin akurat ketika Δt → kecil
+- Polynomial regression menghasilkan turunan analitik yang mulus dan stabil
+- Model ini secara matematis sah dan akurat untuk analisis tren harga kripto
 
 ---
-
-➡️ Selanjutnya: [Interpretasi Grafik](./interpretasi-grafik)  
-⬅️ Kembali: [Kompleksitas](./kompleksitas)

@@ -10,7 +10,7 @@ Meskipun grafik asli dihasilkan oleh aplikasi, lampiran ini memberikan contoh ti
 
 ---
 
-# 1. Grafik Harga (Raw vs Smoothed)
+## 1. Grafik Harga (Raw vs Smoothed)
 
 Grafik harga dalam sistem terdiri dari dua bentuk:
 
@@ -26,7 +26,7 @@ Jenis grafik ini membantu mengidentifikasi pergerakan tren utama sebelum menghit
 
 ---
 
-# 2. Grafik Turunan Pertama (Velocity)
+## 2. Grafik Turunan Pertama (Velocity)
 
 Grafik velocity menampilkan:
 
@@ -36,26 +36,26 @@ Grafik velocity menampilkan:
 
 Pola umum:
 
-- Velocity naik → tren bullish menguat  
-- Velocity turun → tren melemah  
-- Velocity mendekati 0 → potensi konsolidasi  
+- Velocity naik → tren bullish menguat
+- Velocity turun → tren melemah
+- Velocity mendekati 0 → potensi konsolidasi
 
 ---
 
-# 3. Grafik Turunan Kedua (Acceleration)
+## 3. Grafik Turunan Kedua (Acceleration)
 
 Acceleration <Katex inline>f''(t)</Katex> memberikan informasi mengenai percepatan atau perlambatan momentum.
 
 Interpretasi dari grafik acceleration:
 
-- Nilai positif → convex → percepatan bullish  
-- Nilai negatif → concave → percepatan bearish  
+- Nilai positif → convex → percepatan bullish
+- Nilai negatif → concave → percepatan bearish
 
 Grafik ini membantu menemukan titik belok (inflection point).
 
 ---
 
-# 4. Heatmap Convexity
+## 4. Heatmap Convexity
 
 Convexity score ditampilkan dalam bentuk heatmap warna untuk memberikan gambaran:
 
@@ -65,13 +65,13 @@ Convexity score ditampilkan dalam bentuk heatmap warna untuk memberikan gambaran
 
 Warna umum:
 
-- Hijau → convex kuat (bullish momentum)  
-- Merah → concave kuat (bearish momentum)  
-- Abu-abu → netral  
+- Hijau → convex kuat (bullish momentum)
+- Merah → concave kuat (bearish momentum)
+- Abu-abu → netral
 
 ---
 
-# 5. Penanda Inflection Point
+## 5. Penanda Inflection Point
 
 Inflection point adalah titik di mana:
 
@@ -89,17 +89,14 @@ Inflection point merupakan salah satu indikator reversal paling penting dalam me
 
 ---
 
-# 6. Penggunaan Grafik dalam Analisis
+## 6. Penggunaan Grafik dalam Analisis
 
 Setiap grafik memiliki peranan penting:
 
-| Grafik | Fungsi |
-|--------|--------|
-| Harga Halus | Menunjukkan arah tren |
-| Velocity | Mengukur momentum |
-| Acceleration | Deteksi percepatan/pelemahan |
-| Heatmap Convexity | Menggambarkan kekuatan tren |
+| Grafik                  | Fungsi                          |
+| ----------------------- | ------------------------------- |
+| Harga Halus             | Menunjukkan arah tren           |
+| Velocity                | Mengukur momentum               |
+| Acceleration            | Deteksi percepatan/pelemahan    |
+| Heatmap Convexity       | Menggambarkan kekuatan tren     |
 | Inflection Point Marker | Mendeteksi kemungkinan reversal |
-
-➡️ Selanjutnya: [Kesimpulan](./kesimpulan)  
-⬅️ Kembali: [Diagram Alur Sistem](./diagram-alur-sistem)  

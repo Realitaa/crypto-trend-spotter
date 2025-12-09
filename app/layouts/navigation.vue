@@ -37,55 +37,55 @@ const links = [[
       }, 
       {
         label: 'Landasan Teori',
-        to: `${docs}/landasan-teori`,
+        to: `${docs}/02-landasan-teori`,
       }, 
       {
         label: 'Metodologi Numerik',
-        to: `${docs}/metodologi-numerik`,
+        to: `${docs}/03-metodologi-numerik`,
       },
       {
         label: 'Turunan Pertama',
-        to: `${docs}/turunan-pertama`,
+        to: `${docs}/04-turunan-pertama`,
       },
       {
         label: 'Uji Kecekungan',
-        to: `${docs}/uji-kecekungan`,
+        to: `${docs}/05-uji-kecekungan`,
       },
       {
         label: 'Polynomial Regression',
-        to: `${docs}/polynomial-fit`,
+        to: `${docs}/06-polynomial-fit`,
       },
       {
         label: 'Kompleksitas Algoritma',
-        to: `${docs}/kompleksitas`,
+        to: `${docs}/07-kompleksitas`,
       },
       {
         label: 'Validasi Matematis',
-        to: `${docs}/validasi`,
+        to: `${docs}/08-validasi`,
       },
       {
         label: 'Interpretasi Grafik',
-        to: `${docs}/interpretasi-grafik`,
+        to: `${docs}/09-interpretasi-grafik`,
       },
       {
         label: 'Contoh Analisis BTC/USDT',
-        to: `${docs}/contoh-btc-usdt`,
+        to: `${docs}/10-contoh-btc-usdt`,
       },
       {
         label: 'Diagram Alur Sistem',
-        to: `${docs}/diagram-alur-sistem`,
+        to: `${docs}/11-diagram-alur-sistem`,
       },
       {
         label: 'Lampiran Grafik',
-        to: `${docs}/lampiran-grafik`,
+        to: `${docs}/12-lampiran-grafik`,
       },
       {
         label: 'Kesimpulan & Rekomendasi',
-        to: `${docs}/kesimpulan`,
+        to: `${docs}/13-kesimpulan`,
       },
       {
         label: 'Referensi & Sumber',
-        to: `${docs}/sumber`,
+        to: `${docs}/14-sumber`,
       },
     ],
   },

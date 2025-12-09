@@ -10,12 +10,12 @@ Sebagai gantinya, digunakan **finite difference method**, yang merupakan pendeka
 
 ---
 
-# 1. Backward Difference (Dipakai dalam Proyek)
+## 1. Backward Difference (Dipakai dalam Proyek)
 
 Backward difference digunakan karena:
 
-- Data masa depan **tidak tersedia** pada sistem real-time  
-- Lebih stabil daripada forward difference  
+- Data masa depan **tidak tersedia** pada sistem real-time
+- Lebih stabil daripada forward difference
 - Cocok untuk data streaming (websocket / polling API)
 
 Rumus turunan pertama:
@@ -26,13 +26,13 @@ f'(t_i) = \frac{P_i - P_{i-1}}{\Delta t}
 
 Makna simbol:
 
-- <Katex inline>P_i</Katex> → harga pada waktu ke-i  
-- <Katex inline>P_i{_-{_1}}</Katex> → harga sebelumnya  
-- <Katex inline>\Delta t</Katex> → interval waktu  
+- <Katex inline>P_i</Katex> → harga pada waktu ke-i
+- <Katex inline>P*i{*-{\_1}}</Katex> → harga sebelumnya
+- <Katex inline>\Delta t</Katex> → interval waktu
 
 ---
 
-# 2. Turunan Kedua (Finite Difference)
+## 2. Turunan Kedua (Finite Difference)
 
 Karena turunan pertama diperoleh secara numerik, turunan kedua juga diperoleh numerik:
 
@@ -47,7 +47,7 @@ Interpretasi turunan kedua:
 
 ---
 
-# 3. Central Difference (Tidak Dipakai, Referensi)
+## 3. Central Difference (Tidak Dipakai, Referensi)
 
 Central difference lebih akurat namun membutuhkan dua sisi data sehingga tidak cocok untuk real-time.
 
@@ -57,7 +57,7 @@ f'(t_i) \approx \frac{f(t_{i+1}) - f(t_{i-1})}{2\Delta t}
 
 ---
 
-# 4. Forward Difference (Tidak Dipakai)
+## 4. Forward Difference (Tidak Dipakai)
 
 Butuh data masa depan sehingga tidak cocok untuk aplikasi charting live.
 
@@ -67,26 +67,26 @@ f'(t_i) \approx \frac{f(t_{i+1}) - f(t_i)}{\Delta t}
 
 ---
 
-# 5. Error Numerik
+## 5. Error Numerik
 
 Finite difference memiliki error:
 
-- Turunan pertama → O(Δt)  
+- Turunan pertama → O(Δt)
 - Turunan kedua → O(Δt²)
 
 Karena kesensitifan terhadap noise, smoothing (polynomial regression) sangat dianjurkan sebelum menghitung turunan.
 
 ---
 
-# 6. Contoh Perhitungan Sederhana
+## 6. Contoh Perhitungan Sederhana
 
 Misalkan:
 
 | Waktu | Harga |
-|-------|--------|
-| 0 | 100 |
-| 1 | 102 |
-| 2 | 101 |
+| ----- | ----- |
+| 0     | 100   |
+| 1     | 102   |
+| 2     | 101   |
 
 Turunan pertama:
 
@@ -106,13 +106,13 @@ f''(2) = (-1) - (2) = -3
 
 Interpretasi:
 
-- Momentum turun tajam  
-- Tren melemah  
-- Potensi reversal jika f'' → positif setelahnya  
+- Momentum turun tajam
+- Tren melemah
+- Potensi reversal jika f'' → positif setelahnya
 
 ---
 
-# 7. Diagram Proses Finite Difference
+## 7. Diagram Proses Finite Difference
 
 ```mermaid
 flowchart TD
@@ -120,5 +120,5 @@ flowchart TD
     B --> C[Turunan Kedua f'']
     C --> D[Convexity]
 
-➡️ Selanjutnya: [Turunan Pertama](./turunan-pertama)  
-⬅️ Kembali: [Landasan Teori](./landasan-teori)
+
+```

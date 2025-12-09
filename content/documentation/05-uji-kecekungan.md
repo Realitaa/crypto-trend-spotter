@@ -6,11 +6,11 @@ description: Turunan kedua, convexity score, stability index, dan deteksi titik 
 # Uji Kecekungan (Turunan Kedua)
 
 Turunan kedua mengukur **percepatan momentum**.  
-Jika turunan pertama menunjukkan *kecepatan perubahan harga*, maka turunan kedua menunjukkan *apakah perubahan itu semakin cepat atau melambat*.
+Jika turunan pertama menunjukkan _kecepatan perubahan harga_, maka turunan kedua menunjukkan _apakah perubahan itu semakin cepat atau melambat_.
 
 ---
 
-# 1. Definisi Turunan Kedua
+## 1. Definisi Turunan Kedua
 
 <Katex>
 f''(t) = \frac{d}{dt}f'(t)
@@ -24,21 +24,21 @@ f''(t_i) = \frac{f'(t_i) - f'(t_{i-1})}{\Delta t}
 
 ---
 
-# 2. Interpretasi Tanda Turunan Kedua
+## 2. Interpretasi Tanda Turunan Kedua
 
 Arti tanda:
 
-- <Katex inline>f''(t) > 0</Katex> → convex (momentum menguat)  
-- <Katex inline>f''(t) < 0</Katex> → concave (momentum melemah)  
+- <Katex inline>f''(t) > 0</Katex> → convex (momentum menguat)
+- <Katex inline>f''(t) < 0</Katex> → concave (momentum melemah)
 
 Interpretasi visual:
 
-- **Convex:** grafik melengkung ke atas, tren mulai menguat  
-- **Concave:** grafik melengkung ke bawah, tren mulai melemah  
+- **Convex:** grafik melengkung ke atas, tren mulai menguat
+- **Concave:** grafik melengkung ke bawah, tren mulai melemah
 
 ---
 
-# 3. Convexity Score
+## 3. Convexity Score
 
 Convexity score menormalkan nilai turunan kedua agar lebih mudah dibaca:
 
@@ -48,14 +48,14 @@ C = \frac{1}{2}\left(1 + \tanh\left(\frac{f''}{k}\right)\right)
 
 Keterangan:
 
-- <Katex inline>C \approx 1</Katex> → convex sangat kuat (bullish momentum)  
-- <Katex inline>C \approx 0</Katex> → concave sangat kuat (bearish momentum)  
+- <Katex inline>C \approx 1</Katex> → convex sangat kuat (bullish momentum)
+- <Katex inline>C \approx 0</Katex> → concave sangat kuat (bearish momentum)
 
 Parameter <Katex inline>k</Katex> mengontrol sensitivitas.
 
 ---
 
-# 4. Stability Index
+## 4. Stability Index
 
 Stability index mengukur **konsistensi tanda** turunan kedua.  
 Jika tanda turunan kedua sering berubah, tren dianggap tidak stabil.
@@ -68,12 +68,12 @@ S = 100 \times \left(1 - \frac{\text{jumlah flip tanda}}{\text{total titik}}\rig
 
 Interpretasi:
 
-- <Katex inline>S > 70\%</Katex> → tren cukup stabil  
-- <Katex inline>S < 40\%</Katex> → tren sangat tidak stabil  
+- <Katex inline>S > 70\%</Katex> → tren cukup stabil
+- <Katex inline>S < 40\%</Katex> → tren sangat tidak stabil
 
 ---
 
-# 5. Deteksi Titik Belok (Inflection Point)
+## 5. Deteksi Titik Belok (Inflection Point)
 
 Titik belok terjadi ketika turunan kedua **berubah tanda**:
 
@@ -83,14 +83,14 @@ f''(t_{i-1}) \cdot f''(t_i) < 0
 
 Artinya:
 
-- Kurva berubah dari convex → concave (potensi downtrend)  
-- Atau concave → convex (potensi uptrend)  
+- Kurva berubah dari convex → concave (potensi downtrend)
+- Atau concave → convex (potensi uptrend)
 
 Inflection point sering kali menjadi indikator awal reversal tren.
 
 ---
 
-# 6. Contoh Singkat
+## 6. Contoh Singkat
 
 Misalkan:
 
@@ -110,9 +110,9 @@ Maka:
 
 ---
 
-# 7. Visualisasi Konsep
+## 7. Visualisasi Konsep
 
-## Alur Analisis Turunan
+### Alur Analisis Turunan
 
 1. **Hitung Turunan Pertama (f'(t))**
    - Digunakan untuk mengukur momentum harga.
@@ -130,7 +130,3 @@ Maka:
    - Perubahan tanda pada turunan kedua digunakan untuk mendeteksi titik belok (reversal).
 
 ---
-
-➡️ Selanjutnya: [Polynomial Regression](./polynomial-fit)  
-⬅️ Kembali: [Pengantar](./index)
-

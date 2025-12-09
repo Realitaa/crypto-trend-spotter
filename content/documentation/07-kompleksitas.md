@@ -17,7 +17,7 @@ Analisis ini penting untuk memastikan sistem:
 
 ---
 
-# 1. Kompleksitas Turunan Pertama
+## 1. Kompleksitas Turunan Pertama
 
 Turunan pertama dihitung menggunakan backward difference:
 
@@ -27,14 +27,14 @@ f'(t_i) = P_i - P_{i-1}
 
 Operasi dilakukan sekali per titik → kompleksitas:
 
-- Waktu: <Katex inline>O(n)</Katex>  
+- Waktu: <Katex inline>O(n)</Katex>
 - Memori: <Katex inline>O(n)</Katex>
 
 Sangat efisien.
 
 ---
 
-# 2. Kompleksitas Turunan Kedua
+## 2. Kompleksitas Turunan Kedua
 
 Turunan kedua juga linear:
 
@@ -44,16 +44,16 @@ f''(t_i) = f'(t_i) - f'(t_{i-1})
 
 Kompleksitas:
 
-- Waktu: <Katex inline>O(n)</Katex>  
+- Waktu: <Katex inline>O(n)</Katex>
 - Memori: <Katex inline>O(n)</Katex>
 
 ---
 
-# 3. Kompleksitas Polynomial Regression
+## 3. Kompleksitas Polynomial Regression
 
 Polynomial regression melibatkan pemrosesan matriks:
 
-## 3.1 Membentuk matriks Vandermonde
+### 3.1 Membentuk matriks Vandermonde
 
 <Katex>
 A_{i,k} = t_i^k
@@ -65,7 +65,7 @@ Kompleksitas:
 
 ---
 
-## 3.2 Menghitung <Katex inline>A^T A</Katex>
+### 3.2 Menghitung <Katex inline>A^T A</Katex>
 
 <Katex>
 A^T A
@@ -77,7 +77,7 @@ Kompleksitas:
 
 ---
 
-## 3.3 Menyelesaikan sistem linear
+### 3.3 Menyelesaikan sistem linear
 
 <Katex>
 A^T A a = A^T y
@@ -91,7 +91,7 @@ Namun karena <Katex inline>d</Katex> kecil (sekitar 3–5), ini sangat ringan.
 
 ---
 
-# 4. Kompleksitas Total Polynomial Fit
+## 4. Kompleksitas Total Polynomial Fit
 
 Secara keseluruhan:
 
@@ -101,7 +101,7 @@ Untuk <Katex inline>d \leq 5</Katex>, kompleksitas mendekati linear.
 
 ---
 
-# 5. Kompleksitas Stability Index
+## 5. Kompleksitas Stability Index
 
 Menghitung flip tanda pada turunan kedua:
 
@@ -109,7 +109,7 @@ Menghitung flip tanda pada turunan kedua:
 
 ---
 
-# 6. Kompleksitas Convexity Score
+## 6. Kompleksitas Convexity Score
 
 Normalisasi:
 
@@ -121,17 +121,14 @@ Dihitung sekali per titik → <Katex inline>O(n)</Katex>.
 
 ---
 
-# Summary Tabel Kompleksitas
+## Summary Tabel Kompleksitas
 
-| Komponen | Kompleksitas Waktu | Keterangan |
-|----------|---------------------|------------|
-| Turunan Pertama | <Katex inline>O(n)</Katex> | Sangat efisien |
-| Turunan Kedua | <Katex inline>O(n)</Katex> | Sangat efisien |
-| Polynomial Regression | <Katex inline>O(n \cdot d^2)</Katex> | Masih ringan |
-| Convexity | <Katex inline>O(n)</Katex> | Normalisasi sederhana |
-| Stability Index | <Katex inline>O(n)</Katex> | Menghitung flip tanda |
+| Komponen              | Kompleksitas Waktu                   | Keterangan            |
+| --------------------- | ------------------------------------ | --------------------- |
+| Turunan Pertama       | <Katex inline>O(n)</Katex>           | Sangat efisien        |
+| Turunan Kedua         | <Katex inline>O(n)</Katex>           | Sangat efisien        |
+| Polynomial Regression | <Katex inline>O(n \cdot d^2)</Katex> | Masih ringan          |
+| Convexity             | <Katex inline>O(n)</Katex>           | Normalisasi sederhana |
+| Stability Index       | <Katex inline>O(n)</Katex>           | Menghitung flip tanda |
 
 ---
-
-➡️ Selanjutnya: [Validasi Matematis](./validasi)  
-⬅️ Kembali: [Polynomial Regression](./polynomial-fit)

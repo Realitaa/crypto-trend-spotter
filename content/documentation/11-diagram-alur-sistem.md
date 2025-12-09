@@ -11,7 +11,7 @@ Sistem ini terdiri dari beberapa tahap berurutan yang memproses harga mentah men
 
 ---
 
-# 1. Tahapan Utama Sistem
+## 1. Tahapan Utama Sistem
 
 Berikut adalah alur logis dalam sistem:
 
@@ -49,7 +49,7 @@ Berikut adalah alur logis dalam sistem:
 
 ---
 
-# 2. Hubungan Antar Tahapan
+## 2. Hubungan Antar Tahapan
 
 Berikut adalah struktur logis hubungan antar komponen:
 
@@ -60,7 +60,7 @@ Berikut adalah struktur logis hubungan antar komponen:
 - **Acceleration** → digunakan untuk:
   - Convexity Score
   - Stability Index
-  - Inflection Point Detection  
+  - Inflection Point Detection
 
 - **Convexity + Stability + Inflection** → membentuk insight akhir yang ditampilkan dalam UI.
 
@@ -70,7 +70,7 @@ Ringkasannya:
 
 ---
 
-# 3. Struktur Sistem dalam Bentuk Hierarki
+## 3. Struktur Sistem dalam Bentuk Hierarki
 
 ```
 
@@ -99,5 +99,3 @@ Sistem Analisis Crypto Trend Spotter
 └─ Trend insight
 
 ```
-➡️ Selanjutnya: [Lampiran Grafik](./lampiran-grafik)  
-⬅️ Kembali: [Contoh Analisis](./contoh-btc-usdt.md)  

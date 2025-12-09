@@ -5,7 +5,7 @@ const route = useRoute()
 const slug = route.params.slug as string[] | undefined
 const path = slug && slug.length > 0 
   ? `/documentation/${slug.join('/')}` 
-  : '/documentation'
+  : '/documentation/01-pengantar'
 
 const { data: docs } = await useAsyncData(`doc-${path}`, () => 
   queryCollection('documentation').path(path).first()
