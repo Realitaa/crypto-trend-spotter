@@ -1,4 +1,9 @@
 import { SUPPORTED_COINS_MAP } from '~/utils/coins'
+import { requiredEnv, optionalEnv } from '../../utils/env'
+
+const BASE_URL = optionalEnv('NODE_ENV', 'production') === 'production'
+  ? requiredEnv('BINANCE_US_BASE_URL')
+  : requiredEnv('BINANCE_BASE_URL')
 
 export default cachedEventHandler(
   async (event) => {
@@ -11,7 +16,7 @@ export default cachedEventHandler(
     const suffix = SUPPORTED_COINS_MAP[coin].suffix.toUpperCase()
     const symbol = `${suffix}USDT`
 
-    const url = `https://api.binance.com/api/v3/ticker/24hr?symbol=${symbol}`
+    const url = `${BASE_URL}/api/v3/ticker/24hr?symbol=${symbol}`
 
     const info = await $fetch(url)
 

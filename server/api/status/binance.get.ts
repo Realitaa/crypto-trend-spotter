@@ -1,8 +1,11 @@
-import { requiredEnv } from '../../utils/env'
+import { requiredEnv, optionalEnv } from '../../utils/env'
 import type { ApiResponse } from '../../types/api'
 
+const BASE_URL = optionalEnv('NODE_ENV', 'production') === 'production'
+  ? requiredEnv('BINANCE_US_BASE_URL')
+  : requiredEnv('BINANCE_BASE_URL')
+
 export default defineEventHandler(async (): Promise<ApiResponse<any>> => {
-  const BASE_URL = requiredEnv('BINANCE_BASE_URL')
   const url = `${BASE_URL}/api/v3/ping`
 
   const start = Date.now()
