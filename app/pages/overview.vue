@@ -182,28 +182,44 @@ onMounted(() => {
           </template>
         </section>
 
-    <section class="mt-8">
-      <div class="bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-xl p-6 shadow-sm dark:shadow-none backdrop-blur-sm">
-        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
-          <UIcon name="lucide:info" class="text-blue-500 dark:text-blue-400" />
-          Tentang Aset
-        </h3>
-        <USkeleton v-if="!isHydrated" class="h-16 w-full" />
-        <p v-else class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm lg:text-base">
-          {{ coinDescription }} Sumber data dan selengkapnya di 
-          <ULink
-            :to="`https://www.coingecko.com/id/coins/${coinId}#about`"
-            target="_blank"
-            class="text-muted hover:text-primary transition-colors inline-flex items-center gap-1"
-          >
-            CoinGecko
-          </ULink>
-          <UIcon name="i-heroicons-arrow-up-right" class="w-3 h-3" />
-        </p>
-      </div>
-    </section>
+        <section class="mt-8">
+          <div class="bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-xl p-6 shadow-sm dark:shadow-none backdrop-blur-sm">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+              <UIcon name="lucide:info" class="text-blue-500 dark:text-blue-400" />
+              Tentang Aset
+            </h3>
+            <USkeleton v-if="!isHydrated" class="h-16 w-full" />
+            <p v-else class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm lg:text-base">
+              {{ coinDescription }} Sumber data dan selengkapnya di 
+              <ULink
+                :to="`https://www.coingecko.com/id/coins/${coinId}#about`"
+                target="_blank"
+                class="text-muted hover:text-primary transition-colors inline-flex items-center gap-1"
+              >
+                CoinGecko
+              </ULink>
+              <UIcon name="i-heroicons-arrow-up-right" class="w-3 h-3" />
+            </p>
+          </div>
+        </section>
+      </div>  
 
-  </div>  
+
+      <UModal title="Onboarding Session - Ringkasan" open>
+        <UButton label="Open" color="neutral" variant="subtle" />
+
+        <template #body>
+          Selamat datang di website Crypto Trend Spotter. Ini adalah onboarding session halaman Ringkasan.
+          Onboarding session itu akan membawa kamu jalan-jalan dan melihat fitur pada website.
+          Kamu bisa lanjut atau lewati ya. Kamu selalu bisa mulai onboarding session kapanpun. 
+          <br />
+          Sebagai permulaan, ini adalah halaman Ringkasan, memuat informasi singkat koin yang sedang dipilih.
+          <div class="flex gap-2 mt-2 justify-end w-full">
+            <UButton color="primary" variant="outline">Lewati</UButton>
+            <UButton color="primary" variant="solid" trailing-icon="i-lucide-arrow-right">Lanjut</UButton>
+          </div>
+        </template>
+      </UModal>
     </template>
 
 </UDashboardPanel>
