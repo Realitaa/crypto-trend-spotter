@@ -1,6 +1,9 @@
 import type { BinanceKlineData } from '../types/binance'
+import { requiredEnv, optionalEnv } from '../utils/env'
 
-const BASE = 'https://api.binance.com'
+const BASE_URL = optionalEnv('NODE_ENV', 'production') === 'production'
+  ? requiredEnv('BINANCE_US_BASE_URL')
+  : requiredEnv('BINANCE_BASE_URL')
 
 export async function fetchBinanceKlines(
   symbol: string,
@@ -8,7 +11,7 @@ export async function fetchBinanceKlines(
   limit = 1000
 ): Promise<BinanceKlineData[]> {
 
-  const url = `${BASE}/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`
+  const url = `${BASE_URL}/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`
 
   const res = await fetch(url)
   if (!res.ok) throw new Error(`Binance error ${res.status}`)

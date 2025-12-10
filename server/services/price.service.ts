@@ -1,5 +1,9 @@
 import { SUPPORTED_COINS_MAP } from '~/utils/coins'
-import { optionalEnv } from '../utils/env'
+import { requiredEnv, optionalEnv } from '../utils/env'
+
+const BASE_URL = optionalEnv('NODE_ENV', 'production') === 'production'
+  ? requiredEnv('BINANCE_US_BASE_URL')
+  : requiredEnv('BINANCE_BASE_URL')
 
 const DEBUG = optionalEnv('NODE_ENV', 'production')
 
@@ -23,7 +27,7 @@ async function fetchBinance(symbol: string, tf: string) {
 
   if (DEBUG) console.log(`[FETCH] Binance: ${symbol} interval=${interval} limit=${limit}`)
 
-  const url = `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`
+  const url = `${BASE_URL}/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`
 
   const klines = await $fetch<any[]>(url)
 
