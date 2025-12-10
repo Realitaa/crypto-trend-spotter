@@ -105,7 +105,7 @@
     })
   
     const raw = priceApi.addLineSeries({
-      color: isDark.value ? '#64748b' : '#475569',
+      color: isDark.value ? '#64748b' : '#94a3b8',
       lineWidth: 1
     })
   
@@ -160,10 +160,10 @@
           p.secondDerivative >= 0
             ? (isDark.value
                 ? `rgba(16, 185, 129, ${0.27 + Math.min(.7, Math.abs(p.secondDerivative)*4)})`
-                : `rgba(5, 150, 105, ${0.27 + Math.min(.7, Math.abs(p.secondDerivative)*4)})`)
+                : `rgba(16, 185, 129, ${0.27 + Math.min(.7, Math.abs(p.secondDerivative)*4)})`)
             : (isDark.value
                 ? `rgba(244, 63, 94, ${0.27 + Math.min(.7, Math.abs(p.secondDerivative)*4)})`
-                : `rgba(220, 38, 38, ${0.27 + Math.min(.7, Math.abs(p.secondDerivative)*4)})`)
+                : `rgba(239, 68, 68, ${0.27 + Math.min(.7, Math.abs(p.secondDerivative)*4)})`)
       }))
     )
   })
@@ -183,15 +183,15 @@
       </template>
   
       <template #body>
-        <div class="p-6 lg:p-8 text-slate-200">
-          <h1 class="text-2xl font-bold mb-6">Analisis Konveksitas — {{ coinLabel }}</h1>
+        <div class="p-6 lg:p-8">
+          <h1 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Analisis Konveksitas — {{ coinLabel }}</h1>
 
           <!-- INFORMATION CONTAINER -->
-          <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 mb-8 ...">
+          <div class="bg-white dark:bg-slate-900/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6 mb-8">
             <div>
-              <h2 class="text-lg font-semibold text-white mb-2">Ringkasan Analisis</h2>
-              <p v-if="!isHydrated">Analisis belum tersedia, menunggu data dari server.</p>
-              <p v-else>{{ summaryText }}</p>
+              <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Ringkasan Analisis</h2>
+              <p class="text-gray-600 dark:text-slate-300" v-if="!isHydrated">Analisis belum tersedia, menunggu data dari server.</p>
+              <p class="text-gray-600 dark:text-slate-300 leading-relaxed" v-else>{{ summaryText }}</p>
             </div>
           </div>  
   
@@ -206,59 +206,59 @@
             <!-- Metrics -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
   
-              <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                <div class="text-sm text-slate-400">Convexity Score (f'')</div>
-                <div class="text-3xl font-mono font-bold mt-1">{{ metrics.score?.toFixed(6) }}</div>
+              <div class="bg-gray-50 dark:bg-slate-800/50 p-4 rounded-xl border border-gray-200 dark:border-slate-700">
+                <div class="text-sm text-gray-500 dark:text-slate-400">Convexity Score (f'')</div>
+                <div class="text-3xl font-mono font-bold mt-1 text-gray-900 dark:text-white">{{ metrics.score?.toFixed(6) }}</div>
               </div>
   
-              <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                <div class="text-sm text-slate-400">Normalized Score (0–1)</div>
-                <div class="text-3xl font-mono font-bold mt-1">{{ metrics.normalizedScore?.toFixed(3) }}</div>
+              <div class="bg-gray-50 dark:bg-slate-800/50 p-4 rounded-xl border border-gray-200 dark:border-slate-700">
+                <div class="text-sm text-gray-500 dark:text-slate-400">Normalized Score (0–1)</div>
+                <div class="text-3xl font-mono font-bold mt-1 text-gray-900 dark:text-white">{{ metrics.normalizedScore?.toFixed(3) }}</div>
               </div>
   
-              <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                <div class="text-sm text-slate-400">Stability</div>
-                <div class="text-3xl font-mono font-bold mt-1">{{ metrics.stability }}/100</div>
+              <div class="bg-gray-50 dark:bg-slate-800/50 p-4 rounded-xl border border-gray-200 dark:border-slate-700">
+                <div class="text-sm text-gray-500 dark:text-slate-400">Stability</div>
+                <div class="text-3xl font-mono font-bold mt-1 text-gray-900 dark:text-white">{{ metrics.stability }}/100</div>
               </div>
   
             </div>
   
             <!-- PRICE CHART -->
-            <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-700 mb-10">
-              <h2 class="text-lg font-semibold mb-2">Harga vs Fitted Curve</h2>
+            <div class="bg-white dark:bg-slate-900/40 p-4 rounded-xl border border-gray-200 dark:border-slate-700 mb-10">
+              <h2 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Harga vs Fitted Curve</h2>
               <div v-if="!isHydrated"><USkeleton class="h-64 w-full" /></div>
               <div v-else ref="priceChartEl" class="w-full h-[300px]"></div>
             </div>
   
             <!-- HEATMAP -->
-            <div class="bg-slate-900/40 p-2 rounded-xl border border-slate-700 mb-10">
-              <h2 class="text-lg font-semibold mb-1">Convexity Heatmap</h2>
+            <div class="bg-white dark:bg-slate-900/40 p-2 rounded-xl border border-gray-200 dark:border-slate-700 mb-10">
+              <h2 class="text-lg font-semibold mb-1 text-gray-900 dark:text-white">Convexity Heatmap</h2>
               <div v-if="!isHydrated"><USkeleton class="h-10 w-full" /></div>
-              <div v-else ref="heatmapEl" class="w-full h-[140px]"></div>
+              <div v-else ref="heatmapEl" class="w-full h-[40px]"></div>
             </div>
   
             <!-- SECOND DERIVATIVE CHART -->
-            <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-700 mb-10">
-              <h2 class="text-lg font-semibold mb-2">Turunan Kedua f''(x)</h2>
+            <div class="bg-white dark:bg-slate-900/40 p-4 rounded-xl border border-gray-200 dark:border-slate-700 mb-10">
+              <h2 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Turunan Kedua f''(x)</h2>
               <div v-if="!isHydrated"><USkeleton class="h-40 w-full" /></div>
               <div v-else ref="secondChartEl" class="w-full h-[200px]"></div>
             </div>
   
           </template>
           
-          <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 mt-8 ...">
+          <div class="bg-white dark:bg-slate-900/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6 mt-8">
             <!-- 3. Penjelasan Teoritis Ringkas -->
             <div>
-              <h3 class="text-sm font-medium text-slate-400 uppercase tracking-wider">
+              <h3 class="text-sm font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
                 Penjelasan Teoritis (Singkat)
               </h3>
-              <p class="text-slate-300 text-sm leading-relaxed mt-1">
+              <p class="text-gray-600 dark:text-slate-300 text-sm leading-relaxed mt-1">
                 Grafik di atas menampilkan fitted curve hasil polynomial regression serta heatmap convexity 
                 untuk memperlihatkan distribusi percepatan momentum sepanjang waktu. 
                 Penjelasan teori lebih lengkap:
               </p>
 
-              <ul class="mt-2 text-slate-400 text-sm list-disc ml-6 space-y-1">
+              <ul class="mt-2 text-gray-500 dark:text-slate-400 text-sm list-disc ml-6 space-y-1">
                 <li>Halaman <ULink to="/documentation/05-uji-kecekungan">Uji Kecekungan / Turunan Kedua</ULink></li>
                 <li>Halaman <ULink to="/documentation/06-polynomial-fit">Polynomial Regression (Smoothing)</ULink></li>
                 <li>Halaman <ULink to="/documentation/09-interpretasi-grafik">Interpretasi Grafik</ULink></li>

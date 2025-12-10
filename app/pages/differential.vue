@@ -125,11 +125,11 @@
     const v = display.value.velocity
     const a = display.value.acceleration
   
-    if (v > 0 && a > 0) return { text: 'Momentum Menguat 🚀', color: 'text-emerald-400' }
-    if (v > 0 && a < 0) return { text: 'Kenaikan Melambat ⚠️', color: 'text-yellow-400' }
-    if (v < 0 && a < 0) return { text: 'Jatuh Semakin Cepat 🔻', color: 'text-rose-400' }
-    if (v < 0 && a > 0) return { text: 'Reversal Terdeteksi 🔄', color: 'text-cyan-400' }
-    return { text: 'Netral', color: 'text-slate-400' }
+    if (v > 0 && a > 0) return { text: 'Momentum Menguat 🚀', color: 'text-emerald-500 dark:text-emerald-400' }
+    if (v > 0 && a < 0) return { text: 'Kenaikan Melambat ⚠️', color: 'text-yellow-500 dark:text-yellow-400' }
+    if (v < 0 && a < 0) return { text: 'Jatuh Semakin Cepat 🔻', color: 'text-rose-500 dark:text-rose-400' }
+    if (v < 0 && a > 0) return { text: 'Reversal Terdeteksi 🔄', color: 'text-cyan-500 dark:text-cyan-400' }
+    return { text: 'Netral', color: 'text-slate-500 dark:text-slate-400' }
   })
 
   // Summary Text
@@ -180,20 +180,20 @@
           <!-- Header -->
           <header class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
             <div>
-              <h1 class="text-2xl font-bold text-white">Analisis Diferensial — {{ coinLabel }}</h1>
-              <p class="text-sm text-slate-400">Velocity & Acceleration dalam % per jam • Hover untuk analisis titik waktu</p>
+              <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Analisis Diferensial — {{ coinLabel }}</h1>
+              <p class="text-sm text-gray-500 dark:text-slate-400">Velocity & Acceleration dalam % per jam • Hover untuk analisis titik waktu</p>
             </div>
             <div class="flex items-center gap-4">
               <div class="flex items-center gap-3">
-                <span class="text-sm text-slate-400">Smoothing (SMA)</span>
+                <span class="text-sm text-gray-500 dark:text-slate-400">Smoothing (SMA)</span>
                 <button @click="enableSmoothing = !enableSmoothing; refresh()"
-                  :class="enableSmoothing ? 'bg-emerald-600' : 'bg-slate-700'"
+                  :class="enableSmoothing ? 'bg-emerald-500' : 'bg-gray-300 dark:bg-slate-700'"
                   class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors">
                   <span :class="enableSmoothing ? 'translate-x-6' : 'translate-x-1'"
                     class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform" />
                 </button>
               </div>
-              <div class="text-xs font-medium text-slate-400 bg-slate-800 px-3 py-1.5 rounded-lg flex items-center gap-2">
+              <div class="text-xs font-medium text-gray-500 dark:text-slate-400 bg-gray-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 {{ pending ? 'Memuat...' : 'Live' }}
               </div>
@@ -201,11 +201,11 @@
           </header>
 
           <!-- INFORMATION CONTAINER -->
-          <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 mb-8 ...">
+          <div class="bg-white dark:bg-slate-900/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6 mb-8">
             <div>
-              <h2 class="text-lg font-semibold text-white mb-2">Ringkasan Analisis</h2>
-              <p v-if="!latest">Memuat analisis...</p>
-              <p v-else>{{ summaryText }}</p>
+              <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Ringkasan Analisis</h2>
+              <p class="text-gray-600 dark:text-slate-300" v-if="!latest">Memuat analisis...</p>
+              <p class="text-gray-600 dark:text-slate-300" v-else>{{ summaryText }}</p>
             </div>
           </div>      
   
@@ -213,8 +213,8 @@
             <!-- CHARTS (Kiri - 70%) -->
             <div class="xl:col-span-8 space-y-8">
               <!-- Price Chart -->
-              <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6">
-                <h2 class="text-lg font-semibold text-white mb-4">
+              <div class="bg-white dark:bg-slate-900/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                   Grafik Harga {{ metadata.smoothed ? '& Harga (SMA)' : '' }}
                 </h2>
                 <div v-if="!isHydrated" class="h-96"><USkeleton class="h-full w-full" /></div>
@@ -222,8 +222,8 @@
               </div>
   
               <!-- Derivative Chart -->
-              <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6">
-                <h2 class="text-lg font-semibold text-white mb-4">Turunan Pertama & Kedua (Velocity + Acceleration)</h2>
+              <div class="bg-white dark:bg-slate-900/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Turunan Pertama & Kedua (Velocity + Acceleration)</h2>
                 <div v-if="!isHydrated" class="h-64"><USkeleton class="h-full w-full" /></div>
                 <div ref="derivChartEl" class="w-full h-64"></div>
               </div>
@@ -235,40 +235,40 @@
                 <USkeleton class="h-32 w-full" v-for="i in 5" :key="i" />
               </template>
               <template v-else>
-                <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-6 backdrop-blur">
-                  <h4 class="text-xs uppercase text-slate-400 mb-2">Harga Saat Ini</h4>
-                  <div class="text-3xl font-bold">
+                <div class="bg-gray-50 dark:bg-slate-800/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6 backdrop-blur">
+                  <h4 class="text-xs uppercase text-gray-500 dark:text-slate-400 mb-2">Harga Saat Ini</h4>
+                  <div class="text-3xl font-bold text-gray-900 dark:text-white">
                     {{ formatCurrency(currentPrice) }}
                   </div>
                 </div>
 
-                <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-6 backdrop-blur">
-                  <h4 class="text-xs uppercase text-slate-400 mb-2">Velocity (f')</h4>
-                  <div class="text-3xl font-bold" :class="display.velocity >= 0 ? 'text-emerald-400' : 'text-rose-400'">
+                <div class="bg-gray-50 dark:bg-slate-800/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6 backdrop-blur">
+                  <h4 class="text-xs uppercase text-gray-500 dark:text-slate-400 mb-2">Velocity (f')</h4>
+                  <div class="text-3xl font-bold" :class="display.velocity >= 0 ? 'text-emerald-500 dark:text-emerald-400' : 'text-rose-500 dark:text-rose-400'">
                     {{ display.velocity >= 0 ? '+' : '' }}{{ (display.velocity ?? 0).toFixed(4) }}%/jam
                   </div>
-                  <p class="text-sm text-slate-400 mt-1">{{ display.velocity >= 0 ? 'Harga sedang naik' : 'Harga sedang turun' }}</p>
+                  <p class="text-sm text-gray-500 dark:text-slate-400 mt-1">{{ display.velocity >= 0 ? 'Harga sedang naik' : 'Harga sedang turun' }}</p>
                 </div>
   
-                <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-6 backdrop-blur">
-                  <h4 class="text-xs uppercase text-slate-400 mb-2">Acceleration (f'')</h4>
-                  <div class="text-3xl font-bold" :class="display.acceleration >= 0 ? 'text-emerald-400' : 'text-rose-400'">
+                <div class="bg-gray-50 dark:bg-slate-800/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6 backdrop-blur">
+                  <h4 class="text-xs uppercase text-gray-500 dark:text-slate-400 mb-2">Acceleration (f'')</h4>
+                  <div class="text-3xl font-bold" :class="display.acceleration >= 0 ? 'text-emerald-500 dark:text-emerald-400' : 'text-rose-500 dark:text-rose-400'">
                     {{ display.acceleration >= 0 ? '+' : '' }}{{ (display.acceleration ?? 0).toFixed(4) }}%/jam²
                   </div>
                 </div>
   
-                <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-6 backdrop-blur">
-                  <h4 class="text-xs uppercase text-slate-400 mb-2">Momentum Saat Ini</h4>
+                <div class="bg-gray-50 dark:bg-slate-800/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6 backdrop-blur">
+                  <h4 class="text-xs uppercase text-gray-500 dark:text-slate-400 mb-2">Momentum Saat Ini</h4>
                   <div class="text-2xl font-bold" :class="momentumText.color">
                     {{ momentumText.text }}
                   </div>
-                  <p class="text-xs text-slate-400 mt-2">Berdasarkan kombinasi velocity & acceleration</p>
+                  <p class="text-xs text-gray-500 dark:text-slate-400 mt-2">Berdasarkan kombinasi velocity & acceleration</p>
                 </div>
   
-                <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-6 backdrop-blur">
-                  <h4 class="text-xs uppercase text-slate-400 mb-2">Confidence Level</h4>
+                <div class="bg-gray-50 dark:bg-slate-800/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6 backdrop-blur">
+                  <h4 class="text-xs uppercase text-gray-500 dark:text-slate-400 mb-2">Confidence Level</h4>
 
-                  <div class="w-full bg-slate-700 rounded-full h-4 overflow-hidden">
+                  <div class="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-4 overflow-hidden">
                     <div
                       class="h-full rounded-full transition-all duration-500"
                       :class="display.velocity > 0 ? 'bg-emerald-500' : 'bg-rose-500'"
@@ -276,7 +276,7 @@
                     />
                   </div>
 
-                  <div class="text-right text-sm mt-2 font-medium text-slate-300">
+                  <div class="text-right text-sm mt-2 font-medium text-gray-700 dark:text-slate-300">
                     {{ (display.confidence ?? 5).toFixed(0) }}%
                   </div>
                 </div>
@@ -285,19 +285,19 @@
             </div>
           </div>
 
-          <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 mt-8 ...">
+          <div class="bg-white dark:bg-slate-900/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6 mt-8">
             <!-- 3. Penjelasan Teoritis Ringkas -->
             <div>
-              <h3 class="text-sm font-medium text-slate-400 uppercase tracking-wider">
+              <h3 class="text-sm font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
                 Penjelasan Teoritis (Singkat)
               </h3>
-              <p class="text-slate-300 text-sm leading-relaxed mt-1">
+              <p class="text-gray-600 dark:text-slate-300 text-sm leading-relaxed mt-1">
                 Velocity menunjukkan laju perubahan harga (turunan pertama), sedangkan acceleration menunjukkan percepatan momentum (turunan kedua).
                 Kombinasi keduanya memberikan gambaran matematis tentang penguatan, pelemahan, atau potensi reversal tren.
                 Penjelasan lengkap dapat dibaca pada:
               </p>
 
-              <ul class="mt-2 text-slate-400 text-sm list-disc ml-6 space-y-1">
+              <ul class="mt-2 text-gray-500 dark:text-slate-400 text-sm list-disc ml-6 space-y-1">
                 <li>Halaman <ULink to="/documentation/03-metodologi-numerik">Metodologi Numerik</ULink></li>
                 <li>Halaman <ULink to="/documentation/04-turunan-pertama">Turunan Pertama & Laju Perubahan Harga</ULink></li>
                 <li>Halaman <ULink to="/documentation/05-uji-kecekungan">Uji Kecekungan / Turunan Kedua</ULink></li>

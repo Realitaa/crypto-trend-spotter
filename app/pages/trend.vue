@@ -252,15 +252,15 @@
     </template>
 
     <template #body>
-      <div class="p-6 lg:p-8 text-slate-200">
-        <h1 class="text-2xl font-bold mb-6">Deteksi Tren — {{ coinLabel }}</h1>
+      <div class="p-6 lg:p-8">
+        <h1 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Deteksi Tren — {{ coinLabel }}</h1>
 
         <!-- INFORMATION CONTAINER -->
-        <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 mb-8 ...">
+        <div class="bg-white dark:bg-slate-900/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6 mb-8">
           <div>
-            <h2 class="text-lg font-semibold text-white mb-2">Ringkasan Analisis</h2>
-            <p v-if="!isHydrated">Analisis belum tersedia, menunggu data dari server.</p>
-            <p v-else>{{ summaryText }}</p>
+            <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Ringkasan Analisis</h2>
+            <p class="text-gray-600 dark:text-slate-300 leading-relaxed" v-if="!isHydrated || pending">Analisis belum tersedia, menunggu data dari server.</p>
+            <p class="text-gray-600 dark:text-slate-300 leading-relaxed" v-else>{{ summaryText }}</p>
           </div>
         </div>  
 
@@ -278,7 +278,7 @@
         <!-- CONTENT -->
         <template v-else-if="trend">
             <!-- Main Chart -->
-            <div class="bg-slate-900/50 backdrop-blur-sm border border-slate-700 rounded-2xl overflow-hidden mb-8 shadow-2xl">
+            <div class="bg-white dark:bg-slate-900/50 backdrop-blur-sm border-gray-200 dark:border-slate-700 rounded-2xl overflow-hidden mb-8 shadow-lg dark:shadow-2xl">
               <div v-if="!isHydrated" class="h-96 flex items-center justify-center">
                 <USkeleton class="h-full w-full rounded-none" />
               </div>
@@ -289,11 +289,11 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
   
               <!-- Arah Tren -->
-              <div class="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-2xl p-6">
-                <div class="text-sm text-slate-400 mb-2">Arah Tren</div>
+              <div class="bg-gray-50 dark:bg-gradient-to-br from-slate-800 to-slate-900 border border-gray-200 dark:border-slate-700 rounded-2xl p-6">
+                <div class="text-sm text-gray-500 dark:text-slate-400 mb-2">Arah Tren</div>
                 <div class="flex items-center gap-3">
                   <div class="text-4xl font-bold"
-                    :class="trend.direction === 'Bullish' ? 'text-emerald-400' : trend.direction === 'Bearish' ? 'text-red-400' : 'text-yellow-400'">
+                    :class="trend.direction === 'Bullish' ? 'text-emerald-500 dark:text-emerald-400' : trend.direction === 'Bearish' ? 'text-red-500 dark:text-red-400' : 'text-yellow-500 dark:text-yellow-400'">
                     {{ trend.direction }}
                   </div>
                   <UBadge :color="trend.strengthLabel === 'STRONG' ? 'green' : trend.strengthLabel === 'MODERATE' ? 'yellow' : 'red'"
@@ -301,33 +301,33 @@
                     {{ trend.strengthLabel }}
                   </UBadge>
                 </div>
-                <div class="text-sm text-slate-500 mt-2">
+                <div class="text-sm text-gray-500 dark:text-slate-500 mt-2">
                   Kemiringan garis tren {{ trend.trendSlope > 0 ? 'positif' : 'negatif' }} secara konsisten
                 </div>
               </div>
   
               <!-- Trend Strength -->
-              <div class="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-2xl p-6">
-                <div class="text-sm text-slate-400 mb-2">Trend Strength</div>
-                <div class="text-5xl font-bold font-mono text-indigo-400">
-                  {{ trend.trendStrength }}<span class="text-2xl">/100</span>
+              <div class="bg-gray-50 dark:bg-gradient-to-br from-slate-800 to-slate-900 border border-gray-200 dark:border-slate-700 rounded-2xl p-6">
+                <div class="text-sm text-gray-500 dark:text-slate-400 mb-2">Trend Strength</div>
+                <div class="text-5xl font-bold font-mono text-indigo-500 dark:text-indigo-400">
+                  {{ trend.trendStrength }}<span class="text-2xl opacity-80">/100</span>
                 </div>
                 <UProgress :value="trend.trendStrength" size="xl" class="mt-4" />
               </div>
   
               <!-- Momentum Status -->
-              <div class="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-2xl p-6">
-                <div class="text-sm text-slate-400 mb-2">Momentum Status</div>
+              <div class="bg-gray-50 dark:bg-gradient-to-br from-slate-800 to-slate-900 border border-gray-200 dark:border-slate-700 rounded-2xl p-6">
+                <div class="text-sm text-gray-500 dark:text-slate-400 mb-2">Momentum Status</div>
                 <div class="flex items-center gap-3">
                   <div class="text-4xl font-bold"
-                    :class="trend.momentum === 'Increasing' ? 'text-emerald-400' : trend.momentum === 'Decreasing' ? 'text-red-400' : 'text-yellow-400'">
+                    :class="trend.momentum === 'Increasing' ? 'text-emerald-500 dark:text-emerald-400' : trend.momentum === 'Decreasing' ? 'text-red-500 dark:text-red-400' : 'text-yellow-500 dark:text-yellow-400'">
                     {{ trend.momentum }}
                   </div>
                   <UIcon :name="trend.momentum === 'Increasing' ? 'i-heroicons-arrow-trending-up' :
                                 trend.momentum === 'Decreasing' ? 'i-heroicons-arrow-trending-down' :
                                 'i-heroicons-minus'" class="w-10 h-10" />
                 </div>
-                <div class="text-sm text-slate-500 mt-2">
+                <div class="text-sm text-gray-500 dark:text-slate-500 mt-2">
                   {{ trend.convexity.current === 'Convex' ? 'Momentum beli masih dominan' :
                      trend.convexity.current === 'Concave' ? 'Momentum mulai melemah' : 'Momentum stabil' }}
                 </div>
@@ -336,18 +336,18 @@
             </div>
           </template>
         
-        <div class="bg-slate-900/60 border border-slate-700 rounded-xl p-6 mt-8 ...">
+        <div class="bg-white dark:bg-slate-900/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6 mt-8">
           <!-- 3. Penjelasan Teoritis Ringkas -->
           <div>
-            <h3 class="text-sm font-medium text-slate-400 uppercase tracking-wider">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wider">
               Penjelasan Teoritis (Singkat)
             </h3>
-            <p class="text-slate-300 text-sm leading-relaxed mt-1">
+            <p class="text-gray-600 dark:text-slate-300 text-sm leading-relaxed mt-1">
               Grafik di atas menampilkan fitted trendline hasil linear regression, regression channel, serta marker inflection
               untuk memvisualisasikan dinamika tren dengan lebih akurat. Penjelasan teori dapat dibaca pada halaman:
             </p>
 
-            <ul class="mt-2 text-slate-400 text-sm list-disc ml-6 space-y-1">
+            <ul class="mt-2 text-gray-500 dark:text-slate-400 text-sm list-disc ml-6 space-y-1">
               <li>Halaman <ULink to="/documentation/05-uji-kecekungan">Uji Kecekungan / Turunan Kedua</ULink></li>
               <li>Halaman <ULink to="/documentation/06-polynomial-fit">Polynomial Regression (Smoothing)</ULink></li>
               <li>Halaman <ULink to="/documentation/09-interpretasi-grafik">Interpretasi Grafik</ULink></li>
