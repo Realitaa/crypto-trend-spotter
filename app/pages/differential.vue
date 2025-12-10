@@ -5,7 +5,13 @@
   const { selected } = useSelectedCoin()
   const coinId = computed(() => selected.value?.id || 'bitcoin')
   const coinLabel = computed(() => selected.value?.label || 'Bitcoin')
-  
+
+  watch(coinLabel, (label) => {
+    useSeoMeta({
+      title: `Analisis Diferensial ${label}`
+    })
+  }, { immediate: true })
+
   // UI Controls
   const enableSmoothing = ref(false)
   

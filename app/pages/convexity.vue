@@ -1,6 +1,6 @@
 <script setup lang="ts">
   definePageMeta({ layout: 'navigation' })
-  
+
   // Global state
   const { selected } = useSelectedCoin()
   const { timeframe } = useTimeframe()
@@ -8,6 +8,12 @@
   // Coin selectors
   const coinId = computed(() => selected.value?.id || 'bitcoin')
   const coinLabel = computed(() => selected.value?.label || 'Bitcoin')
+
+  watch(coinLabel, (label) => {
+    useSeoMeta({
+      title: `Uji Konveksitas ${label}`
+    })
+  }, { immediate: true })
   
   // Hydration guard
   const isHydrated = ref(false)
@@ -75,7 +81,7 @@
   }
 
   return `
-    Analisis convexity menunjukkan bahwa kurva harga saat ini berada dalam kondisi ${dir.toLowerCase()} 
+    Uji konveksitas menunjukkan bahwa kurva harga saat ini berada dalam kondisi ${dir.toLowerCase()} 
     (f'' = ${score.toFixed(4)}), yang berarti ${directionText}. 
     Normalized score sebesar ${norm.toFixed(3)} menempatkan kekuatan kelengkungan pada kategori 
     ${norm < 0.2 ? 'bearish ringan' : norm < 0.5 ? 'netral' : 'bullish menguat'}. 
@@ -184,7 +190,7 @@
   
       <template #body>
         <div class="p-6 lg:p-8">
-          <h1 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Analisis Konveksitas — {{ coinLabel }}</h1>
+          <h1 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Uji Konveksitas — {{ coinLabel }}</h1>
 
           <!-- INFORMATION CONTAINER -->
           <div class="bg-white dark:bg-slate-900/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6 mb-8">

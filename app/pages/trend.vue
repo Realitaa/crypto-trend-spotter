@@ -8,6 +8,12 @@
   // Reactive coin & tf
   const coinId = computed(() => selected.value?.id || 'bitcoin')
   const coinLabel = computed(() => selected.value?.label || 'Bitcoin')
+
+  watch(coinLabel, (label) => {
+    useSeoMeta({
+      title: `Deteksi Tren ${label}`
+    })
+  }, { immediate: true })
   
   // Route-based timeframe fallback
   const route = useRoute()

@@ -14,6 +14,12 @@ const tradingViewSymbol = computed(() => selected.value?.tvSymbol || 'BINANCE:BT
 const tvChartKey = computed(() => `${selected.value?.id}-${chartTab.value}`)
 const { chartData, pending: chartPending, lastUpdated } = usePriceChart(coinId)
 
+watch(coinLabel, (label) => {
+    useSeoMeta({
+      title: `Ringkasan Koin ${label}`
+    })
+  }, { immediate: true })
+
 const { data: ticker, pending: tickerPending } = useFetch(
   () => `/api/ticker/${coinId.value}`,
   { key: () => `ticker-${coinId.value}`, watch: [coinId], server: false }

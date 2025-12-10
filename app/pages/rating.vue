@@ -1,6 +1,8 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'navigation' })
 
+useSeoMeta({ title: 'Rating Pengguna' })
+
 const { stats, pending } = useFeedback()
 </script>
 

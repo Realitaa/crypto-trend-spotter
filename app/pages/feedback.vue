@@ -4,6 +4,8 @@ import type { FormSubmitEvent } from '#ui/types'
 
 definePageMeta({ layout: 'navigation' })
 
+useSeoMeta({ title: 'Umpan Balik Pengguna' })
+
 const toast = useToast()
 
 const schema = z.object({
