@@ -78,7 +78,7 @@ async function onSubmit(event: FormSubmitEvent<z.infer<typeof schema>>) {
               <h2 class="text-2xl font-bold">Beri Kami Umpan Balik</h2>
 
               <p class="text-sm text-gray-500 dark:text-gray-400">
-                Masukan Anda membantu kami meningkatkan layanan.
+                Masukan Anda membantu kami meningkatkan layanan. User Experience Form: <ULink to="https://docs.google.com/forms/d/e/1FAIpQLSdqQo5zpS3yqUJJIdpdJorLsVtbB8EdCV0_mGt1yEiRX0eIbA/viewform?usp=header" target="_blank">Klik Disini</ULink>
               </p>
             </div>
           </template>
@@ -114,7 +114,7 @@ async function onSubmit(event: FormSubmitEvent<z.infer<typeof schema>>) {
                 </UFormField>
 
                 <UFormField name="username" label="Username (Opsional)">
-                    <UInput v-model="state.username" class="w-full" icon="i-heroicons-person" placeholder="Pengguna" />
+                    <UInput v-model="state.username" class="w-full" icon="material-symbols:person" placeholder="Pengguna" />
                 </UFormField>
 
                 <UButton type="submit" block color="primary" :loading="isLoading">

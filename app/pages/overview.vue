@@ -205,7 +205,7 @@ onMounted(() => {
       </div>  
 
 
-      <UModal title="Onboarding Session - Ringkasan" open>
+      <!-- <UModal title="Onboarding Session - Ringkasan" open>
         <UButton label="Open" color="neutral" variant="subtle" />
 
         <template #body>
@@ -219,7 +219,7 @@ onMounted(() => {
             <UButton color="primary" variant="solid" trailing-icon="i-lucide-arrow-right">Lanjut</UButton>
           </div>
         </template>
-      </UModal>
+      </UModal> -->
     </template>
 
 </UDashboardPanel>
