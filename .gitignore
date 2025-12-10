@@ -26,3 +26,6 @@ logs
 
 # Firebase Studio IDX Data
 .idx/.data
+
+# Bun environtment
+bun.lockb
