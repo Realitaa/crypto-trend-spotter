@@ -11,12 +11,7 @@ Inflection point adalah titik di mana kurva harga **berubah kelengkungan** dari 
 
 ## 🔹 Flowchart Inflection Point
 
-```mermaid
-flowchart TD
-    A[Acceleration f''(t)] --> B{Tanda f'' berubah?}
-    B -->|Ya| C[Inflection Point<br/>Reversal Terjadi]
-    B -->|Tidak| D[Tren Masih Sama]
-```
+![inflection-point-detection](/assets/images/inflection-point-detection.png)
 
 ---
 

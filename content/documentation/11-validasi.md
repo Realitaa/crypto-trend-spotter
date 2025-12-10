@@ -11,16 +11,7 @@ Validasi memastikan metode numerik yang digunakan dalam Crypto Trend Spotter **a
 
 ## 🔹 Flowchart Proses Validasi
 
-```mermaid
-flowchart TD
-    A[Fungsi Uji f(t)=t^2] --> B[Hitung Turunan Analitik]
-    A --> C[Hitung Finite Difference]
-    B --> D[Bandingkan Hasil]
-    C --> D
-    D --> E{Error Kecil?}
-    E -->|Ya| F[Metode Valid]
-    E -->|Tidak| G[Perbaiki Discretization]
-```
+![validasi](/assets/images/validasi.png)
 
 ---
 

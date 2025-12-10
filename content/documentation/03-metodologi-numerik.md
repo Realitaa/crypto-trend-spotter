@@ -114,11 +114,4 @@ Interpretasi:
 
 ## 7. Diagram Proses Finite Difference
 
-```mermaid
-flowchart TD
-    A[Harga Diskrit] --> B[Turunan Pertama f']
-    B --> C[Turunan Kedua f'']
-    C --> D[Convexity]
-
-
-```
+![metodologi-numerik](/assets/images/metodologi-numerik.png)

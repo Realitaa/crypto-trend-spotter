@@ -14,13 +14,7 @@ Karena data harga kripto sangat **berisik (noisy)**, menghitung turunan langsung
 
 ## 🔹 Flowchart Proses Polynomial Smoothing
 
-```mermaid
-flowchart TD
-    A[Raw Price Data] --> B[Polynomial Fit]
-    B --> C[Smoothed Curve]
-    C --> D[Analytic Derivative<br/>f'(t), f''(t)]
-    D --> E[Momentum & Convexity Analysis]
-```
+![polynomial-fit](/assets/images/polynomial-fit.png)
 
 Oleh karena itu, digunakan **polynomial regression** untuk menghasilkan kurva harga yang halus (smoothed price).
 

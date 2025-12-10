@@ -12,14 +12,7 @@ Jika turunan pertama menunjukkan _kecepatan perubahan harga_, maka turunan kedua
 
 ## 🔹 Flowchart Logika Kecekungan
 
-```mermaid
-flowchart TD
-    A[f'(t)] --> B[f''(t)]
-    B --> C{f''(t) > 0?}
-    C -->|Ya| D[Convex<br/>Momentum Menguat]
-    C -->|Tidak| E[Concave<br/>Momentum Melemah]
-    B --> F[Inflection Point Detection]
-```
+![uji-kecekungan](/assets/images/uji-kecekungan.png)
 
 ---
 

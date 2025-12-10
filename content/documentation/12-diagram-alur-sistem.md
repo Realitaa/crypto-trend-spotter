@@ -13,31 +13,7 @@ Sistem ini terdiri dari beberapa tahap berurutan yang memproses harga mentah men
 
 ## 🔹 Flowchart Utama Sistem
 
-```mermaid
-flowchart TD
-    A[Raw Price Data] --> B[Polynomial Smoothing]
-    B --> C[Velocity (f')]
-    C --> D[Acceleration (f'')]
-    D --> E[Convexity Score]
-    E --> F[Stability Index]
-    F --> G[Inflection Point Detection]
-    G --> H[Visualization & Insight]
-```
-
----
-
-## 🔹 Flowchart Utama Sistem
-
-```mermaid
-flowchart TD
-    A[Raw Price Data] --> B[Polynomial Smoothing]
-    B --> C[Velocity (f')]
-    C --> D[Acceleration (f'')]
-    D --> E[Convexity Score]
-    E --> F[Stability Index]
-    F --> G[Inflection Point Detection]
-    G --> H[Visualization & Insight]
-```
+![diagram-alur-sistem](/assets/images/diagram-alur-sistem.png)
 
 ---
 
