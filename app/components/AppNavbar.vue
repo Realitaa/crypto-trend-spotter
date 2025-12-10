@@ -19,25 +19,38 @@ const coins = computed(() => [
 const utcHH = ref('--')
 const utcMM = ref('--')
 const showColon = ref(true)
+const desktopTime = ref('--:--:--')
 
 const updateTime = () => {
   const now = new Date()
 
+  // mobile (HH:MM saja)
   utcHH.value = now.toLocaleString('en-GB', {
     timeZone: 'UTC',
     hour12: false,
-    hour: '2-digit'
+    hour: '2-digit',
   })
-
   utcMM.value = now.toLocaleString('en-GB', {
     timeZone: 'UTC',
     hour12: false,
-    minute: '2-digit'
+    minute: '2-digit',
   })
-
-  // Blink setiap detik
   showColon.value = !showColon.value
+
+  // desktop (HH:MM:SS)
+  desktopTime.value = now.toLocaleString('en-GB', {
+    timeZone: 'UTC',
+    hour12: false,
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  })
 }
+
+onMounted(() => {
+  updateTime()
+  setInterval(updateTime, 1000)
+})
 
 onMounted(() => {
   updateTime()
@@ -57,14 +70,14 @@ onMounted(() => {
 
     <template #right>
       <!-- Desktop: jam:menit:detik -->
-      <div class="hidden sm:block text-sm">
-        Waktu: {{ utcHH }}:{{ utcMM }}:{{ new Date().getUTCSeconds().toString().padStart(2,'0') }} UTC
-      </div>
+        <div class="hidden sm:block text-sm">
+          Waktu: {{ desktopTime }} UTC
+        </div>
 
       <!-- Mobile: hanya jam & menit, titik dua berkedip -->
-      <div class="block sm:hidden text-sm">
-        {{ utcHH }}<span :style="{ opacity: showColon ? 1 : 0 }">:</span>{{ utcMM }}
-      </div>
+        <div class="block sm:hidden text-sm">
+          {{ utcHH }}<span :style="{ opacity: showColon ? 1 : 0 }">:</span>{{ utcMM }}
+        </div>
 
       <BinanceStatus />
 
