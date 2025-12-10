@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { SUPPORTED_COINS } from '~/utils/coins'
 definePageMeta({
   layout: 'navigation'
 })
@@ -8,7 +9,7 @@ const { timeframe, items } = useTimeframe()
 
 const coinId = computed(() => selected.value?.id || 'bitcoin')
 const coinLabel = computed(() => selected.value?.label || 'Bitcoin')
-const coinDescription = computed(() => selected.value?.description || 'Tidak ada deskripsi.')
+const coinDescription = computed(() => selected.value?.description || SUPPORTED_COINS[0].description) // Fallback ke deskripsi Bitcoin
 const tradingViewSymbol = computed(() => selected.value?.tvSymbol || 'BINANCE:BTCUSDT')
 // Key unik agar TradingView chart re-mount saat coin berubah
 const tvChartKey = computed(() => `${selected.value?.id}-${chartTab.value}`)

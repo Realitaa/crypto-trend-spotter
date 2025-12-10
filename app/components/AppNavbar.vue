@@ -51,12 +51,6 @@ onMounted(() => {
   updateTime()
   setInterval(updateTime, 1000)
 })
-
-onMounted(() => {
-  updateTime()
-  setInterval(updateTime, 1000)
-})
-
 </script>
 
 <template>
