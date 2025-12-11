@@ -5,6 +5,7 @@
   const { selected } = useSelectedCoin()
   const coinId = computed(() => selected.value?.id || 'bitcoin')
   const coinLabel = computed(() => selected.value?.label || 'Bitcoin')
+  const { showModal, closeModal, goToGuide } = useOnboarding('differential', '/guide#diferensial')
 
   watch(coinLabel, (label) => {
     useSeoMeta({
@@ -315,6 +316,53 @@
           <!-- Disclaimer -->
           <UserDisclaimer />
         </div>
+
+        <OnboardingModal
+          :open="showModal"
+          title="Panduan Singkat - Analisis Diferensial"
+          @close="closeModal"
+          @go-to-guide="goToGuide"
+        >
+          <div class="space-y-5 text-base leading-relaxed">
+            <p class="text-gray-800 dark:text-gray-200">
+              Di sini kamu bisa <strong class="text-black dark:text-white">tahu apakah harga Bitcoin (atau koin lain) sedang naik atau turun</strong> — dan seberapa cepat perubahannya.
+            </p>
+
+            <div class="bg-gray-100 dark:bg-gray-800/70 rounded-xl p-5 space-y-4 border border-gray-300 dark:border-gray-700">
+              <div class="flex items-start gap-4">
+                <div class="w-11 h-11 rounded-full bg-blue-500/15 dark:bg-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400 font-bold text-lg shrink-0">
+                  1
+                </div>
+                <div>
+                  <strong class="text-gray-900 dark:text-white">Kecepatan Perubahan</strong>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    Hijau = naik cepat • Merah = turun cepat
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-11 h-11 rounded-full bg-purple-500/15 dark:bg-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 font-bold text-lg shrink-0">
+                  2
+                </div>
+                <div>
+                  <strong class="text-gray-900 dark:text-white">Apakah Tren Semakin Kuat?</strong>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    Misal: “Momentum Menguat 🚀”, “Kenaikan Melambat ⚠️”, "Jatuh Semakin Cepat 🔻", "Reversal Terdeteksi 🔄"
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-gray-800 dark:text-gray-200">
+              Intinya: <strong class="text-black dark:text-white">kamu nggak perlu ngerti rumus matematika</strong> — cukup lihat warnanya dan baca kalimat di sebelah kanan, langsung paham apa yang sedang terjadi dengan harga koin ini saat ini.
+            </p>
+
+            <p class="text-sm italic text-gray-600 dark:text-gray-400">
+              Mau tahu kenapa bisa begitu? Klik <strong class="text-black dark:text-white">Baca Panduan</strong> untuk penjelasan lengkap + rumus kalkulusnya.
+            </p>
+          </div>
+        </OnboardingModal>
       </template>
     </UDashboardPanel>
   </template>

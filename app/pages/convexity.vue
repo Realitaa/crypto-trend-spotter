@@ -4,6 +4,7 @@
   // Global state
   const { selected } = useSelectedCoin()
   const { timeframe } = useTimeframe()
+  const { showModal, closeModal, goToGuide } = useOnboarding('convexity', '/guide#konveksitas')
   
   // Coin selectors
   const coinId = computed(() => selected.value?.id || 'bitcoin')
@@ -276,6 +277,63 @@
           <!-- Disclaimer -->
           <UserDisclaimer />
         </div>
+
+        <OnboardingModal
+          :open="showModal"
+          title="Panduan Singkat – Uji Konveksitas"
+          @close="closeModal"
+          @go-to-guide="goToGuide"
+        >
+          <div class="space-y-5 text-base leading-relaxed">
+
+            <p class="text-gray-800 dark:text-gray-200">
+              Halaman ini menjawab satu pertanyaan penting:<br>
+              <strong class="text-black dark:text-white">“Apakah tren harga sedang melambat atau malah semakin kuat?”</strong>
+            </p>
+
+            <div class="bg-gray-100 dark:bg-gray-800/70 rounded-xl p-5 space-y-4 border border-gray-300 dark:border-gray-700">
+              <div class="flex items-start gap-4">
+                <div class="w-11 h-11 rounded-full bg-emerald-500/15 dark:bg-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400 font-bold text-lg shrink-0">
+                  1
+                </div>
+                <div>
+                  <strong class="text-gray-900 dark:text-white">Jika grafik harga melengkung ke atas →</strong>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    Tren naik semakin kuat (bullish makin kencang)
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4">
+                <div class="w-11 h-11 rounded-full bg-red-500/15 dark:bg-red-500/20 flex items-center justify-center text-red-600 dark:text-red-400 font-bold text-lg shrink-0">
+                  2
+                </div>
+                <div>
+                  <strong class="text-gray-900 dark:text-white">Jika grafik harga melengkung ke bawah →</strong>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    Tren turun semakin dalam (bearish makin cepat)
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-gray-800 dark:text-gray-200">
+              Kamu cukup lihat:
+              <br>• <strong class="text-black dark:text-white">Warna merah/hijau di Heatmap</strong>
+              <br>• <strong class="text-black dark:text-white">Angka Stability (81/100 = sangat stabil)</strong>
+              <br>→ langsung tahu apakah tren saat ini bisa dipercaya atau hanya sementara.
+            </p>
+
+            <p class="text-gray-800 dark:text-gray-200">
+              Kamu bisa zoom in/zoom out grafik untuk melihat chart yang lebih panjang
+            </p>
+
+            <p class="text-sm italic text-gray-600 dark:text-gray-400">
+              Ingin tahu apa itu “konveksitas”, “fitted curve”, dan “heatmap” secara matematis? Klik <strong class="text-black dark:text-white">Baca Panduan</strong> untuk penjelasan lengkapnya!
+            </p>
+
+          </div>
+        </OnboardingModal>
       </template>
     </UDashboardPanel>
   </template>
