@@ -419,8 +419,12 @@
         • <strong class="text-black dark:text-white">Momentum Status</strong> (Increasing = makin kencang, Decreasing = melemah)
       </p>
 
+      <p class="text-gray-800 dark:text-gray-200">
+        Kamu bisa zoom in/zoom out grafik untuk melihat chart yang lebih panjang
+      </p>
+
       <p class="text-sm italic text-gray-600 dark:text-gray-400">
-        Mau tahu cara kerja garis tren, regression channel, dan deteksi inflection point? Klik <strong class="text-black dark:text-white">Baca Panduan</strong> untuk penjelasan lengkap + rumus matematikanya!
+        Untuk panduan lebih lengkap, anda bisa klik <b>Baca Panduan</b>.
       </p>
 
     </div>

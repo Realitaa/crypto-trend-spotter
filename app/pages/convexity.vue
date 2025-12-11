@@ -329,7 +329,7 @@
             </p>
 
             <p class="text-sm italic text-gray-600 dark:text-gray-400">
-              Ingin tahu apa itu “konveksitas”, “fitted curve”, dan “heatmap” secara matematis? Klik <strong class="text-black dark:text-white">Baca Panduan</strong> untuk penjelasan lengkapnya!
+              Untuk panduan lebih lengkap, anda bisa klik <b>Baca Panduan</b>.
             </p>
 
           </div>
