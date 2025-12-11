@@ -4,6 +4,7 @@
   // Global state
   const { selected } = useSelectedCoin()
   const { timeframe } = useTimeframe()
+  const { showModal, closeModal, goToGuide } = useOnboarding('trend-detection', '/guide#deteksi-tren')
   
   // Reactive coin & tf
   const coinId = computed(() => selected.value?.id || 'bitcoin')
@@ -365,6 +366,65 @@
         <!-- Disclaimer -->
         <UserDisclaimer />
       </div>
+
+      <OnboardingModal
+    :open="showModal"
+    title="Panduan Singkat – Deteksi Tren"
+    @close="closeModal"
+    @go-to-guide="goToGuide"
+  >
+    <div class="space-y-5 text-base leading-relaxed">
+
+      <p class="text-gray-800 dark:text-gray-200">
+        Halaman ini menjawab pertanyaan paling penting:<br>
+        <strong class="text-black dark:text-white">“Sekarang harga sedang naik, turun, atau sideways?”</strong>
+      </p>
+
+      <div class="bg-gray-100 dark:bg-gray-800/70 rounded-xl p-5 space-y-4 border border-gray-300 dark:border-gray-700">
+        <div class="flex items-start gap-4">
+          <div class="w-11 h-11 rounded-full bg-green-500/15 dark:bg-green-500/20 flex items-center justify-center text-green-600 dark:text-green-400 font-bold text-lg shrink-0">
+            ↑
+          </div>
+          <div>
+            <strong class="text-gray-900 dark:text-white">Garis merah naik → Tren NAIK</strong>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Harga cenderung terus naik</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-11 h-11 rounded-full bg-red-500/15 dark:bg-red-500/20 flex items-center justify-center text-red-600 dark:text-red-400 font-bold text-lg shrink-0">
+            ↓
+          </div>
+          <div>
+            <strong class="text-gray-900 dark:text-white">Garis merah turun → Tren TURUN</strong>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Harga cenderung terus jatuh</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4">
+          <div class="w-11 h-11 rounded-full bg-yellow-500/15 dark:bg-yellow-500/20 flex items-center justify-center text-yellow-600 dark:text-yellow-400 font-bold text-lg shrink-0">
+            →
+          </div>
+          <div>
+            <strong class="text-gray-900 dark:text-white">Garis merah datar → SIDEWAYS</strong>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Harga bolak-balik, belum ada arah jelas</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-gray-800 dark:text-gray-200">
+        Kamu cukup lihat tiga hal ini:<br>
+        • <strong class="text-black dark:text-white">Arah garis merah</strong> (naik/turun/datar)<br>
+        • <strong class="text-black dark:text-white">Trend Strength</strong> (angka 0–100, semakin tinggi = semakin kuat)<br>
+        • <strong class="text-black dark:text-white">Momentum Status</strong> (Increasing = makin kencang, Decreasing = melemah)
+      </p>
+
+      <p class="text-sm italic text-gray-600 dark:text-gray-400">
+        Mau tahu cara kerja garis tren, regression channel, dan deteksi inflection point? Klik <strong class="text-black dark:text-white">Baca Panduan</strong> untuk penjelasan lengkap + rumus matematikanya!
+      </p>
+
+    </div>
+  </OnboardingModal>
     </template>
   </UDashboardPanel>
 </template>
