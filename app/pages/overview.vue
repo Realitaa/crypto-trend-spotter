@@ -41,9 +41,17 @@ const chartContainerHeight = computed(() => {
   return chartTab.value === 'tradingview' ? 'h-[calc(100vh-12rem)]' : 'h-[60%]'
 })
 
+// Onboarding
+const { showModal, closeModal, goToGuide } = useOnboarding('summary', '/guide#ringkasan')
+
 const isHydrated = ref(false)
 onMounted(() => {
   setTimeout(() => isHydrated.value = true, 300)
+  nextTick(() => {
+    if (!isOnboarded()) {
+      showWelcomeModal.value = true
+    }
+  })
 })
 </script>
 
@@ -211,22 +219,25 @@ onMounted(() => {
         </section>
       </div>  
 
-
-      <!-- <UModal title="Onboarding Session - Ringkasan" open>
-        <UButton label="Open" color="neutral" variant="subtle" />
-
-        <template #body>
-          Selamat datang di website Crypto Trend Spotter. Ini adalah onboarding session halaman Ringkasan.
-          Onboarding session itu akan membawa kamu jalan-jalan dan melihat fitur pada website.
-          Kamu bisa lanjut atau lewati ya. Kamu selalu bisa mulai onboarding session kapanpun. 
-          <br />
-          Sebagai permulaan, ini adalah halaman Ringkasan, memuat informasi singkat koin yang sedang dipilih.
-          <div class="flex gap-2 mt-2 justify-end w-full">
-            <UButton color="primary" variant="outline">Lewati</UButton>
-            <UButton color="primary" variant="solid" trailing-icon="i-lucide-arrow-right">Lanjut</UButton>
-          </div>
-        </template>
-      </UModal> -->
+      <!-- Onboard modal -->
+      <OnboardingModal 
+        :open="showModal" 
+        title="Panduan Singkat - Ringkasan"
+        :guide-path="goToGuide"
+        @close="closeModal"
+        @go-to-guide="goToGuide"
+      >
+        <p>
+          Halaman ringkasan memuat informasi tentang koin, seperti harga dan tentang koin tersebut. 
+          Chart diambil secara periodik dari API.
+        </p>
+        <p class="mt-3">
+          Jika kamu ingin melihat chart real-time, kamu bisa memilih melihat chart TradingView.
+        </p>
+        <p class="mt-3">
+          Kamu dapat membaca lebih lanjut tentang halaman Ringkasan dengan klik tombol "Baca Panduan".
+        </p>
+      </OnboardingModal>
     </template>
 
 </UDashboardPanel>
