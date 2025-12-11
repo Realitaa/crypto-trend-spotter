@@ -170,7 +170,7 @@ Jika:
 - f'' positif → percepatan naik  
 
 Kesimpulan:  
-👉 Tren naik stabil dan sehat.
+Tren naik stabil dan sehat.
 
 ---
 
@@ -179,7 +179,7 @@ Kesimpulan:
 - f' menurun  
 
 Kesimpulan:  
-👉 Potensi perubahan arah dari bullish ke bearish.
+Potensi perubahan arah dari bullish ke bearish.
 
 ---
 
@@ -189,7 +189,7 @@ Kesimpulan:
 - Banyak noise  
 
 Kesimpulan:  
-👉 Tidak ada tren jelas. Hindari entry.
+Tidak ada tren jelas. Hindari entry.
 
 ---
 

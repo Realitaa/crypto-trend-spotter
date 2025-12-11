@@ -280,7 +280,7 @@ Sinyal:
 - Alert: “Bullish Reversal Detected”
 
 Interpretasi:
-👉 Pasar mulai berbalik naik, meskipun grafik harga mungkin belum naik drastis.
+Pasar mulai berbalik naik, meskipun grafik harga mungkin belum naik drastis.
 
 ---
 
@@ -292,7 +292,7 @@ Sinyal:
 - Heatmap merah panjang
 
 Interpretasi:
-👉 Downtrend kuat dan kemungkinan berlanjut.
+Downtrend kuat dan kemungkinan berlanjut.
 
 ---
 
@@ -303,7 +303,7 @@ Sinyal:
 - Banyak alert volatilitas
 
 Interpretasi:
-👉 Pasar sideways atau noise — terlalu berbahaya untuk entry.
+Pasar sideways atau noise — terlalu berbahaya untuk entry.
 
 ---
 

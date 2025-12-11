@@ -153,7 +153,7 @@ Inflection adalah sinyal reversal **lebih awal daripada price action biasa**.
 - Heatmap hijau gelap panjang  
 
 Interpretasi:  
-👉 Tren naik sangat kuat dan berpotensi berlanjut.
+Tren naik sangat kuat dan berpotensi berlanjut.
 
 ---
 
@@ -163,7 +163,7 @@ Interpretasi:
 - Stability sedang  
 
 Interpretasi:  
-👉 Potensi tren turun muncul meski harga belum turun signifikan.
+Potensi tren turun muncul meski harga belum turun signifikan.
 
 ---
 
@@ -173,7 +173,7 @@ Interpretasi:
 - Heatmap abu-abu  
 
 Interpretasi:  
-👉 Tidak ada tren dominan, hindari entry.
+Tidak ada tren dominan, hindari entry.
 
 ---
 
