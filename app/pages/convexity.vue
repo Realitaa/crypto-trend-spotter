@@ -4,7 +4,7 @@
   // Global state
   const { selected } = useSelectedCoin()
   const { timeframe } = useTimeframe()
-  const { showModal, closeModal, goToGuide } = useOnboarding('convexity', '/guide#konveksitas')
+  const { showModal, closeModal, goToGuide } = useOnboarding('convexity', '/guide/pconvexity')
   
   // Coin selectors
   const coinId = computed(() => selected.value?.id || 'bitcoin')

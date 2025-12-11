@@ -4,7 +4,7 @@
   // Global state
   const { selected } = useSelectedCoin()
   const { timeframe } = useTimeframe()
-  const { showModal, closeModal, goToGuide } = useOnboarding('trend-detection', '/guide#deteksi-tren')
+  const { showModal, closeModal, goToGuide } = useOnboarding('trend-detection', '/guide/pdetection')
   
   // Reactive coin & tf
   const coinId = computed(() => selected.value?.id || 'bitcoin')

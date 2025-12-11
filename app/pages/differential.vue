@@ -5,7 +5,7 @@
   const { selected } = useSelectedCoin()
   const coinId = computed(() => selected.value?.id || 'bitcoin')
   const coinLabel = computed(() => selected.value?.label || 'Bitcoin')
-  const { showModal, closeModal, goToGuide } = useOnboarding('differential', '/guide#diferensial')
+  const { showModal, closeModal, goToGuide } = useOnboarding('differential', '/guide/panalysis')
 
   watch(coinLabel, (label) => {
     useSeoMeta({

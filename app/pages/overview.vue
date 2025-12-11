@@ -42,7 +42,7 @@ const chartContainerHeight = computed(() => {
 })
 
 // Onboarding
-const { showModal, closeModal, goToGuide } = useOnboarding('summary', '/guide#ringkasan')
+const { showModal, closeModal, goToGuide } = useOnboarding('summary', '/guide/poverview')
 
 const isHydrated = ref(false)
 onMounted(() => {
