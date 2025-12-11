@@ -10,5 +10,9 @@ export default defineContentConfig({
       type: 'page',
       source: 'about/index.md'
     }),
+    guide: defineCollection({
+      type: 'page',
+      source: 'guide/**/*.md'
+    }),
   }
 })

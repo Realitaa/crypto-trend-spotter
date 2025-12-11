@@ -5,7 +5,7 @@ const open = ref(false)
 const { selected } = useSelectedCoin()
 
 const docs = '/documentation'
-const panduan = '/panduan'
+const guide = '/guide'
 
 const links = [[
   {
@@ -30,32 +30,32 @@ const links = [[
   }, 
 
   /* ===========================
-     🔥 MENU BARU: Panduan Lengkap
+     🔥 MENU BARU: guide Lengkap
      =========================== */
   {
-    label: 'Panduan Lengkap',
+    label: 'Panduan',
     icon: 'mdi:help-circle-outline',
     defaultOpen: false,
     children: [
       {
-        label: 'Panduan Ringkasan',
-        to: `${panduan}/poverview`,
+        label: 'Ringkasan',
+        to: `${guide}/poverview`,
       },
       {
-        label: 'Panduan Analisis Diferensial',
-        to: `${panduan}/panalysis`,
+        label: 'Analisis Diferensial',
+        to: `${guide}/panalysis`,
       },
       {
-        label: 'Panduan Uji Konveksitas',
-        to: `${panduan}/pconvexity`,
+        label: 'Uji Konveksitas',
+        to: `${guide}/pconvexity`,
       },
       {
-        label: 'Panduan Deteksi Tren',
-        to: `${panduan}/pdetection`,
+        label: 'Deteksi Tren',
+        to: `${guide}/pdetection`,
       },
       {
-        label: 'Panduan Dokumentasi',
-        to: `${panduan}/pdocumentation`,
+        label: 'Dokumentasi',
+        to: `${guide}/pdocumentation`,
       },
     ],
   },
