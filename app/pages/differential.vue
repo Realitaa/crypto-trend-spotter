@@ -5,7 +5,7 @@
   const { selected } = useSelectedCoin()
   const coinId = computed(() => selected.value?.id || 'bitcoin')
   const coinLabel = computed(() => selected.value?.label || 'Bitcoin')
-  const { showModal, closeModal, goToGuide } = useOnboarding('differential', '/guide/panalysis')
+  const { showModal, closeModal, goToGuide, startTourAgain } = useOnboarding('differential', '/guide/panalysis')
 
   watch(coinLabel, (label) => {
     useSeoMeta({
@@ -187,7 +187,10 @@
           <!-- Header -->
           <header class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
             <div>
-              <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Analisis Diferensial — {{ coinLabel }}</h1>
+              <div class="flex gap-2">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Analisis Diferensial — {{ coinLabel }}</h1>
+                <UButton icon="ix:question" size="md" color="neutral" variant="ghost" @click="startTourAgain" />
+              </div>
               <p class="text-sm text-gray-500 dark:text-slate-400">Velocity & Acceleration dalam % per jam • Hover untuk analisis titik waktu</p>
             </div>
             <div class="flex items-center gap-4">

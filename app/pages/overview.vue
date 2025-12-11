@@ -42,16 +42,11 @@ const chartContainerHeight = computed(() => {
 })
 
 // Onboarding
-const { showModal, closeModal, goToGuide } = useOnboarding('summary', '/guide/poverview')
+const { showModal, closeModal, goToGuide, startTourAgain } = useOnboarding('summary', '/guide/poverview')
 
 const isHydrated = ref(false)
 onMounted(() => {
   setTimeout(() => isHydrated.value = true, 300)
-  nextTick(() => {
-    if (!isOnboarded()) {
-      showWelcomeModal.value = true
-    }
-  })
 })
 </script>
 
@@ -71,6 +66,13 @@ onMounted(() => {
         <section class="w-full space-y-6">
           <!-- Skeleton pre-hydration -->
           <template v-if="!isHydrated">
+            <div class="flex flex-wrap items-center justify-between gap-4">  
+                <div>
+                  <h1 class="text-2xl font-bold">
+                    Ringkasan Aset 
+                  </h1>
+                </div>
+              </div>
             <USkeleton class="h-6 w-40" />
             <USkeleton class="h-10 w-56" />
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
@@ -90,9 +92,12 @@ onMounted(() => {
               <!-- Header -->
               <div class="flex flex-wrap items-center justify-between gap-4">  
                 <div>
-                  <h1 class="text-2xl font-bold">
-                    Ringkasan Aset
-                  </h1>
+                  <div class="flex gap-2">
+                    <h1 class="text-2xl font-bold">
+                      Ringkasan Aset 
+                    </h1>
+                    <UButton icon="ix:question" size="md" color="neutral" variant="ghost" @click="startTourAgain" />
+                  </div>
                   <p class="text-muted">
                     Tinjauan performa dan metrik teknikal untuk 
                     <span class="text-primary font-medium">{{ coinLabel }}</span>
@@ -233,6 +238,9 @@ onMounted(() => {
         </p>
         <p class="mt-3">
           Jika kamu ingin melihat chart real-time, kamu bisa memilih melihat chart TradingView.
+        </p>
+        <p class="mt-3">
+          Kamu selalu bisa memunculkan pop up ini lagi kapanpun dengan cara klik ikon tanda tanya <UIcon name="ix:question" class="size-5" />
         </p>
         <p class="mt-3">
           Kamu dapat membaca lebih lanjut tentang halaman Ringkasan dengan klik tombol "Baca Panduan".

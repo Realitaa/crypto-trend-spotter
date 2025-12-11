@@ -18,11 +18,20 @@ export const useOnboarding = (pageKey: string, guidePath = '/guide') => {
     navigateTo(guidePath)
   }
 
+  const startTourAgain = () => {
+    if (process.client) {
+      localStorage.removeItem(storageKey)
+    }
+    nextTick(() => {
+      showModal.value = true
+    })
+  }
+
   onMounted(() => {
     nextTick(() => {
       if (!check()) showModal.value = true
     })
   })
 
-  return { showModal, closeModal, goToGuide }
+  return { showModal, closeModal, goToGuide, startTourAgain }
 }

@@ -4,7 +4,7 @@
   // Global state
   const { selected } = useSelectedCoin()
   const { timeframe } = useTimeframe()
-  const { showModal, closeModal, goToGuide } = useOnboarding('convexity', '/guide/pconvexity')
+  const { showModal, closeModal, goToGuide, startTourAgain } = useOnboarding('convexity', '/guide/pconvexity')
   
   // Coin selectors
   const coinId = computed(() => selected.value?.id || 'bitcoin')
@@ -191,7 +191,10 @@
   
       <template #body>
         <div class="p-6 lg:p-8">
-          <h1 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Uji Konveksitas — {{ coinLabel }}</h1>
+          <div class="flex gap-2 mb-6">
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Uji Konveksitas — {{ coinLabel }}</h1>
+            <UButton icon="ix:question" size="md" color="neutral" variant="ghost" @click="startTourAgain" />
+          </div>
 
           <!-- INFORMATION CONTAINER -->
           <div class="bg-white dark:bg-slate-900/60 border border-gray-200 dark:border-slate-700 rounded-xl p-6 mb-8">
