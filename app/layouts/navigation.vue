@@ -5,6 +5,8 @@ const open = ref(false)
 const { selected } = useSelectedCoin()
 
 const docs = '/documentation'
+const panduan = '/panduan'
+
 const links = [[
   {
     label: 'Ringkasan',
@@ -26,6 +28,38 @@ const links = [[
     icon: 'mynaui:trending-up-down-solid',
     to: '/trend',
   }, 
+
+  /* ===========================
+     🔥 MENU BARU: Panduan Lengkap
+     =========================== */
+  {
+    label: 'Panduan Lengkap',
+    icon: 'mdi:help-circle-outline',
+    defaultOpen: false,
+    children: [
+      {
+        label: 'Panduan Ringkasan',
+        to: `${panduan}/poverview`,
+      },
+      {
+        label: 'Panduan Analisis Diferensial',
+        to: `${panduan}/panalysis`,
+      },
+      {
+        label: 'Panduan Uji Konveksitas',
+        to: `${panduan}/pconvexity`,
+      },
+      {
+        label: 'Panduan Deteksi Tren',
+        to: `${panduan}/pdetection`,
+      },
+      {
+        label: 'Panduan Dokumentasi',
+        to: `${panduan}/pdocumentation`,
+      },
+    ],
+  },
+
   {
     label: 'Dokumentasi',
     icon: 'mdi:book-open-blank-variant-outline',
@@ -93,6 +127,7 @@ const links = [[
       },
     ],
   },
+
 ], 
 [
   {
@@ -106,6 +141,7 @@ const links = [[
     to: '/about',
   }
 ]] satisfies NavigationMenuItem[][]
+
 </script>
 
 <template>
