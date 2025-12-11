@@ -237,10 +237,10 @@
             </div>
   
             <!-- HEATMAP -->
-            <div class="bg-white dark:bg-slate-900/40 p-2 rounded-xl border border-gray-200 dark:border-slate-700 mb-10">
+            <div class="bg-white dark:bg-slate-900/40 p-4 rounded-xl border border-gray-200 dark:border-slate-700 mb-10">
               <h2 class="text-lg font-semibold mb-1 text-gray-900 dark:text-white">Convexity Heatmap</h2>
-              <div v-if="!isHydrated"><USkeleton class="h-10 w-full" /></div>
-              <div v-else ref="heatmapEl" class="w-full h-[40px]"></div>
+              <div v-if="!isHydrated"><USkeleton class="h-40 w-full" /></div>
+              <div v-else ref="heatmapEl" class="w-full h-[140px]"></div>
             </div>
   
             <!-- SECOND DERIVATIVE CHART -->
