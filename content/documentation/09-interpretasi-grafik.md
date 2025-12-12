@@ -111,9 +111,9 @@ Pada grafik, titik ini ditampilkan sebagai:
 
 Fungsi penting:
 
-**✔ Indikator reversal paling awal**  
-**✔ Sinyal perubahan dinamika pasar**  
-**✔ Memberikan peringatan dini sebelum harga berbalik**
+** Indikator reversal paling awal**  
+** Sinyal perubahan dinamika pasar**  
+** Memberikan peringatan dini sebelum harga berbalik**
 
 Inflection point lebih stabil ketika dikombinasikan dengan polynomial smoothing.
 

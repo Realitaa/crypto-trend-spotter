@@ -65,6 +65,6 @@ Polinom derajat 2 merekonstruksi fungsi kuadrat **secara sempurna**.
 
 ## 6. Kesimpulan Validasi
 
-✔ Finite difference akurat
-✔ Turunan kedua stabil
-✔ Polynomial regression sangat presisi
+ - Finite difference akurat
+ - Turunan kedua stabil
+ - Polynomial regression sangat presisi

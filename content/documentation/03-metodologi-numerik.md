@@ -27,7 +27,7 @@ f'(t_i) = \frac{P_i - P_{i-1}}{\Delta t}
 Makna simbol:
 
 - <Katex inline>P_i</Katex> → harga pada waktu ke-i
-- <Katex inline>P*i{*-{\_1}}</Katex> → harga sebelumnya
+- <Katex inline>P_i{_-{_1}}</Katex> → harga sebelumnya
 - <Katex inline>\Delta t</Katex> → interval waktu
 
 ---

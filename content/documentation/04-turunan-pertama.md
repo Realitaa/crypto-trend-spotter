@@ -39,7 +39,7 @@ f'(t_i) = \frac{P_i - P_{i-1}}{\Delta t}
 Dimana:
 
 - <Katex>P_i</Katex> = harga pada waktu ke-i
-- <Katex>P*i{*-{\_1}}</Katex> = harga sebelumnya
+- <Katex>P_i{_-{_1}}</Katex> = harga sebelumnya
 - <Katex>\Delta t</Katex> = interval waktu (misal 1 menit)
 
 ---
