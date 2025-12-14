@@ -63,14 +63,14 @@ Aplikasi ini dibangun sebagai tugas mata kuliah _Kalkulus Diferensial_ dan berfo
 
 ## Anggota Tim & Peran
 
-| No  | Nama                    | NIM        | Peran                                    |
-| --- | ----------------------- | ---------- | ---------------------------------------- |
-| 3   | Reza Mulia Putra        | 4251250010 | Fullstack Web Developer                  |
-| 4   | Ayu Aulia Sariyanti     | 4251250014 |                                          |
-| 17  | Nico Panogari Sihombing | 4253250021 | Pembuat PowerPoint dan Favicon           |
-| 26  | Fatih Taqiyyuddin       | 4253250057 | Kontribusi Dokumentasi, Penyusun Formula |
-| 38  | Yuda Jaya Saragih       | 4253550031 | Feedback User Experience                 |
-| 39  | Nikita Anastasya        | 4253550035 |                                          |
+| No  | Nama                    | NIM        | Peran                                          |
+| --- | ----------------------- | ---------- | ---------------------------------------------- |
+| 3   | Reza Mulia Putra        | 4251250010 | Fullstack Web Developer                        |
+| 4   | Ayu Aulia Sariyanti     | 4251250014 | Membuat Video Panduan                          |
+| 17  | Nico Panogari Sihombing | 4253250021 | Pembuat PowerPoint dan Video Panduan           |
+| 26  | Fatih Taqiyyuddin       | 4253250057 | Kontribusi Dokumentasi, Penyusun Formula       |
+| 38  | Yuda Jaya Saragih       | 4253550031 | Feedback User Experience, Membuat Video Panduan|
+| 39  | Nikita Anastasya        | 4253550035 | Membuat Video Panduan                          |
 
 ---
 
