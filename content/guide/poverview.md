@@ -11,6 +11,10 @@ Halaman ini menyajikan gambaran umum mengenai kondisi aset kripto yang dipilih (
 
 Panduan ini menjelaskan secara rinci **tujuan halaman**, **fungsi setiap tombol**, **bagaimana membaca informasi**, serta **alur penggunaan yang direkomendasikan**.
 
+<div class="w-full aspect-[16/9]">
+    <iframe src="https://www.youtube.com/embed/Z5So337wZ2M?si=6ga-9Zrg9f8zNrJO" class="w-full h-full rounded-xl" title="Penjelasan Halaman Ringkasan pada Website Crypto Trend Spotter oleh Nikita Anastasya" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
 ---
 
 ## 1. Tujuan Halaman Ringkasan

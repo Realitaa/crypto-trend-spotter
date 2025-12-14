@@ -11,6 +11,10 @@ Halaman **Deteksi Trend** adalah modul kecerdasan matematis yang berfungsi membe
 
 Jika halaman sebelumnya menampilkan data mentah dan visual, maka halaman ini bertugas **menerjemahkan itu semua menjadi sinyal yang dapat dipahami pengguna dalam detik**.
 
+<div class="w-full aspect-[16/9]">
+    <iframe src="https://www.youtube.com/embed/RvXpaupYHiA?si=wCARgTrCIdiV1oMO" class="w-full h-full rounded-xl" title="Penjelasan Halaman Deteksi Tren pada Website Crypto Trend Spotter oleh Yuda Jaya Saragih" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
 ---
 
 ## 1. Tujuan Halaman Deteksi Trend

@@ -16,6 +16,10 @@ Di halaman ini, sistem menampilkan:
 
 Panduan ini menjelaskan **tujuan halaman**, **fungsi grafik**, **interpretasi f' & f''**, serta **cara membaca sinyal matematis** secara benar.
 
+<div class="w-full aspect-[16/9]">
+    <iframe src="https://www.youtube.com/embed/zcKR9I5o9Ic?si=VhyUrwilFuhHpaCq" class="w-full h-full rounded-xl" title="Penjelasan Halaman Uji Konveksitas pada Website Crypto Trend Spotter oleh Ayu Aulia Sariyanti" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
 ---
 
 ## 1. Tujuan Halaman Analisis Diferensial

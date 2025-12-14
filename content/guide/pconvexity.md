@@ -15,6 +15,10 @@ Konveksitas memberi gambaran apakah tren sedang:
 
 Halaman ini adalah salah satu fitur paling penting karena membantu mendeteksi **awal penguatan tren** atau **awal pelemahan tren** — bahkan sebelum perubahan harga terlihat jelas.
 
+<div class="w-full aspect-[16/9]">
+    <iframe src="https://www.youtube.com/embed/Evl3cUOB_LE?si=ZmVs9ZQZznmRlfIf" class="w-full h-full rounded-xl" title="Penjelasan Halaman Uji Konveksitas pada Website Crypto Trend Spotter oleh Nico Panogari Sihombing" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+
 ---
 
 ## 1. Tujuan Halaman Uji Konveksitas
