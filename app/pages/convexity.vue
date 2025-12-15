@@ -332,7 +332,7 @@
             </p>
 
             <p class="text-sm italic text-gray-600 dark:text-gray-400">
-              Untuk panduan lebih lengkap, anda bisa klik <b>Baca Panduan</b>.
+              Kamu dapat menonton video penggunaan, atau membaca lebih lanjut dengan klik tombol <b>Buka Panduan</b>.
             </p>
 
           </div>

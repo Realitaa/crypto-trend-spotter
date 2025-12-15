@@ -243,7 +243,7 @@ onMounted(() => {
           Kamu selalu bisa memunculkan pop up ini lagi kapanpun dengan cara klik ikon tanda tanya <UIcon name="ix:question" class="size-5" />
         </p>
         <p class="mt-3">
-          Kamu dapat membaca lebih lanjut tentang halaman Ringkasan dengan klik tombol "Baca Panduan".
+          Kamu dapat menonton video penggunaan, atau membaca lebih lanjut dengan klik tombol "Buka Panduan".
         </p>
       </OnboardingModal>
     </template>

@@ -38,7 +38,7 @@ const goToGuide = () => {
           trailing-icon="i-lucide-arrow-right"
           @click="goToGuide"
         >
-          Baca Panduan
+          Buka Panduan
         </UButton>
       </div>
     </template>
